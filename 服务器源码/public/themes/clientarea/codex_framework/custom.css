@@ -1078,6 +1078,130 @@ a:hover {
   background: var(--cf-soft);
 }
 
+.cf-auth-page .geetest-captcha-slot,
+.cf-app-page .geetest-captcha-slot {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.cf-auth-page .geetest-captcha-surface,
+.cf-app-page .geetest-captcha-surface {
+  min-height: 44px;
+}
+
+.cf-auth-page .geetest-captcha-slot > label,
+.cf-app-page .geetest-captcha-slot > label {
+  margin-bottom: 8px;
+  color: #6f7c8f;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.cf-auth-page .geetest-captcha-status,
+.cf-app-page .geetest-captcha-status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 48px 10px 38px;
+  color: #29303a;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 21px;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.cf-auth-page .geetest-captcha-status::before,
+.cf-app-page .geetest-captcha-status::before {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  width: 4px;
+  border-radius: 3px 0 0 3px;
+  background: var(--cf-blue);
+  content: "";
+}
+
+.cf-auth-page .geetest-captcha-status::after,
+.cf-app-page .geetest-captcha-status::after {
+  position: absolute;
+  right: 16px;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  padding: 4px;
+  border: 3px solid #c7d1e0;
+  border-radius: 50%;
+  background: #c7d1e0;
+  background-clip: content-box;
+  content: "";
+}
+
+.cf-auth-page .geetest-captcha-status:hover,
+.cf-app-page .geetest-captcha-status:hover {
+  border-color: #aebed4;
+  box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.08);
+}
+
+.cf-auth-page .geetest-captcha-status:focus-visible,
+.cf-app-page .geetest-captcha-status:focus-visible {
+  outline: 2px solid var(--cf-blue);
+  outline-offset: 2px;
+}
+
+.cf-auth-page .geetest-captcha-status.is-success,
+.cf-app-page .geetest-captcha-status.is-success {
+  color: #1f7a46;
+  border-color: #9fd5b8;
+  background: #f3fbf6;
+  cursor: default;
+}
+
+.cf-auth-page .geetest-captcha-status.is-success::before,
+.cf-app-page .geetest-captcha-status.is-success::before {
+  background: #45b477;
+}
+
+.cf-auth-page .geetest-captcha-status.is-success::after,
+.cf-app-page .geetest-captcha-status.is-success::after {
+  border-color: #8ac8a6;
+  background-color: #45b477;
+}
+
+.cf-auth-page .geetest-captcha-status.is-error,
+.cf-app-page .geetest-captcha-status.is-error {
+  color: #b42318;
+  border-color: #e6aaaa;
+  background: #fff6f5;
+}
+
+.cf-auth-page .geetest-captcha-status.is-error::before,
+.cf-app-page .geetest-captcha-status.is-error::before {
+  background: #d64545;
+}
+
+.cf-auth-page .geetest-captcha-status.is-error::after,
+.cf-app-page .geetest-captcha-status.is-error::after {
+  border-color: #e7aaaa;
+  background-color: #d64545;
+}
+
+.cf-auth-page .geetest-captcha-box:not(:empty),
+.cf-app-page .geetest-captcha-box:not(:empty) {
+  margin-top: 8px;
+}
+
+.cf-auth-page .geetest-captcha-box > div,
+.cf-app-page .geetest-captcha-box > div {
+  max-width: 100%;
+}
+
 .cf-auth-form-meta {
   display: flex;
   align-items: center;
