@@ -1,16 +1,13 @@
-# 本地独立资料：整理进仓库文档后不提交原副本
+# 本地保留的完整源码、旧资料和生成物不进入主题交付仓库
+/服务器源码/
+/文档/
 /本地旧源码备份（2026-08-21）/
 /原始压缩包/
 /项目输出/
 /项目文档/
 /项目说明与模板开发规范.md
 
-# 生产环境配置与服务器专用设置
-/服务器源码/app/config/database.php
-/服务器源码/app/config/database.local.php
-/服务器源码/public/.user.ini
-/服务器源码/public/.well-known/acme-challenge/
-/服务器源码/data/install.lock
+# 凭据、配置、备份和运行文件
 .env
 .env.*
 !.env.example
@@ -19,26 +16,13 @@
 *.pfx
 *.p12
 *.jks
-
-# 运行时缓存、服务器备份与日志
-/服务器源码/.codex-backups/
-/服务器源码/data/runtime/*
-!/服务器源码/data/runtime/.gitkeep
 *.log
 *.cache
 *.tmp
 *.bak
 *.swp
 
-# 用户上传、证书、下载产物（目录本身通过 .gitkeep 保留）
-/服务器源码/public/upload/*
-!/服务器源码/public/upload/.gitkeep
-/服务器源码/uploads/*
-!/服务器源码/uploads/.gitkeep
-/服务器源码/downloads/*
-!/服务器源码/downloads/.gitkeep
-
-# 本地工具与生成物
+# 本地工具与编辑器
 *.inspect.ndjson
 .idea/
 .vscode/

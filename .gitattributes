@@ -1,9 +1,10 @@
-# 默认逐字节保留服务器源码，避免改写 ionCube 加密文件或历史资源。
+# 默认逐字节保留主题与插件文件，避免无关换行改写。
 * -text
 
-# 只规范仓库自有文档和控制文件。
+# 只规范仓库自有说明和控制文件。
 /*.md text eol=lf
-/文档/*.md text eol=lf
+/plugins/**/README.md text eol=lf
+/**/VERSION text eol=lf
 /.gitignore text eol=lf
 /.gitattributes text eol=lf
 
