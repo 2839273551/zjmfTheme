@@ -102,4 +102,4 @@
   </div>
 </div>
 
-<script src="/themes/clientarea/codex_framework/assets_custom/js/dashboard.js?v=2.0.0"></script>
+<script src="/themes/clientarea/codex_framework/assets_custom/js/dashboard.js?v=1.0.0"></script>

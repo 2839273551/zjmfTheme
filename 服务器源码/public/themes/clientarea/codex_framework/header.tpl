@@ -9,7 +9,7 @@
   <meta name="author" content="{$Setting.company_name}">
 
   {include file="themes/clientarea/default/includes/head.tpl"}
-  <link href="/themes/clientarea/codex_framework/custom.css?v={$Ver}-cf-surface-1" rel="stylesheet" type="text/css">
+  <link href="/themes/clientarea/codex_framework/custom.css?v={$Ver}-1.0.0" rel="stylesheet" type="text/css">
   <script>
     var setting_web_url = '{$Setting.system_url}';
     var language = {:json_encode($_LANG)};

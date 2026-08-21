@@ -45,6 +45,76 @@ body.cloud-cart-page.is-page-leaving #cart-content {
   opacity: 0.08;
 }
 
+body.cloud-web-home #main-content {
+  position: relative;
+}
+
+body.cloud-web-home .cloud-hero {
+  transition: opacity 130ms ease;
+}
+
+.cloud-home-leave-skeleton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  height: 520px;
+  overflow: hidden;
+  visibility: hidden;
+  background: #172a3a;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 130ms ease, visibility 0s linear 130ms;
+}
+
+.cloud-home-leave-skeleton-inner {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 520px;
+  gap: 18px;
+}
+
+.cloud-skeleton-block {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--cloud-radius);
+  background: #31485b;
+}
+
+.cloud-skeleton-kicker {
+  width: 176px;
+  height: 15px;
+}
+
+.cloud-skeleton-title {
+  width: min(520px, 72vw);
+  height: 58px;
+}
+
+.cloud-skeleton-copy {
+  width: min(610px, 82vw);
+  height: 54px;
+}
+
+.cloud-skeleton-action {
+  width: 310px;
+  height: 44px;
+  margin-top: 2px;
+}
+
+body.cloud-web-home.is-page-leaving .cloud-hero {
+  opacity: 0;
+}
+
+body.cloud-web-home.is-page-leaving .cloud-home-leave-skeleton {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
 @keyframes cloud-cart-page-enter {
   from {
     opacity: 0.18;
@@ -698,6 +768,12 @@ textarea {
 }
 
 @media (max-width: 1180px) {
+  .cloud-home-leave-skeleton,
+  .cloud-home-leave-skeleton-inner {
+    height: 480px;
+    min-height: 480px;
+  }
+
   .cloud-header-inner {
     grid-template-columns: minmax(150px, 1fr) auto auto;
     gap: 18px;
@@ -780,6 +856,12 @@ textarea {
 }
 
 @media (max-width: 720px) {
+  .cloud-home-leave-skeleton,
+  .cloud-home-leave-skeleton-inner {
+    height: 470px;
+    min-height: 470px;
+  }
+
   .cloud-shell {
     width: min(calc(100% - 28px), var(--cloud-shell));
   }
@@ -943,6 +1025,11 @@ textarea {
   body.cloud-cart-page #cart-content {
     animation: none;
     transition: none;
+  }
+
+  body.cloud-web-home .cloud-hero,
+  .cloud-home-leave-skeleton {
+    transition: none !important;
   }
 
   .cloud-nav a,

@@ -514,7 +514,7 @@
   display: none;
 }
 
-.configoption_total:empty::before {
+.configoption_total:empty:not(.is-loading)::before {
   display: block;
   padding: 28px 22px;
   content: "正在计算配置价格...";
@@ -523,8 +523,78 @@
 }
 
 .configoption_total.is-loading {
-  opacity: 0.58;
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
   pointer-events: none;
+}
+
+.configoption_total.is-loading > * {
+  opacity: 0;
+}
+
+.configoption_total.is-loading::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  content: "";
+  background:
+    linear-gradient(#dce5ee, #dce5ee) 20px 24px / 96px 11px no-repeat,
+    linear-gradient(#edf2f6, #edf2f6) 20px 50px / calc(100% - 40px) 44px no-repeat,
+    linear-gradient(#dce5ee, #dce5ee) 20px 120px / 48% 12px no-repeat,
+    linear-gradient(#e7edf3, #e7edf3) calc(100% - 92px) 120px / 72px 12px no-repeat,
+    linear-gradient(#dce5ee, #dce5ee) 20px 158px / 58% 12px no-repeat,
+    linear-gradient(#e7edf3, #e7edf3) calc(100% - 92px) 158px / 72px 12px no-repeat,
+    linear-gradient(#dce5ee, #dce5ee) 20px 196px / 42% 12px no-repeat,
+    linear-gradient(#e7edf3, #e7edf3) calc(100% - 92px) 196px / 72px 12px no-repeat,
+    linear-gradient(#edf2f6, #edf2f6) 20px 244px / calc(100% - 40px) 62px no-repeat,
+    linear-gradient(#dce5ee, #dce5ee) 20px 332px / calc(100% - 40px) 44px no-repeat,
+    #fff;
+  animation: configure-skeleton-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes configure-skeleton-pulse {
+  from { opacity: 0.68; }
+  to { opacity: 1; }
+}
+
+.configoption_total.is-error {
+  min-height: 420px;
+}
+
+.configure-summary-error {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  justify-items: start;
+  gap: 5px;
+  padding: 14px 20px;
+  color: #7c3f3b;
+  border-bottom: 1px solid #efcfcc;
+  background: #fff7f6;
+  font-size: 12px;
+}
+
+.configure-summary-error strong {
+  color: var(--cloud-red);
+  font-size: 13px;
+}
+
+.configure-summary-retry {
+  min-height: 34px;
+  padding: 6px 12px;
+  margin-top: 4px;
+  color: var(--cloud-blue);
+  border: 1px solid #a8c4e8;
+  border-radius: 4px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.configure-summary-retry:hover {
+  border-color: var(--cloud-blue);
+  background: #f5f9ff;
 }
 
 .configure-summary-head {
@@ -899,6 +969,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .configoption_total.is-loading::before {
+    animation: none !important;
+  }
+
   .configoption_total,
   .configure-native .card,
   .configure-native .form-group.row,
@@ -907,7 +981,8 @@
   .configure-native .btn-group-toggle > .btn,
   .configure-native .btn-custom-group > .btn,
   .configure-native label.btn-primary,
-  .configure-submit {
+  .configure-submit,
+  .configure-summary-retry {
     transition: none !important;
   }
 }

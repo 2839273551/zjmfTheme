@@ -1,6 +1,7 @@
 {assign name="configure_page" value="1" /}
 {include file="themes/web/codex_framework/static/cart/header.html" title="配置产品" /}
-<link rel="stylesheet" href="/themes/cart/codex_framework/assets/css/configure.css?v=2.3.1">
+<link rel="stylesheet" href="/themes/cart/codex_framework/assets/css/configure.css?v=1.0.0">
+<script src="/themes/cart/codex_framework/assets/js/configure.js?v=1.0.0"></script>
 
 <main class="configure-page main-content" id="cart-content">
   <header class="configure-heading">
@@ -26,5 +27,4 @@
   </section>
 </main>
 
-<script src="/themes/cart/codex_framework/assets/js/configure.js?v=2.1.0"></script>
 {include file="themes/web/codex_framework/static/cart/footer.html"/}

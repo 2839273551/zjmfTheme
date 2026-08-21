@@ -16,7 +16,7 @@
   {/if}
 
   <script src="/themes/clientarea/default/assets/js/app.js?v={$Ver}"></script>
-  <script src="/themes/clientarea/codex_framework/assets_custom/js/clientarea.js?v={$Ver}-cf-sidebar-1"></script>
+  <script src="/themes/clientarea/codex_framework/assets_custom/js/clientarea.js?v={$Ver}-1.0.0"></script>
   {php}$hooks=hook('client_area_footer_output');{/php}
   {if $hooks}
     {foreach $hooks as $item}{$item}{/foreach}

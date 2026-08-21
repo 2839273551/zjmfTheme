@@ -7,10 +7,10 @@
   <meta name="keywords" content="{$setting.web_seo_keywords}">
   <meta name="author" content="{$setting.company_name}">
   <title>{$setting.company_name} - 云计算服务</title>
-  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=2.1.1">
-  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=2.0.1"></script>
+  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=1.0.0">
+  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=1.0.0"></script>
 </head>
-<body>
+<body class="cloud-web-home">
   <a class="skip-link" href="#main-content">跳到主要内容</a>
 
   <header class="cloud-header" data-site-header>
@@ -49,7 +49,15 @@
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" data-home-content aria-busy="false">
+    <div class="cloud-home-leave-skeleton" aria-hidden="true">
+      <div class="cloud-shell cloud-home-leave-skeleton-inner">
+        <span class="cloud-skeleton-block cloud-skeleton-kicker"></span>
+        <span class="cloud-skeleton-block cloud-skeleton-title"></span>
+        <span class="cloud-skeleton-block cloud-skeleton-copy"></span>
+        <span class="cloud-skeleton-block cloud-skeleton-action"></span>
+      </div>
+    </div>
     <section class="cloud-hero" aria-labelledby="hero-title">
       <div class="cloud-hero-overlay" aria-hidden="true"></div>
       <div class="cloud-shell cloud-hero-inner">
