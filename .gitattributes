@@ -1,0 +1,26 @@
+# 默认逐字节保留服务器源码，避免改写 ionCube 加密文件或历史资源。
+* -text
+
+# 只规范仓库自有文档和控制文件。
+/*.md text eol=lf
+/文档/*.md text eol=lf
+/.gitignore text eol=lf
+/.gitattributes text eol=lf
+
+# 主题配置解析对换行敏感，保留下载时的原始 CRLF。
+**/theme.config -text
+
+# 常见二进制文件
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.mp4 binary

@@ -1,0 +1,2 @@
+https://idc.yunxnet.cn/sitemap_index.xml
+https://idc.yunxnet.cn/provision/custom/content?id=31&key=setting

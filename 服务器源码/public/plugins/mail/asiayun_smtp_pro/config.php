@@ -1,0 +1,4 @@
+<?php
+return ["charset" => ["title" => "邮件编码", "type" => "select", "options" => ["utf-8" => "utf-8", "8bit" => "8bit", "7bit" => "7bit", "binary" => "binary", "base64" => "base64", "quoted-printable" => "quoted-printable"], "value" => "", "tip" => ""], "port" => ["title" => "SMTP 端口", "type" => "text", "value" => "", "tip" => ""], "host" => ["title" => "SMTP 主机名", "type" => "text", "value" => "", "tip" => ""], "username" => ["title" => "SMTP 用户名", "type" => "text", "value" => "", "tip" => ""], "password" => ["title" => " SMTP 密码", "type" => "text", "value" => "", "tip" => ""], "smtpsecure" => ["title" => "SMTP SSL类型", "type" => "select", "options" => ["" => "无", "ssl" => "ssl", "tls" => "tls"], "value" => "", "tip" => ""], "fromname" => ["title" => "系统邮件名", "type" => "text", "value" => "亚洲云 asiayun.com", "tip" => ""], "systememail" => ["title" => "系统邮箱名", "type" => "text", "value" => "", "tip" => ""]];
+
+?>

@@ -1,0 +1,359 @@
+<!--  
+具体操作看操作txt   
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="keywords" content="{$setting.web_seo_keywords}">
+  <meta name="description" content="{$setting.web_seo_desc}">
+  <meta name="author" content="{$setting.company_name}">
+  <title>{$setting.company_name} - 创建实例产品</title>
+  <link rel="stylesheet" href="/themes/web/Ts_Theme/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/themes/web/Ts_Theme/static/css/bootstrap-icons.css?v={$Ver}">
+  <link rel="preload" href="/themes/web/Ts_Theme/static/cart/cart_css.js" as="script">
+  <script src="/themes/web/Ts_Theme/static/cart/cart_css.js"></script>
+  <script defer src="/themes/web/Ts_Theme/static/cart/cart_js.js"></script>
+
+  <style>
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      opacity: .04;
+      mix-blend-mode: soft-light;
+    }
+
+    /* Loading 覆盖层 */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(238, 246, 255, .96));
+      backdrop-filter: blur(6px);
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+
+    .loading-overlay.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #1e293b;
+    }
+
+    .loading-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .loading-badge {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand-400, #60a5fa), var(--brand-600, #2563eb));
+      box-shadow: 0 8px 24px rgba(37, 99, 235, .25);
+    }
+
+    .loading-badge span {
+      font-size: 18px;
+    }
+
+    /* Loading 徽标复用 .brand-badge 的渐变，仅控制尺寸与居中 */
+    .loading-badge.brand-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, .28), inset 0 0 0 1px rgba(255, 255, 255, .25);
+    }
+
+    .loading-badge.brand-badge>span {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .loading-spinner {
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+
+    .loading-spinner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(var(--brand-400, #60a5fa), var(--brand-600, #2563eb), var(--brand-400, #60a5fa));
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
+      mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
+      animation: loadSpin 1.2s linear infinite;
+    }
+
+    .loading-spinner::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, .25), transparent 60%);
+    }
+
+    .loading-text {
+      font-size: 13px;
+      color: #4b5f95;
+      letter-spacing: .2px;
+    }
+
+    @keyframes loadSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .loading-spinner {
+        width: 52px;
+        height: 52px;
+      }
+
+      .loading-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading 覆盖层（最短1s，最长5s） -->
+  <div id="loading-overlay" class="loading-overlay" role="status" aria-live="polite" aria-label="页面加载中">
+    <div class="loading-box">
+      <div class="loading-brand">
+        <div class="loading-badge brand-badge"><span>TS</span></div>
+        <div>TS Cloud</div>
+      </div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">正在努力加载中...</div>
+    </div>
+  </div>
+
+  <!-- 背景噪声层 -->
+  <svg class="noise" aria-hidden="true">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" seed="5" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.4 0" />
+      </feComponentTransfer>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+  </svg>
+
+
+
+  <!-- 顶部导航 -->
+  <div class="nav-wrap">
+    <div class="container nav">
+      <div class="brand">
+        <img src="/themes/web/Ts_Theme/static/img/logo.png" alt="Logo" class="brand-logo">
+      </div>
+      <nav class="menu" aria-label="主菜单">
+
+        <div class="mega-wrapper">
+          <a href="/cart" class="mega-trigger" id="megaTrigger" aria-haspopup="true" aria-expanded="false">产品</a>
+          <div class="mega-menu" id="megaMenu" role="dialog" aria-label="产品与服务">
+            <div class="mega-inner">
+              <aside class="mega-tabs" role="tablist" aria-orientation="vertical">
+                <button class="mega-tab active" role="tab" aria-selected="true" data-tab="cloud">云服务器</button>
+                <button class="mega-tab" role="tab" aria-selected="false" data-tab="baremetal">物理服务器</button>
+                <button class="mega-tab" role="tab" aria-selected="false" data-tab="network">网络与加速</button>
+                <button class="mega-tab" role="tab" aria-selected="false" data-tab="security">安全防护</button>
+                <button class="mega-tab" role="tab" aria-selected="false" data-tab="storage">存储与数据库</button>
+                <button class="mega-tab" role="tab" aria-selected="false" data-tab="certificate">SSL 证书</button>
+              </aside>
+              <div class="mega-content">
+                <!-- 云服务器 -->
+                <div class="mega-panel active" data-panel="cloud" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>标准型</h4>
+                      <p>均衡计算与内存，适合中小业务与 Web 服务。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>计算优化型</h4>
+                      <p>高主频 vCPU，适合批处理 / 编解码 / 游戏逻辑。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>内存优化型</h4>
+                      <p>大内存占比，数据库与缓存场景优选。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>GPU 加速</h4>
+                      <p>AI 训练 / 推理、视频渲染与科学计算。</p>
+                    </div>
+                  </div>
+                  <div class="mega-cta">
+                    <button class="btn primary" onclick="window.open('/cart','_self')">立即创建实例</button>
+                    <button class="btn" onclick="window.open('/knowledgebase','_self')">查看规格文档</button>
+                  </div>
+                </div>
+                <!-- 物理服务器 -->
+                <div class="mega-panel" data-panel="baremetal" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>裸金属标准型</h4>
+                      <p>独享硬件性能，分钟级交付。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>高防服务器</h4>
+                      <p>单机超大防护，T 级 DDoS。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>存储密集型</h4>
+                      <p>海量 HDD/SSD 混合，适合日志与归档。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>GPU 裸金属</h4>
+                      <p>多卡 NVLink，提供最大化算力。</p>
+                    </div>
+                  </div>
+                  <div class="mega-cta">
+                    <button class="btn primary" onclick="window.open('/cart','_self')">选购裸金属</button>
+                  </div>
+                </div>
+                <!-- 网络与加速 -->
+                <div class="mega-panel" data-panel="network" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>全球加速</h4>
+                      <p>Anycast + 智能路由，跨地域链路优化。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>CDN 分发</h4>
+                      <p>静/动内容加速，自适应缓存策略。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>负载均衡</h4>
+                      <p>七层 / 四层调度，自动健康检查。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>专线互联</h4>
+                      <p>企业混合云与跨境稳定通道。</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 安全防护 -->
+                <div class="mega-panel" data-panel="security" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>DDoS 防护</h4>
+                      <p>T 级清洗能力，自动调度。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>WAF 应用防火墙</h4>
+                      <p>OWASP 规则 + 自适应引擎。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>零信任访问</h4>
+                      <p>细粒度身份与策略控制。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>堡垒机</h4>
+                      <p>审计合规与命令录播。</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 存储与数据库 -->
+                <div class="mega-panel" data-panel="storage" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>对象存储</h4>
+                      <p>S3 兼容，99.999999999% 持久性。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>块存储</h4>
+                      <p>高 IOPS，数据三副本冗余。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>分布式文件</h4>
+                      <p>共享读写，弹性扩容。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>云数据库</h4>
+                      <p>MySQL / PostgreSQL 高可用。</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- SSL 证书 -->
+                <div class="mega-panel" data-panel="certificate" role="tabpanel">
+                  <div class="mega-grid">
+                    <div class="mega-item">
+                      <h4>DV 证书</h4>
+                      <p>快速签发，入门 HTTPS。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>OV 证书</h4>
+                      <p>企业身份验证，增强信任。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>EV 证书</h4>
+                      <p>全量审核，绿色地址栏。</p>
+                    </div>
+                    <div class="mega-item">
+                      <h4>通配符</h4>
+                      <p>覆盖子域名，统一管理。</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="mega-close" aria-label="关闭">✕</button>
+            </div>
+          </div>
+        </div>
+        <!-- 原其它导航项 -->
+        <a href="index.html">首页</a>
+        <a href="/submitticket">提交工单</a>
+        <a href="/knowledgebase">帮助文档</a>
+        <a href="about.html">关于</a>
+      </nav>
+      <div class="nav-cta">
+
+        {if $Userinfo}
+        <button class="btn" onclick="window.open('{$setting.web_url}/clientarea','_self')">控制台</button>
+        <button class="btn primary" onclick="window.open('{$setting.web_url}/logout','_self')">注销登录</button>
+        {else}
+        <button class="btn" onclick="window.open('{$setting.web_url}/login','_self')">登录</button>
+        <button class="btn primary" onclick="window.open('{$setting.web_url}/register','_self')">注册</button>
+        {/if}
+
+
+        <button class="btn menu-btn" aria-label="展开菜单">☰</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

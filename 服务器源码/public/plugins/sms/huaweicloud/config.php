@@ -1,0 +1,4 @@
+<?php
+return ["cn_sender" => ["title" => "国内短信签名通道号", "type" => "text", "value" => "", "tip" => ""], "global_sender" => ["title" => "国际/港澳台短信通道号", "type" => "text", "value" => "", "tip" => ""], "cn_app_key" => ["title" => "国内短信APP_Key", "type" => "text", "value" => "", "tip" => ""], "cn_app_secret" => ["title" => "国内短信APP_Secret", "type" => "text", "value" => "", "tip" => ""], "global_app_key" => ["title" => "国际/港澳台短信APP_Key", "type" => "text", "value" => "", "tip" => ""], "global_app_secret" => ["title" => "国际/港澳台短信APP_Secret", "type" => "text", "value" => "", "tip" => ""], "SignName" => ["title" => "国内短信签名", "type" => "text", "value" => "", "tip" => ""]];
+
+?>
