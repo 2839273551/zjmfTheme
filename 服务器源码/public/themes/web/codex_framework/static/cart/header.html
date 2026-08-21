@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{$setting.web_seo_desc}">
+  <meta name="keywords" content="{$setting.web_seo_keywords}">
+  <meta name="author" content="{$setting.company_name}">
+  <title>[title] - {$setting.company_name|default="云信网络"}</title>
+  {if $configure_page}
+  <link rel="stylesheet" href="/themes/clientarea/default/assets/libs/bootstrap/css/bootstrap.min.css?v={$Ver}">
+  <link rel="stylesheet" href="/themes/clientarea/default/assets/libs/toastr/build/toastr.min.css?v={$Ver}">
+  <script src="/themes/clientarea/default/assets/libs/jquery/jquery.min.js?v={$Ver}"></script>
+  <script src="/themes/clientarea/default/assets/libs/bootstrap/js/bootstrap.bundle.min.js?v={$Ver}"></script>
+  <script src="/themes/clientarea/default/assets/libs/toastr/build/toastr.min.js?v={$Ver}"></script>
+  {/if}
+  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=2.1.1">
+  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=2.0.2"></script>
+</head>
+<body class="cloud-cart-page">
+  <a class="skip-link" href="#cart-content">跳到商品列表</a>
+  <header class="cloud-header cloud-header-cart" data-site-header>
+    <div class="cloud-shell cloud-header-inner">
+      <a class="cloud-brand" href="{$setting.web_url}" aria-label="{$setting.company_name}首页">
+        {if $setting.web_logo}
+        <img src="{$setting.web_logo}" alt="{$setting.company_name}">
+        {else/}
+        <img src="/upload/logo.png" alt="云信网络">
+        {/if}
+      </a>
+      <button class="cloud-nav-toggle" type="button" aria-expanded="false" aria-controls="cloud-navigation" data-nav-toggle>
+        <span aria-hidden="true"></span>
+        <span class="sr-only">打开导航</span>
+      </button>
+      <nav class="cloud-nav" id="cloud-navigation" aria-label="主导航" data-navigation>
+        <a href="{$setting.web_url}">首页</a>
+        <a class="is-active" href="{$setting.web_url}/cart">产品中心</a>
+        <a href="{$setting.web_url}/knowledgebase">文档中心</a>
+        <a href="{$setting.web_url}/cart?action=viewcart">购物车</a>
+      </nav>
+      <div class="cloud-account">
+        {if $Userinfo}
+        <a href="{$setting.web_url}/clientarea">控制台</a>
+        <a class="cloud-button cloud-button-primary cloud-header-button" href="{$setting.web_url}/logout">退出</a>
+        {else/}
+        <a href="{$setting.web_url}/login">立即登录</a>
+        <a class="cloud-button cloud-button-primary cloud-header-button" href="{$setting.web_url}/register">免费注册</a>
+        {/if}
+      </div>
+    </div>
+  </header>

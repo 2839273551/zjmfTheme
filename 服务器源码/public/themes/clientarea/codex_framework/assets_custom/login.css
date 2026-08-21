@@ -1,0 +1,324 @@
+.cf-login-shell,
+.cf-login-shell .cf-auth-panel {
+  box-sizing: border-box;
+}
+
+.cf-login-shell .cf-auth-panel {
+  flex-direction: column;
+}
+
+.cf-login-panel-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 1px;
+}
+
+.cf-login-panel-topline > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #627382;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.cf-login-panel-topline > a:hover {
+  color: var(--cf-blue);
+}
+
+.cf-login-panel-topline > a i {
+  font-size: 18px;
+}
+
+.cf-login-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #7f8e99;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.cf-login-secure i {
+  width: 5px;
+  height: 5px;
+  background: #249766;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(36, 151, 102, 0.1);
+}
+
+.cf-login-shell .cf-auth-tabs .nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.cf-login-shell .cf-auth-tabs .nav-link > i {
+  font-size: 17px;
+}
+
+@media (min-width: 821px) {
+  .cf-login-shell {
+    overflow-x: hidden;
+    background: #edf3f6;
+  }
+
+  .cf-login-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: none;
+    place-items: center;
+    min-height: 100vh;
+    padding: 18px clamp(18px, 3vw, 42px);
+    overflow: auto;
+    background: #edf3f6;
+  }
+
+  .cf-login-shell::before {
+    display: none;
+  }
+
+  .cf-login-shell .cf-auth-context {
+    display: none;
+  }
+
+  .cf-login-shell .cf-auth-mobile-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    min-height: 42px;
+    margin: 0 auto 16px;
+  }
+
+  .cf-login-shell .cf-auth-mobile-brand img {
+    width: auto;
+    max-width: 168px;
+    height: 42px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 8px rgba(25, 45, 60, 0.06));
+  }
+
+  .cf-login-shell .cf-auth-panel {
+    position: relative;
+    z-index: 2;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: min(440px, calc(100vw - 36px));
+    height: auto;
+    max-height: none;
+    min-width: 0;
+    min-height: 0;
+    padding: 17px 32px 18px;
+    overflow: visible;
+    border: 1px solid rgba(213, 224, 232, 0.92);
+    background: rgba(250, 252, 253, 0.955);
+    border-radius: 8px;
+    box-shadow: 0 26px 70px rgba(35, 54, 70, 0.17), 0 3px 12px rgba(35, 54, 70, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(22px) saturate(112%);
+  }
+
+  .cf-login-shell .cf-auth-panel::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 62px;
+    height: 3px;
+    background: #1769e0;
+    content: "";
+    transform: translateX(-50%);
+  }
+
+  .cf-login-shell .cf-auth-panel-inner {
+    width: 100%;
+    max-width: 372px;
+    margin: 0 auto;
+    padding: 18px 0 8px;
+  }
+
+  .cf-login-shell .cf-auth-heading {
+    margin-bottom: 15px;
+  }
+
+  .cf-login-shell .cf-auth-heading > span {
+    color: #4e80c3;
+    font-size: 9px;
+  }
+
+  .cf-login-shell .cf-auth-heading h2 {
+    margin-top: 6px;
+    color: #18242f;
+    font-size: 26px;
+    font-weight: 720;
+  }
+
+  .cf-login-shell .cf-auth-tabs {
+    margin-bottom: 17px;
+  }
+
+  .cf-login-shell .cf-auth-tabs .nav-link {
+    color: #7a8995;
+    font-weight: 650;
+  }
+
+  .cf-login-shell .cf-auth-tabs .nav-link.active {
+    color: var(--cf-blue);
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-group {
+    margin-bottom: 11px;
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-control,
+  .cf-login-shell .cf-code-input .input-group-append .btn,
+  .cf-login-shell .cf-auth-tab-content .input-group-append .btn {
+    height: 42px;
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-control {
+    border-color: #d7e0e7;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: inset 0 1px 2px rgba(28, 46, 60, 0.025);
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-control:focus {
+    border-color: #6da1ea;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.1);
+  }
+
+  .cf-login-shell .cf-password-toggle {
+    top: 1px;
+    height: 38px;
+  }
+
+  .cf-login-shell .cf-auth-form-meta {
+    margin-bottom: 10px;
+  }
+
+  .cf-login-shell .cf-auth-submit {
+    min-height: 42px;
+    border-color: #1769e0;
+    background: #1769e0;
+    box-shadow: 0 10px 22px rgba(23, 105, 224, 0.18);
+  }
+
+  .cf-login-shell .cf-auth-switch {
+    margin-top: 14px;
+  }
+
+  .cf-login-shell .cf-auth-legal {
+    margin-top: 8px;
+    color: #8f9ba5;
+  }
+}
+
+@media (min-width: 821px) and (max-height: 730px) {
+  .cf-login-shell {
+    padding: 8px;
+  }
+
+  .cf-login-shell .cf-auth-panel {
+    width: min(430px, calc(100vw - 24px));
+    padding: 14px 30px 12px;
+  }
+
+  .cf-login-shell .cf-auth-panel-inner {
+    padding-top: 14px;
+    padding-bottom: 6px;
+  }
+
+  .cf-login-shell .cf-auth-heading {
+    margin-bottom: 12px;
+  }
+
+  .cf-login-shell .cf-auth-tabs {
+    margin-bottom: 12px;
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-group {
+    margin-bottom: 9px;
+  }
+
+  .cf-login-shell .cf-auth-tab-content .form-control,
+  .cf-login-shell .cf-code-input .input-group-append .btn,
+  .cf-login-shell .cf-auth-tab-content .input-group-append .btn {
+    height: 40px;
+  }
+
+  .cf-login-shell .cf-password-toggle {
+    height: 36px;
+  }
+}
+
+@media (max-width: 820px) {
+  .cf-login-shell {
+    min-height: 100svh;
+    overflow: visible;
+    background: #edf3f6;
+  }
+
+  .cf-login-shell .cf-auth-panel {
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  .cf-login-shell .cf-auth-panel-inner {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cf-login-shell .cf-login-panel-topline > a span {
+    display: none;
+  }
+
+  .cf-login-shell .cf-auth-panel {
+    padding: 22px 16px;
+  }
+
+  .cf-login-shell .cf-auth-mobile-brand {
+    min-height: 50px;
+    margin-bottom: 14px;
+  }
+}
+
+.cf-login-shell .cf-auth-submit:disabled,
+.cf-login-shell .cf-auth-submit[aria-busy="true"] {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.cf-login-shell .cf-auth-submit.is-loading {
+  position: relative;
+  color: transparent;
+}
+
+.cf-login-shell .cf-auth-submit.is-loading::after {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.42);
+  border-top-color: #fff;
+  border-radius: 50%;
+  content: "";
+  animation: cf-auth-button-spin 700ms linear infinite;
+}
+
+@keyframes cf-auth-button-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-login-shell .cf-auth-submit.is-loading::after { animation: none; }
+}

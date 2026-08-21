@@ -1,0 +1,58 @@
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: Yahoo! Slurp
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
+User-agent: YoudaoBot
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: EasouSpider
+Allow: /
+
+User-agent: JikeSpider
+Allow: /
+
+User-agent: EtaoSpider
+Allow: /
+
+User-agent: DNSPod
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: AspiegelBot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://idc.yunxnet.cn/sitemap.txt

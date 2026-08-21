@@ -1,0 +1,978 @@
+.configure-page {
+  min-height: 72vh;
+  color: var(--cloud-ink);
+  background: var(--cloud-soft);
+  letter-spacing: 0;
+}
+
+.configure-page *,
+.configure-page *::before,
+.configure-page *::after {
+  box-sizing: border-box;
+}
+
+.configure-heading {
+  border-bottom: 1px solid var(--cloud-line);
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(24, 33, 43, 0.025);
+}
+
+.configure-heading-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 122px;
+  gap: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.configure-title {
+  min-width: 0;
+}
+
+.configure-title > a,
+.configure-title > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  color: var(--cloud-muted);
+  font-size: 12px;
+}
+
+.configure-title > a {
+  margin-right: 12px;
+  color: var(--cloud-blue);
+  font-weight: 700;
+}
+
+.configure-title > a::before {
+  content: "\2039";
+  margin-right: 5px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.configure-title > span {
+  padding-left: 12px;
+  border-left: 1px solid var(--cloud-line);
+}
+
+.configure-title h1 {
+  margin: 7px 0 0;
+  overflow-wrap: anywhere;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.configure-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  color: #8a949d;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.configure-steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.configure-steps li + li {
+  margin-left: 54px;
+}
+
+.configure-steps li + li::before {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 12px);
+  width: 30px;
+  height: 1px;
+  content: "";
+  background: #d9dfe4;
+}
+
+.configure-steps span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #cfd6dc;
+  border-radius: 50%;
+  background: #fff;
+  font-weight: 700;
+}
+
+.configure-steps .is-complete,
+.configure-steps .is-current {
+  color: var(--cloud-ink);
+  font-weight: 700;
+}
+
+.configure-steps .is-complete span {
+  color: #fff;
+  border-color: var(--cloud-green);
+  background: var(--cloud-green);
+}
+
+.configure-steps .is-current span {
+  color: #fff;
+  border-color: var(--cloud-blue);
+  background: var(--cloud-blue);
+}
+
+.configure-workspace {
+  padding-top: 24px;
+  padding-bottom: 58px;
+}
+
+.configure-native > form {
+  display: block;
+}
+
+.configure-native > form > .row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: start;
+  gap: 20px;
+  margin: 0;
+}
+
+.configure-native > form > .row > .col-xl-8,
+.configure-native > form > .row > .col-xl-4 {
+  width: auto;
+  max-width: none;
+  padding: 0;
+}
+
+.configure-native .card {
+  border: 1px solid #dce2e7;
+  border-radius: var(--cloud-radius);
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(24, 33, 43, 0.055);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:first-child {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:first-child .card-body {
+  padding: 0;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:first-child .card-title {
+  display: none;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:nth-child(2) {
+  margin: 0;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:nth-child(2)::before {
+  display: block;
+  padding: 17px 22px;
+  border-bottom: 1px solid #e7ebee;
+  box-shadow: inset 3px 0 var(--cloud-blue);
+  content: "实例配置";
+  background: #fbfcfe;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.configure-native > form > .row > .col-xl-8 > .card:nth-child(2) > .card-body {
+  padding: 0;
+}
+
+.configure-native .alert {
+  padding: 13px 44px 13px 16px;
+  margin: 0 0 16px;
+  border-radius: var(--cloud-radius);
+}
+
+.configure-native .form-group.row {
+  display: flex;
+  position: relative;
+  z-index: 0;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 9px 12px;
+  min-height: 74px;
+  padding: 17px 22px;
+  margin: 0;
+  border-bottom: 1px solid #edf0f2;
+  transition: background-color 150ms ease;
+}
+
+.configure-native .form-group.row:last-child {
+  border-bottom: 0;
+}
+
+.configure-native .form-group.row:not(:has(input, select, textarea, button)) {
+  display: none;
+}
+
+.configure-native .form-group.row > .col-form-label {
+  flex: 0 0 176px;
+  width: 176px;
+  max-width: 176px;
+  padding: 8px 8px 0 0;
+  color: #36424e;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.configure-native .form-group.row > .col-md-10,
+.configure-native .form-group.row > .col-md-3,
+.configure-native .form-group.row > .col-md-2,
+.configure-native .form-group.row > .col-8 {
+  flex: 1 1 220px;
+  width: auto;
+  max-width: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.configure-native .form-group.row > .col-md-2,
+.configure-native .form-group.row > .col-md-3 {
+  max-width: 410px;
+}
+
+.configure-native .form-group.row > .d-inline-flex,
+.configure-native .form-group.row > .col-1 {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 42px;
+  width: 42px;
+  max-width: 42px;
+  min-height: 38px;
+  padding: 0;
+}
+
+.configure-native .form-control,
+.configure-native .bootstrap-select > .dropdown-toggle {
+  min-height: 40px;
+  color: #33404c;
+  border: 1px solid #cfd6dc !important;
+  border-radius: 2px;
+  background-color: #fbfcfe;
+  box-shadow: none !important;
+  font-size: 12px;
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.configure-native .form-control:focus,
+.configure-native .bootstrap-select.show > .dropdown-toggle,
+.configure-native .bootstrap-select > .dropdown-toggle:focus {
+  border-color: #75a8e8 !important;
+  background-color: #fff;
+  outline: 3px solid rgba(23, 105, 224, 0.12) !important;
+}
+
+.configure-native .bootstrap-select .filter-option-inner,
+.configure-native .bootstrap-select .filter-option-inner-inner {
+  height: 100%;
+}
+
+.configure-native .bootstrap-select .filter-option-inner-inner,
+.configure-native .bootstrap-select .dropdown-item .text {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 8px;
+  line-height: 20px;
+}
+
+.configure-native .bootstrap-select .filter-option-inner-inner img,
+.configure-native .bootstrap-select .dropdown-item .text img {
+  display: inline-block !important;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 !important;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.configure-native .configoption_os_group.bootstrap-select > .dropdown-toggle,
+.configure-native .configoption_os.bootstrap-select > .dropdown-toggle {
+  border-color: #c7d2dd !important;
+  background: #f8fafc;
+}
+
+.configure-native .configoption_os_group.bootstrap-select > .dropdown-menu,
+.configure-native .configoption_os_group.bootstrap-select > .dropdown-menu > .inner {
+  min-height: 0 !important;
+}
+
+.configure-native .configoption_os_group.bootstrap-select > .dropdown-menu > .inner {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+}
+
+.configure-native textarea.form-control {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.configure-native input[disabled] {
+  color: #68747f;
+  background: #f4f6f8;
+}
+
+.configure-native .btn-group-toggle,
+.configure-native .btn-custom-group {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.configure-native .btn-group-toggle > .btn,
+.configure-native .btn-custom-group > .btn,
+.configure-native label.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  min-height: 38px;
+  padding: 8px 13px;
+  margin: 0 !important;
+  color: #42505d;
+  border: 1px solid #d4dae0;
+  border-radius: 2px !important;
+  background: #fff;
+  box-shadow: none !important;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: normal;
+  transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.configure-native .btn-group-toggle > .btn:hover,
+.configure-native .btn-custom-group > .btn:hover,
+.configure-native label.btn-primary:hover {
+  color: var(--cloud-blue);
+  border-color: #82afe7;
+  background: #f6f9fe;
+}
+
+.configure-native .btn-group-toggle > .btn.active,
+.configure-native .btn-custom-group > .btn.active,
+.configure-native label.btn-primary.active {
+  color: #0e5dbf;
+  border-color: var(--cloud-blue);
+  background: #edf5ff;
+  box-shadow: inset 3px 0 var(--cloud-blue) !important;
+}
+
+.configure-native .btn-group-toggle > .btn.active::after,
+.configure-native .btn-custom-group > .btn.active::after,
+.configure-native label.btn-primary.active::after {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  content: "\2713";
+  color: #fff;
+  border-radius: 50%;
+  background: var(--cloud-blue);
+  font-size: 11px;
+  line-height: 1;
+}
+
+.configure-native .btn.disabled,
+.configure-native .btn-group-toggle > .btn:has(input:disabled) {
+  color: #969fa7;
+  border-color: #e2e6e9;
+  background: #f1f3f5;
+  cursor: not-allowed;
+}
+
+.configure-native .cycle-select-discount {
+  top: -9px;
+  right: -4px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 2px;
+  background: var(--cloud-red);
+  line-height: 17px;
+}
+
+.configure-native .form-check,
+.configure-native .custom-control {
+  min-height: 30px;
+  margin: 0 24px 6px 0 !important;
+}
+
+.configure-native .form-check-input,
+.configure-native .custom-control-input {
+  cursor: pointer;
+}
+
+.configure-native .form-check-label,
+.configure-native .custom-control-label {
+  color: #485561;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.configure-native .bxs-help-circle::before {
+  display: inline-grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  margin-left: 4px;
+  content: "?";
+  color: var(--cloud-blue);
+  border: 1px solid #9bbbe4;
+  border-radius: 50%;
+  font-style: normal;
+  font-size: 11px;
+}
+
+.configure-native .bx-show-alt,
+.configure-native .create_random_pass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--cloud-blue);
+  border: 1px solid #cfd6dc;
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+  font-style: normal;
+}
+
+.configure-native .bx-show-alt::before,
+.configure-native .create_random_pass::before {
+  content: attr(data-label);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.configure-native .error-tip {
+  flex: 0 0 calc(100% - 188px);
+  margin-left: 188px;
+  color: var(--cloud-red);
+  line-height: 1.5;
+}
+
+.configure-native .configoption_range {
+  flex: 1 1 280px;
+  min-width: 160px;
+  height: 4px;
+  padding: 0;
+  margin: 18px 14px 0 0 !important;
+  border: 0 !important;
+}
+
+.configure-native .configoption_range_val {
+  flex: 0 0 88px;
+  width: 88px !important;
+  max-width: 88px;
+  margin-right: 4px !important;
+}
+
+.configure-native .range_none {
+  top: 18px;
+}
+
+.configure-native > form > .row > .col-xl-4 > .card {
+  position: sticky;
+  top: 82px;
+  margin: 0;
+  overflow: hidden;
+  border-top: 2px solid var(--cloud-blue);
+}
+
+.configure-native > form > .row > .col-xl-4 > .card > .card-body {
+  position: static;
+  min-height: 420px;
+  padding: 0;
+}
+
+.configure-native > form > .row > .col-xl-4 .card-title {
+  display: none;
+}
+
+.configoption_total:empty::before {
+  display: block;
+  padding: 28px 22px;
+  content: "正在计算配置价格...";
+  color: var(--cloud-muted);
+  font-size: 13px;
+}
+
+.configoption_total.is-loading {
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.configure-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e7ebee;
+  background: #fbfcfe;
+}
+
+.configure-summary-head span:first-child {
+  display: block;
+  color: var(--cloud-muted);
+  font-size: 11px;
+}
+
+.configure-summary-head h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.configure-summary-live {
+  flex: none;
+  padding: 3px 7px;
+  color: #257449;
+  border: 1px solid #b9ddc8;
+  border-radius: 2px;
+  background: #eef8f2;
+  font-size: 10px !important;
+  font-weight: 700;
+}
+
+.configure-summary-lines {
+  max-height: 330px;
+  padding: 4px 20px;
+  overflow: auto;
+}
+
+.configure-summary-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf0f2;
+  font-size: 11px;
+}
+
+.configure-summary-line:last-child {
+  border-bottom: 0;
+}
+
+.configure-summary-line > div {
+  min-width: 0;
+}
+
+.configure-summary-line strong {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 5px;
+  overflow-wrap: anywhere;
+  color: #33404c;
+  font-size: 11px;
+}
+
+.configure-summary-line > span {
+  color: #4f5d69;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.configure-summary-line small,
+.configure-summary-option {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--cloud-muted);
+  font-size: 10px;
+}
+
+.configure-summary-line img {
+  flex: none;
+  max-width: 24px;
+  object-fit: contain;
+}
+
+.configure-summary-discount {
+  display: grid;
+  gap: 7px;
+  padding: 12px 20px;
+  color: #52606c;
+  border-top: 1px solid #edf0f2;
+  background: #fafbfc;
+  font-size: 11px;
+}
+
+.configure-summary-discount > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.configure-summary-discount strong {
+  color: var(--cloud-green);
+}
+
+.configure-summary-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px 12px;
+  border-top: 1px solid #e5e9ed;
+  background: #f8fafc;
+}
+
+.configure-summary-total span {
+  color: #596672;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.configure-summary-total strong {
+  color: var(--cloud-red);
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.configure-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 40px);
+  min-height: 44px;
+  gap: 7px;
+  padding: 9px 18px;
+  margin: 0 20px;
+  color: #fff;
+  border: 1px solid var(--cloud-blue);
+  border-radius: 2px;
+  background: var(--cloud-blue);
+  box-shadow: 0 8px 18px rgba(23, 105, 224, 0.16);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.configure-submit:hover {
+  border-color: var(--cloud-blue-dark);
+  background: var(--cloud-blue-dark);
+  box-shadow: 0 10px 22px rgba(14, 80, 184, 0.2);
+  transform: translateY(-1px);
+}
+
+.configure-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.configure-submit > span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.configure-summary-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 20px 18px;
+  color: var(--cloud-muted);
+  font-size: 10px;
+}
+
+.configure-summary-meta a {
+  color: var(--cloud-blue);
+  font-weight: 700;
+}
+
+.configure-mobile-total {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .configure-native > form > .row {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+
+  .configure-heading-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (hover: hover) {
+  .configure-native .form-group.row:hover {
+    background: #fcfdff;
+  }
+
+  .configure-native .card:hover {
+    border-color: #cbd6e0;
+    box-shadow: 0 15px 34px rgba(24, 33, 43, 0.075);
+  }
+}
+
+@media (max-width: 860px) {
+  .configure-native > form > .row {
+    grid-template-columns: 1fr;
+  }
+
+  .configure-native > form > .row > .col-xl-4 > .card {
+    position: static;
+  }
+
+  .configure-summary-lines {
+    max-height: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .configure-heading-inner {
+    width: min(calc(100% - 24px), var(--cloud-shell));
+    min-height: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .configure-title h1 {
+    font-size: 20px;
+  }
+
+  .configure-steps {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .configure-steps li {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .configure-steps li + li {
+    margin-left: 28px;
+  }
+
+  .configure-steps li + li::before {
+    right: calc(100% + 6px);
+    width: 18px;
+  }
+
+  .configure-workspace {
+    width: min(calc(100% - 24px), var(--cloud-shell));
+    padding-top: 14px;
+    padding-bottom: 104px;
+  }
+
+  .configure-native .form-group.row {
+    display: block;
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .configure-native .form-group.row > .col-form-label {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding: 0 0 10px;
+  }
+
+  .configure-native .form-group.row > .col-md-10,
+  .configure-native .form-group.row > .col-md-3,
+  .configure-native .form-group.row > .col-md-2,
+  .configure-native .form-group.row > .col-8 {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 8px;
+  }
+
+  .configure-native .form-group.row > .d-inline-flex,
+  .configure-native .form-group.row > .col-1 {
+    display: inline-flex !important;
+    width: 42px;
+    margin-right: 6px;
+  }
+
+  .configure-native .error-tip {
+    width: 100%;
+    margin: 6px 0 0;
+  }
+
+  .configure-native .configoption_range {
+    width: calc(100% - 112px) !important;
+    min-width: 0;
+  }
+
+  .configure-native > form > .row > .col-xl-4 > .card {
+    margin-top: 2px;
+  }
+
+  .configure-submit#addToCartBtn {
+    display: none;
+  }
+
+  .configure-summary-meta {
+    padding-bottom: 16px;
+  }
+
+  .configure-mobile-total {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(132px, 42%);
+    align-items: center;
+    gap: 12px;
+    min-height: 72px;
+    padding: 10px 12px;
+    border-top: 1px solid #dce2e7;
+    background: #fff;
+    box-shadow: 0 -8px 22px rgba(24, 33, 43, 0.12);
+  }
+
+  .configure-mobile-total > div {
+    min-width: 0;
+  }
+
+  .configure-mobile-total span {
+    display: block;
+    color: var(--cloud-muted);
+    font-size: 10px;
+  }
+
+  .configure-mobile-total strong {
+    display: block;
+    overflow: hidden;
+    color: var(--cloud-red);
+    font-size: 20px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .configure-mobile-total .configure-submit {
+    width: 100%;
+    min-height: 46px;
+    padding: 8px 10px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .configure-steps li + li {
+    margin-left: 18px;
+  }
+
+  .configure-steps li + li::before {
+    display: none;
+  }
+
+  .configure-native .btn-group-toggle > .btn,
+  .configure-native .btn-custom-group > .btn,
+  .configure-native label.btn-primary {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .configoption_total,
+  .configure-native .card,
+  .configure-native .form-group.row,
+  .configure-native .form-control,
+  .configure-native .bootstrap-select > .dropdown-toggle,
+  .configure-native .btn-group-toggle > .btn,
+  .configure-native .btn-custom-group > .btn,
+  .configure-native label.btn-primary,
+  .configure-submit {
+    transition: none !important;
+  }
+}
+
+/* Premium surface pass: dynamic hooks and form semantics remain unchanged. */
+.configure-page {
+  background-color: var(--cloud-soft);
+}
+
+.configure-heading {
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(24, 33, 43, 0.06);
+}
+
+.configure-steps span,
+.configure-native .card,
+.configure-native .form-group.row,
+.configoption_total {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.configure-steps .is-current span {
+  box-shadow: 0 0 0 5px rgba(23, 105, 224, 0.1), 0 8px 18px rgba(23, 105, 224, 0.14);
+}
+
+.configure-native .form-group.row {
+  background-image: none;
+}
+
+.configure-native .form-group.row:hover {
+  border-color: #b7cbe2;
+  background-color: #fbfdff;
+  box-shadow: 0 8px 22px rgba(24, 33, 43, 0.045);
+  transform: translateY(-1px);
+}
+
+.configure-native .form-group.row:focus-within,
+.configure-native .form-group.row:has(.bootstrap-select.show) {
+  z-index: 2;
+}
+
+.configure-native > form > .row > .col-xl-4 > .card,
+.configoption_total {
+  border-color: #d7e0e8;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(24, 33, 43, 0.07);
+}
+
+.configoption_total:not(.is-loading):hover {
+  box-shadow: 0 16px 34px rgba(24, 33, 43, 0.1);
+  transform: translateY(-2px);
+}
+
+.configure-submit:hover:not(:disabled) {
+  box-shadow: 0 10px 22px rgba(23, 105, 224, 0.22);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .configure-steps span,
+  .configure-native .card,
+  .configure-native .form-group.row,
+  .configoption_total,
+  .configure-submit {
+    transition: none !important;
+  }
+}
