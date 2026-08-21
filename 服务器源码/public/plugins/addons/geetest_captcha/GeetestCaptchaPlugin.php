@@ -27,7 +27,7 @@ class GeetestCaptchaPlugin extends Plugin
         'description' => '为登录、注册和密码操作提供极验行为验证第四代及服务端二次校验',
         'status'      => 1,
         'author'      => 'IDCsmart',
-        'version'     => '1.0.1',
+        'version'     => '1.0.2',
         'module'      => 'addons',
         'lang'        => [
             'chinese'    => '极验验证码',
@@ -175,7 +175,7 @@ class GeetestCaptchaPlugin extends Plugin
         if ($configured) {
             $scripts .= '<script src="https://static.geetest.com/v4/gt4.js"></script>';
         }
-        $scripts .= '<script src="/plugins/addons/geetest_captcha/assets/geetest-captcha.js?v=1.0.0"></script>';
+        $scripts .= '<script src="/plugins/addons/geetest_captcha/assets/geetest-captcha.js?v=1.0.2"></script>';
         $scripts .= '<script>window.GeetestCaptchaPlugin.boot(' . $json . ');</script>';
 
         return $scripts;

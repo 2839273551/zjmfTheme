@@ -91,9 +91,9 @@
         var slot = document.createElement('div');
         slot.className = 'form-group geetest-captcha-slot';
         slot.setAttribute('data-geetest-gate', String(this.index));
-        slot.innerHTML = '<label>安全验证</label>'
+        slot.innerHTML = '<label>行为验证</label>'
             + '<div class="geetest-captcha-surface">'
-            + '<div class="geetest-captcha-status" role="status" aria-live="polite">正在加载安全验证...</div>'
+            + '<div class="geetest-captcha-status" role="button" tabindex="0" aria-live="polite" aria-label="正在加载安全验证">正在加载安全验证...</div>'
             + '<div class="geetest-captcha-box"></div>'
             + '</div>';
 
@@ -107,6 +107,32 @@
         this.slot = slot;
         this.status = slot.querySelector('.geetest-captcha-status');
         this.captchaBox = slot.querySelector('.geetest-captcha-box');
+        this.bindTrigger();
+    };
+
+    Gate.prototype.bindTrigger = function () {
+        var gate = this;
+        if (!gate.status) {
+            return;
+        }
+
+        gate.status.addEventListener('click', function () {
+            gate.openCaptcha();
+        });
+        gate.status.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ') {
+                return;
+            }
+            event.preventDefault();
+            gate.openCaptcha();
+        });
+    };
+
+    Gate.prototype.openCaptcha = function () {
+        if (this.token) {
+            return;
+        }
+        this.ensure(function () {});
     };
 
     Gate.prototype.setStatus = function (message, state) {
@@ -114,6 +140,8 @@
             return;
         }
         this.status.className = 'geetest-captcha-status is-' + state;
+        this.status.setAttribute('aria-label', message);
+        this.status.setAttribute('aria-disabled', state === 'success' ? 'true' : 'false');
         this.status.textContent = message;
     };
 
@@ -150,7 +178,7 @@
                 .onReady(function () {
                     gate.ready = true;
                     gate.setStatus(
-                        plugin.config.product === 'bind' ? '安全验证已就绪' : '安全验证待完成',
+                        plugin.config.product === 'bind' ? '点击按钮开始验证' : '安全验证待完成',
                         'ready'
                     );
                 })
@@ -178,7 +206,10 @@
                 })
                 .onClose(function () {
                     if (!gate.token) {
-                        gate.setStatus('安全验证待完成', 'ready');
+                        gate.setStatus(
+                            plugin.config.product === 'bind' ? '点击按钮开始验证' : '安全验证待完成',
+                            'ready'
+                        );
                     }
                 });
         });
