@@ -115,7 +115,13 @@
         }
 
         var passwordResult = { flag: true };
-        if (passwordRules != null && showPassword == 1) {
+        if (
+          typeof passwordRules !== 'undefined' &&
+          passwordRules !== null &&
+          typeof showPassword !== 'undefined' &&
+          showPassword == 1 &&
+          typeof checkingPwd1 === 'function'
+        ) {
           passwordResult = checkingPwd1(
             $('.getPassword').val(),
             passwordRules.num,
@@ -126,7 +132,7 @@
         }
 
         if (!passwordResult.flag) {
-          verConfigGPsd();
+          if (typeof verConfigGPsd === 'function') verConfigGPsd();
           if (window.toastr) toastr.error(passwordResult.msg);
           return;
         }

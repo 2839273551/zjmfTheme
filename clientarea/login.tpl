@@ -2,7 +2,7 @@
 {if $SuccessMsg}{include file="themes/clientarea/default/error/notifications.tpl" value="$SuccessMsg"}{/if}
 
 <script src="/themes/clientarea/default/assets/js/public.js?v={$Ver}"></script>
-<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.0" rel="stylesheet" type="text/css">
+<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.1" rel="stylesheet" type="text/css">
 <script>var mk = '{$Setting.msfntk}';</script>
 
 <main class="cf-auth-shell cf-login-shell">
@@ -151,7 +151,7 @@
       <div class="modal-header"><h5 class="modal-title">{$Lang.secondary_verification}</h5><button type="button" class="close" data-dismiss="modal" aria-label="关闭"><span aria-hidden="true">&times;</span></button></div>
       <div class="modal-body">
         <form>
-          <input type="hidden" value="{$Token}">
+          <input type="hidden" name="token" value="{$Token}">
           <input type="hidden" value="closed" name="action">
           <div class="form-group row"><label class="col-sm-3 col-form-label text-right" for="secondVerifyType">{$Lang.verification_method}</label><div class="col-sm-8"><select class="form-control" name="type" id="secondVerifyType"></select></div></div>
           <div class="form-group row mb-0"><label class="col-sm-3 col-form-label text-right" for="secondVerifyCode">{$Lang.verification_code}</label><div class="col-sm-8"><div class="input-group"><input type="text" name="code" id="secondVerifyCode" class="form-control" placeholder="{$Lang.please_enter_code}"><div class="input-group-append" id="getCodeBox"><button class="btn btn-secondary" type="button" onclick="getCode(this,'login/second_verify_send')">{$Lang.get_code}</button></div></div></div></div>

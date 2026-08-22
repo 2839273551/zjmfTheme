@@ -2,7 +2,7 @@
 {if $SuccessMsg}{include file="themes/clientarea/default/error/notifications.tpl" value="$SuccessMsg"}{/if}
 
 <script src="/themes/clientarea/default/assets/js/public.js?v={$Ver}"></script>
-<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.0" rel="stylesheet" type="text/css">
+<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.1" rel="stylesheet" type="text/css">
 <script>var mk = '{$Setting.msfntk}';</script>
 
 <main class="cf-auth-shell cf-login-shell cf-auth-shell-scroll">
@@ -48,11 +48,11 @@
             <div class="form-group"><label for="phonePwdCheck">{$Lang.confirm_password}</label><div class="cf-auth-input"><i class="bx bx-lock-alt"></i><input type="password" class="form-control" name="checkPassword" id="phonePwdCheck" placeholder="{$Lang.please_password_again}" autocomplete="new-password" required><button type="button" class="cf-password-toggle" data-password-toggle aria-controls="phonePwdCheck" aria-pressed="false" aria-label="显示密码"><i class="bx bx-show"></i></button></div></div>
 
             {foreach $Register.login_register_custom_require as $custom}
-            <div class="form-group"><label for="{$custom.name}">{$Register[login_register_custom_require_list][$custom.name]}</label><input type="{if $custom.name=='password'}password{else}text{/if}" class="form-control" name="{$custom.name}" id="{$custom.name}" value="{$Post[$custom.name]}"></div>
+            <div class="form-group"><label for="email-custom-{$custom.name}">{$Register[login_register_custom_require_list][$custom.name]}</label><input type="{if $custom.name=='password'}password{else}text{/if}" class="form-control" name="{$custom.name}" id="email-custom-{$custom.name}" value="{$Post[$custom.name]}"></div>
             {/foreach}
             {foreach $Register.fields as $k=>$list}
             <div class="form-group cf-custom-field"><label for="field-email-{$list.id}">{$list.fieldname}</label>
-              {if $list.fieldtype=='dropdown'}<select id="field-email-{$list.id}" name="fields[{$list.id}]" class="form-control">{foreach $list.dropdown_option as $key=>$val}<option value="{$key}" {if(isset($_fields[$key]))}selected{/if}>{$val}</option>{/foreach}</select>
+              {if $list.fieldtype=='dropdown'}<select id="field-email-{$list.id}" name="fields[{$list.id}]" class="form-control">{foreach $list.dropdown_option as $key=>$val}<option value="{$key}" {if(isset($_fields[$list['id']]) && $_fields[$list['id']]==$key)}selected{/if}>{$val}</option>{/foreach}</select>
               {elseif $list.fieldtype=='password'}<input id="field-email-{$list.id}" name="fields[{$list.id}]" type="password" {if(isset($_fields[$list['id']]))}value="{$_fields[$list['id']]}"{/if} class="form-control">
               {elseif $list.fieldtype=='text' || $list.fieldtype=='link'}<input id="field-email-{$list.id}" name="fields[{$list.id}]" type="text" class="form-control" {if(isset($_fields[$list['id']]))}value="{$_fields[$list['id']]}"{/if}>
               {elseif $list.fieldtype=='tickbox'}<label class="cf-inline-check"><input id="field-email-{$list.id}" type="checkbox" name="fields[{$list.id}]" {if(isset($_fields[$list['id']]))}checked{/if}><span>{$list.fieldname}</span></label>
@@ -75,11 +75,11 @@
             <div class="form-group"><label for="emailPwdCheck">{$Lang.confirm_password}</label><div class="cf-auth-input"><i class="bx bx-lock-alt"></i><input type="password" class="form-control" name="checkPassword" id="emailPwdCheck" placeholder="{$Lang.please_password_again}" autocomplete="new-password" required><button type="button" class="cf-password-toggle" data-password-toggle aria-controls="emailPwdCheck" aria-pressed="false" aria-label="显示密码"><i class="bx bx-show"></i></button></div></div>
 
             {foreach $Register.login_register_custom_require as $custom}
-            <div class="form-group"><label for="{$custom.name}">{$Register[login_register_custom_require_list][$custom.name]}</label><input type="{if $custom.name=='password'}password{else}text{/if}" class="form-control" name="{$custom.name}" id="{$custom.name}" value="{$Post[$custom.name]}"></div>
+            <div class="form-group"><label for="phone-custom-{$custom.name}">{$Register[login_register_custom_require_list][$custom.name]}</label><input type="{if $custom.name=='password'}password{else}text{/if}" class="form-control" name="{$custom.name}" id="phone-custom-{$custom.name}" value="{$Post[$custom.name]}"></div>
             {/foreach}
             {foreach $Register.fields as $k=>$list}
             <div class="form-group cf-custom-field"><label for="field-phone-{$list.id}">{$list.fieldname}</label>
-              {if $list.fieldtype=='dropdown'}<select id="field-phone-{$list.id}" name="fields[{$list.id}]" class="form-control">{foreach $list.dropdown_option as $key=>$val}<option value="{$key}" {if(isset($_fields[$key]))}selected{/if}>{$val}</option>{/foreach}</select>
+              {if $list.fieldtype=='dropdown'}<select id="field-phone-{$list.id}" name="fields[{$list.id}]" class="form-control">{foreach $list.dropdown_option as $key=>$val}<option value="{$key}" {if(isset($_fields[$list['id']]) && $_fields[$list['id']]==$key)}selected{/if}>{$val}</option>{/foreach}</select>
               {elseif $list.fieldtype=='password'}<input id="field-phone-{$list.id}" name="fields[{$list.id}]" type="password" {if(isset($_fields[$list['id']]))}value="{$_fields[$list['id']]}"{/if} class="form-control">
               {elseif $list.fieldtype=='text' || $list.fieldtype=='link'}<input id="field-phone-{$list.id}" name="fields[{$list.id}]" type="text" class="form-control" {if(isset($_fields[$list['id']]))}value="{$_fields[$list['id']]}"{/if}>
               {elseif $list.fieldtype=='tickbox'}<label class="cf-inline-check"><input id="field-phone-{$list.id}" type="checkbox" name="fields[{$list.id}]" {if(isset($_fields[$list['id']]))}checked{/if}><span>{$list.fieldname}</span></label>

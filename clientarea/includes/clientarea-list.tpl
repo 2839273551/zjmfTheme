@@ -14,7 +14,9 @@
       {if $ClientArea.hostlist}
       {foreach $ClientArea.hostlist as $list}
       <tr>
-        <td><span class="cf-status-dot is-success"></span>{$list.domainstatus_desc}</td>
+        <td>
+          <span class="cf-status-dot {if $list.domainstatus=='Active' || $list.domainstatus=='Completed'}is-success{elseif $list.domainstatus=='Pending' || $list.domainstatus=='Suspended'}is-warning{elseif $list.domainstatus=='Terminated' || $list.domainstatus=='Cancelled' || $list.domainstatus=='Fraud'}is-danger{else/}is-muted{/if}"></span>{$list.domainstatus_desc}
+        </td>
         <td><a href="{$Setting.system_url}/servicedetail?id={$list.id}">{$list.productname} ({$list.domain})</a></td>
         <td>{if $list.billingcycle!='free' && $list.cycle_desc!='一次性'}{$list.nextduedate|date='Y-m-d H:i'}{else/}-{/if}</td>
         <td>{if $list.billingcycle!='free'}{$list.price_desc}/{$list.cycle_desc}{else/}{$list.cycle_desc}{/if}</td>
@@ -38,10 +40,35 @@
   (function ($) {
     "use strict";
 
+    function renderSourceError() {
+      var message = $('#sourceListBox').data('error') || '资源列表加载失败，请稍后重试';
+      var safeMessage = $('<div>').text(message).html();
+      $('#sourceListBox').html('<div class="cf-error-state" role="alert"><span>' + safeMessage + '</span><button type="button" class="btn btn-sm btn-outline-primary" data-source-retry>重试</button></div>');
+    }
+
+    function loadSource(url, params) {
+      var sourceList = $('#sourceListBox');
+      sourceList.attr('aria-busy', 'true');
+      $.get(url, params)
+        .done(function (html) {
+          sourceList.html(html);
+        })
+        .fail(renderSourceError)
+        .always(function () {
+          sourceList.attr('aria-busy', 'false');
+        });
+    }
+
     function sourceRequest(params) {
-      $.get(setting_web_url + '/clientarea', params, function (html) {
-        $('#sourceListBox').html(html);
-      });
+      loadSource(setting_web_url + '/clientarea', params);
+    }
+
+    function normalizePageUrl(rawUrl) {
+      if (!rawUrl) return null;
+      var pageUrl = new URL(rawUrl, window.location.href);
+      if (pageUrl.origin !== window.location.origin) return null;
+      pageUrl.searchParams.set('action', 'list');
+      return pageUrl.href;
     }
 
     $('[data-source-order]').on('click', function () {
@@ -56,9 +83,8 @@
 
     $('#sourceListBox .page-link').on('click', function (event) {
       event.preventDefault();
-      $.get($(this).attr('href'), function (html) {
-        $('#sourceListBox').html(html);
-      });
+      var pageUrl = normalizePageUrl($(this).attr('href'));
+      if (pageUrl) loadSource(pageUrl);
     });
   })(window.jQuery);
 </script>

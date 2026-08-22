@@ -7,13 +7,13 @@
   <meta name="keywords" content="{$setting.web_seo_keywords}">
   <meta name="author" content="{$setting.company_name}">
   <title>{$setting.company_name} - 云计算服务</title>
-  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=1.0.0">
-  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=1.0.0"></script>
+  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=1.1.1">
+  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=1.1.1"></script>
 </head>
-<body class="cloud-web-home">
+<body class="cloud-web-home home-v2">
   <a class="skip-link" href="#main-content">跳到主要内容</a>
 
-  <header class="cloud-header" data-site-header>
+  <header class="cloud-header home-header" data-site-header>
     <div class="cloud-shell cloud-header-inner">
       <a class="cloud-brand" href="{$setting.web_url}" aria-label="{$setting.company_name}首页">
         {if $setting.web_logo}
@@ -23,20 +23,16 @@
         <strong>{$setting.company_name}</strong>
         {/if}
       </a>
-
       <button class="cloud-nav-toggle" type="button" aria-expanded="false" aria-controls="cloud-navigation" data-nav-toggle>
-        <span aria-hidden="true"></span>
-        <span class="sr-only">打开导航</span>
+        <span aria-hidden="true"></span><span class="sr-only">打开导航</span>
       </button>
-
       <nav class="cloud-nav" id="cloud-navigation" aria-label="主导航" data-navigation>
         <a class="is-active" href="{$setting.web_url}">首页</a>
         <a href="{$setting.web_url}/cart">产品与服务</a>
-        <a href="{$setting.web_url}/news">公告</a>
-        <a href="{$setting.web_url}/knowledgebase">文档中心</a>
-        <a href="{$setting.web_url}/supporttickets">联系我们</a>
+        <a href="{$setting.web_url}/news">公告动态</a>
+        <a href="{$setting.web_url}/knowledgebase">帮助文档</a>
+        <a href="{$setting.web_url}/supporttickets">服务支持</a>
       </nav>
-
       <div class="cloud-account">
         {if $userInfo}
         <a href="{$setting.web_url}/clientarea">控制台</a>
@@ -58,100 +54,153 @@
         <span class="cloud-skeleton-block cloud-skeleton-action"></span>
       </div>
     </div>
-    <section class="cloud-hero" aria-labelledby="hero-title">
-      <div class="cloud-hero-overlay" aria-hidden="true"></div>
-      <div class="cloud-shell cloud-hero-inner">
-        <div class="cloud-hero-copy">
-          <p class="cloud-eyebrow">弹性算力 · 稳定连接 · 按需交付</p>
-          <h1 id="hero-title">{$setting.company_name}</h1>
-          <p>{$setting.company_profile|default="为建站、业务部署与应用托管提供稳定、灵活的云基础设施。"}</p>
-          <div class="cloud-hero-actions">
-            <a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">立即选购</a>
-            <a class="cloud-button cloud-button-light" href="{$setting.web_url}/clientarea">进入控制台</a>
+
+    <section class="home-carousel" aria-label="精选云服务" aria-roledescription="轮播图" data-carousel>
+      <div id="home-slide-0" class="home-slide home-slide-datacenter is-active" role="tabpanel" aria-labelledby="home-carousel-tab-0" aria-roledescription="幻灯片" aria-label="第 1 张，共 3 张" aria-hidden="false" data-slide>
+        <div class="cloud-shell home-slide-inner">
+          <div class="home-hero-copy">
+            <p class="home-kicker">云基础设施 · 稳定交付</p>
+            <h1>{$setting.company_name}</h1>
+            <p class="home-hero-lead">{$setting.company_profile|default="为网站、应用与企业业务提供稳定、灵活、可持续扩展的云计算服务。"}</p>
+            <div class="home-hero-actions">
+              <a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">选购云产品</a>
+              <a class="cloud-button home-button-ghost" href="{$setting.web_url}/clientarea">进入控制台</a>
+            </div>
+            <ul class="home-hero-points" aria-label="服务特点">
+              <li><strong>分钟级</strong><span>资源交付</span></li>
+              <li><strong>全天候</strong><span>工单支持</span></li>
+              <li><strong>按需</strong><span>弹性扩展</span></li>
+            </ul>
           </div>
-          <ul class="cloud-hero-tags" aria-label="服务能力">
-            <li>弹性配置</li>
-            <li>快速交付</li>
-            <li>工单支持</li>
-          </ul>
+        </div>
+      </div>
+
+      <div id="home-slide-1" class="home-slide home-slide-compute" role="tabpanel" aria-labelledby="home-carousel-tab-1" aria-roledescription="幻灯片" aria-label="第 2 张，共 3 张" aria-hidden="true" data-slide>
+        <div class="cloud-shell home-slide-inner home-slide-split">
+          <div class="home-hero-copy">
+            <p class="home-kicker">弹性云服务器</p>
+            <h2>从轻量应用，到核心业务</h2>
+            <p class="home-hero-lead">灵活选择计算、存储与网络配置，业务增长时快速扩容，让资源始终贴合实际需求。</p>
+            <div class="home-hero-actions">
+              <a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">立即部署</a>
+              <a class="cloud-button home-button-outline" href="{$setting.web_url}/knowledgebase">了解产品</a>
+            </div>
+          </div>
+          <div class="home-console-visual" aria-hidden="true">
+            <div class="home-console-top"><span></span><span></span><span></span><b>资源监控</b></div>
+            <div class="home-console-body">
+              <div class="home-console-summary"><small>运行状态</small><strong><i></i> 服务正常</strong></div>
+              <div class="home-console-chart"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="home-console-metrics"><span><small>CPU</small><b>26%</b></span><span><small>内存</small><b>42%</b></span><span><small>网络</small><b>18M</b></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="home-slide-2" class="home-slide home-slide-support" role="tabpanel" aria-labelledby="home-carousel-tab-2" aria-roledescription="幻灯片" aria-label="第 3 张，共 3 张" aria-hidden="true" data-slide>
+        <div class="cloud-shell home-slide-inner home-slide-split">
+          <div class="home-hero-copy">
+            <p class="home-kicker">持续在线的技术支持</p>
+            <h2>问题有人响应，业务安心运行</h2>
+            <p class="home-hero-lead">从售前选型、部署上线到日常运维，通过文档与工单获得清晰、连续的服务支持。</p>
+            <div class="home-hero-actions">
+              <a class="cloud-button home-button-white" href="{$setting.web_url}/supporttickets">提交工单</a>
+              <a class="cloud-button home-button-ghost" href="{$setting.web_url}/knowledgebase">查看文档</a>
+            </div>
+          </div>
+          <div class="home-support-visual" aria-hidden="true">
+            <span class="home-support-status"><i></i> 服务在线</span>
+            <strong>7 x 24</strong><p>全时段支持响应</p>
+            <div><span>售前选型</span><span>迁移部署</span><span>故障排查</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cloud-shell home-carousel-controls">
+        <div class="home-carousel-tabs" role="tablist" aria-label="轮播图切换">
+          <button id="home-carousel-tab-0" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="home-slide-0" data-carousel-tab="0"><span>01</span>稳定上云</button>
+          <button id="home-carousel-tab-1" type="button" role="tab" aria-selected="false" aria-controls="home-slide-1" tabindex="-1" data-carousel-tab="1"><span>02</span>弹性计算</button>
+          <button id="home-carousel-tab-2" type="button" role="tab" aria-selected="false" aria-controls="home-slide-2" tabindex="-1" data-carousel-tab="2"><span>03</span>技术支持</button>
+        </div>
+        <div class="home-carousel-arrows">
+          <button type="button" aria-label="上一张" data-carousel-prev>←</button>
+          <button type="button" aria-label="下一张" data-carousel-next>→</button>
         </div>
       </div>
     </section>
 
-    <section class="cloud-service-strip" aria-label="常用服务入口">
-      <div class="cloud-shell cloud-service-strip-grid">
-        <a href="{$setting.web_url}/cart">
-          <span class="cloud-strip-index">01</span>
-          <span><strong>云服务器</strong><small>弹性计算与业务部署</small></span>
-          <span class="cloud-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="{$setting.web_url}/cart">
-          <span class="cloud-strip-index">02</span>
-          <span><strong>独立服务器</strong><small>专属硬件与稳定性能</small></span>
-          <span class="cloud-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="{$setting.web_url}/cart">
-          <span class="cloud-strip-index">03</span>
-          <span><strong>网络加速</strong><small>面向业务的连接能力</small></span>
-          <span class="cloud-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="{$setting.web_url}/knowledgebase">
-          <span class="cloud-strip-index">04</span>
-          <span><strong>文档中心</strong><small>产品说明与使用指引</small></span>
-          <span class="cloud-arrow" aria-hidden="true">→</span>
-        </a>
+    <section class="home-promo-strip" aria-label="热门服务">
+      <div class="cloud-shell home-promo-grid">
+        <a href="{$setting.web_url}/cart"><span class="home-promo-tag is-coral">热门</span><strong>云服务器</strong><small>弹性规格，快速开通</small><b aria-hidden="true">→</b></a>
+        <a href="{$setting.web_url}/cart"><span class="home-promo-tag is-green">稳定</span><strong>独立服务器</strong><small>独享硬件，性能可靠</small><b aria-hidden="true">→</b></a>
+        <a href="{$setting.web_url}/cart"><span class="home-promo-tag is-blue">加速</span><strong>网络服务</strong><small>优化连接与访问体验</small><b aria-hidden="true">→</b></a>
+        <a href="{$setting.web_url}/knowledgebase"><span class="home-promo-tag is-neutral">指南</span><strong>新手中心</strong><small>快速了解产品与使用</small><b aria-hidden="true">→</b></a>
       </div>
     </section>
 
-    <section class="cloud-section cloud-capabilities" aria-labelledby="capability-title">
+    <section class="home-section home-products" aria-labelledby="products-title" data-reveal>
       <div class="cloud-shell">
-        <div class="cloud-section-heading">
-          <div>
-            <p class="cloud-eyebrow">基础设施能力</p>
-            <h2 id="capability-title">为业务提供持续支撑</h2>
-          </div>
-          <a class="cloud-text-link" href="{$setting.web_url}/cart">查看全部产品 <span aria-hidden="true">→</span></a>
+        <div class="home-section-heading">
+          <div><p class="home-kicker">核心产品</p><h2 id="products-title">一站覆盖常见业务场景</h2></div>
+          <p>从快速建站到高负载业务，按需求选择合适的基础设施。</p>
         </div>
+        <div class="home-product-switcher">
+          <div class="home-product-tabs" role="tablist" aria-label="产品类型">
+            <button id="product-tab-compute" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="product-panel-compute" data-product-tab="compute"><span>01</span><b>云服务器</b><small>弹性、易用的云上算力</small></button>
+            <button id="product-tab-dedicated" type="button" role="tab" aria-selected="false" aria-controls="product-panel-dedicated" tabindex="-1" data-product-tab="dedicated"><span>02</span><b>独立服务器</b><small>独享、稳定的硬件资源</small></button>
+            <button id="product-tab-network" type="button" role="tab" aria-selected="false" aria-controls="product-panel-network" tabindex="-1" data-product-tab="network"><span>03</span><b>网络与加速</b><small>低延迟的业务连接能力</small></button>
+          </div>
+          <div id="product-panel-compute" class="home-product-panel is-active" role="tabpanel" aria-labelledby="product-tab-compute" data-product-panel="compute">
+            <div class="home-product-copy">
+              <p class="home-product-label">Cloud Compute</p><h3>弹性云服务器</h3>
+              <p>计算、存储与网络资源按需组合，适用于企业官网、应用服务、开发测试和数据库等常见场景。</p>
+              <ul><li>规格灵活调整，匹配业务阶段</li><li>快速创建实例，缩短上线时间</li><li>控制台统一管理服务与账单</li></ul>
+              <div><a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">立即选购</a><a class="home-inline-link" href="{$setting.web_url}/knowledgebase">查看文档 <span aria-hidden="true">→</span></a></div>
+            </div>
+            <div class="home-product-visual" aria-hidden="true"><div class="home-server-stack"><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div><div class="home-product-meter"><small>资源可用状态</small><strong>99.9%</strong><span><i></i></span></div></div>
+          </div>
+          <div id="product-panel-dedicated" class="home-product-panel" role="tabpanel" aria-labelledby="product-tab-dedicated" hidden data-product-panel="dedicated">
+            <div class="home-product-copy">
+              <p class="home-product-label">Dedicated Server</p><h3>独立服务器</h3>
+              <p>整机资源独享，配置透明可控，为高性能计算、核心数据库与持续高负载业务提供稳定支撑。</p>
+              <ul><li>独享 CPU、内存与磁盘资源</li><li>适合持续高负载业务运行</li><li>多种线路与规格按需选择</li></ul>
+              <div><a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">查看配置</a><a class="home-inline-link" href="{$setting.web_url}/supporttickets">咨询选型 <span aria-hidden="true">→</span></a></div>
+            </div>
+            <div class="home-product-visual is-dedicated" aria-hidden="true"><div class="home-rack"><span></span><span></span><span></span><span></span><span></span></div><div class="home-product-meter"><small>专属资源</small><strong>100%</strong><span><i></i></span></div></div>
+          </div>
+          <div id="product-panel-network" class="home-product-panel" role="tabpanel" aria-labelledby="product-tab-network" hidden data-product-panel="network">
+            <div class="home-product-copy">
+              <p class="home-product-label">Network Service</p><h3>网络与加速</h3>
+              <p>优化终端到业务节点的连接路径，为网站、应用和跨区域访问提供更稳定顺畅的网络体验。</p>
+              <ul><li>多种线路覆盖不同访问区域</li><li>按业务需求选择带宽能力</li><li>配合云资源统一规划部署</li></ul>
+              <div><a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">选择服务</a><a class="home-inline-link" href="{$setting.web_url}/supporttickets">方案咨询 <span aria-hidden="true">→</span></a></div>
+            </div>
+            <div class="home-product-visual is-network" aria-hidden="true"><div class="home-network-map"><i></i><i></i><i></i><i></i><span></span><span></span><span></span></div><div class="home-product-meter"><small>连接状态</small><strong>稳定</strong><span><i></i></span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="cloud-capability-grid">
-          <a href="{$setting.web_url}/cart" class="cloud-capability-card">
-            <span class="cloud-capability-number">A</span>
-            <h3>多区域资源</h3>
-            <p>按业务访问区域选择合适的产品分组与线路。</p>
-            <span class="cloud-round-arrow" aria-hidden="true">→</span>
-          </a>
-          <a href="{$setting.web_url}/cart" class="cloud-capability-card">
-            <span class="cloud-capability-number">B</span>
-            <h3>灵活规格</h3>
-            <p>在商品配置页选择计费周期、配置项和附加服务。</p>
-            <span class="cloud-round-arrow" aria-hidden="true">→</span>
-          </a>
-          <a href="{$setting.web_url}/clientarea" class="cloud-capability-card">
-            <span class="cloud-capability-number">C</span>
-            <h3>统一控制台</h3>
-            <p>集中查看服务、账单、消息、工单和账户状态。</p>
-            <span class="cloud-round-arrow" aria-hidden="true">→</span>
-          </a>
-          <a href="{$setting.web_url}/supporttickets" class="cloud-capability-card">
-            <span class="cloud-capability-number">D</span>
-            <h3>技术支持</h3>
-            <p>通过工单系统持续跟进售前、交付和售后问题。</p>
-            <span class="cloud-round-arrow" aria-hidden="true">→</span>
-          </a>
+    <section class="home-section home-advantages" aria-labelledby="advantages-title" data-reveal>
+      <div class="cloud-shell">
+        <div class="home-section-heading"><div><p class="home-kicker">平台能力</p><h2 id="advantages-title">把复杂的基础设施，变成简单的服务</h2></div></div>
+        <div class="home-advantage-grid">
+          <article><span>01</span><h3>快速交付</h3><p>标准化配置流程帮助资源更快开通，减少重复等待。</p></article>
+          <article><span>02</span><h3>灵活扩展</h3><p>根据业务阶段调整规格与服务组合，避免资源浪费。</p></article>
+          <article><span>03</span><h3>统一管理</h3><p>在控制台集中查看产品、账单、消息与工单状态。</p></article>
+          <article><span>04</span><h3>持续支持</h3><p>从部署到运维，通过文档和工单持续获得帮助。</p></article>
+        </div>
+        <div class="home-stat-row" aria-label="服务承诺">
+          <div><strong>7 x 24</strong><span>支持通道</span></div><div><strong>按需</strong><span>灵活选配</span></div><div><strong>多场景</strong><span>业务覆盖</span></div><div><strong>一站式</strong><span>服务管理</span></div>
         </div>
       </div>
     </section>
 
     {if $www_top}
-    <section class="cloud-section cloud-product-directory" aria-labelledby="directory-title">
+    <section class="home-section home-directory" aria-labelledby="directory-title" data-reveal>
       <div class="cloud-shell">
-        <div class="cloud-section-heading">
-          <div>
-            <p class="cloud-eyebrow">服务目录</p>
-            <h2 id="directory-title">产品与解决方案</h2>
-          </div>
-        </div>
-        <div class="cloud-directory-grid">
+        <div class="home-section-heading"><div><p class="home-kicker">服务目录</p><h2 id="directory-title">探索全部产品与解决方案</h2></div><a class="home-inline-link" href="{$setting.web_url}/cart">进入产品中心 <span aria-hidden="true">→</span></a></div>
+        <div class="cloud-directory-grid home-directory-grid">
           {foreach $www_top as $nav}
           <article>
             <h3>{$nav.name}</h3>
@@ -161,9 +210,7 @@
               <li>
                 {if isset($child.son)}
                 <strong>{$child.name}</strong>
-                {foreach $child.son as $third}
-                <a href="{$third.url}" {if isset($third.tag)}{$third.tag}{/if}>{$third.name}</a>
-                {/foreach}
+                {foreach $child.son as $third}<a href="{$third.url}" {if isset($third.tag)}{$third.tag}{/if}>{$third.name}</a>{/foreach}
                 {else/}
                 <a href="{$child.url}" {if isset($child.tag)}{$child.tag}{/if}>{$child.name}</a>
                 {/if}
@@ -171,7 +218,7 @@
               {/foreach}
             </ul>
             {else/}
-            <a class="cloud-text-link" href="{$nav.url}">进入服务 <span aria-hidden="true">→</span></a>
+            <a class="home-inline-link" href="{$nav.url}">进入服务 <span aria-hidden="true">→</span></a>
             {/if}
           </article>
           {/foreach}
@@ -180,64 +227,37 @@
     </section>
     {/if}
 
-    <section class="cloud-cta">
-      <div class="cloud-shell cloud-cta-inner">
-        <div>
-          <p class="cloud-eyebrow">即刻上云</p>
-          <h2>选择适合当前业务的云产品</h2>
-          <p>商品、库存与价格以产品中心实时数据为准。</p>
+    <section class="home-section home-support" aria-labelledby="support-title" data-reveal>
+      <div class="cloud-shell">
+        <div class="home-section-heading"><div><p class="home-kicker">帮助与支持</p><h2 id="support-title">从了解产品，到解决问题</h2></div><p>常用服务入口集中呈现，让每一步都更直接。</p></div>
+        <div class="home-support-grid">
+          <a href="{$setting.web_url}/knowledgebase"><span>文</span><div><h3>帮助文档</h3><p>产品说明、使用指南与常见问题</p></div><b aria-hidden="true">→</b></a>
+          <a href="{$setting.web_url}/supporttickets"><span>工</span><div><h3>提交工单</h3><p>售前咨询、技术问题与售后跟进</p></div><b aria-hidden="true">→</b></a>
+          <a href="{$setting.web_url}/news"><span>告</span><div><h3>公告中心</h3><p>平台公告、产品动态与服务通知</p></div><b aria-hidden="true">→</b></a>
         </div>
-        <div>
-          <a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">进入产品中心</a>
-          <a class="cloud-button cloud-button-dark" href="{$setting.web_url}/supporttickets">咨询售前</a>
-        </div>
+      </div>
+    </section>
+
+    <section class="home-cta" data-reveal>
+      <div class="cloud-shell home-cta-inner">
+        <div><p class="home-kicker">现在开始</p><h2>为下一项业务，准备好云上资源</h2><p>产品价格、库存和可选配置以产品中心实时数据为准。</p></div>
+        <div><a class="cloud-button home-button-white" href="{$setting.web_url}/cart">进入产品中心</a><a class="cloud-button home-button-ghost" href="{$setting.web_url}/supporttickets">咨询售前</a></div>
       </div>
     </section>
   </main>
 
-  <footer class="cloud-footer">
+  <footer class="cloud-footer home-footer">
     <div class="cloud-shell cloud-footer-grid">
-      <div class="cloud-footer-brand">
-        <strong>{$setting.company_name}</strong>
-        <p>{$setting.company_profile}</p>
-      </div>
-      <div>
-        <h2>产品</h2>
-        <a href="{$setting.web_url}/cart">云服务器</a>
-        <a href="{$setting.web_url}/cart">独立服务器</a>
-        <a href="{$setting.web_url}/cart">网络与加速</a>
-      </div>
-      <div>
-        <h2>服务与支持</h2>
-        <a href="{$setting.web_url}/knowledgebase">文档中心</a>
-        <a href="{$setting.web_url}/news">系统公告</a>
-        <a href="{$setting.web_url}/supporttickets">提交工单</a>
-      </div>
-      <div>
-        <h2>账户</h2>
-        <a href="{$setting.web_url}/clientarea">控制台</a>
-        <a href="{$setting.web_url}/billing">账单中心</a>
-        <a href="{$setting.web_url}/register">注册账户</a>
-      </div>
-      <div class="cloud-footer-contact">
-        <h2>联系我们</h2>
-        {if $setting.company_phone}<span>电话：{$setting.company_phone}</span>{/if}
-        {if $setting.company_email}<span>邮箱：{$setting.company_email}</span>{/if}
-        {if $setting.company_address}<span>地址：{$setting.company_address}</span>{/if}
-      </div>
+      <div class="cloud-footer-brand"><strong>{$setting.company_name}</strong><p>{$setting.company_profile}</p></div>
+      <div><h2>产品</h2><a href="{$setting.web_url}/cart">云服务器</a><a href="{$setting.web_url}/cart">独立服务器</a><a href="{$setting.web_url}/cart">网络与加速</a></div>
+      <div><h2>服务支持</h2><a href="{$setting.web_url}/knowledgebase">帮助文档</a><a href="{$setting.web_url}/news">系统公告</a><a href="{$setting.web_url}/supporttickets">提交工单</a></div>
+      <div><h2>账户</h2><a href="{$setting.web_url}/clientarea">控制台</a><a href="{$setting.web_url}/billing">账单中心</a><a href="{$setting.web_url}/register">注册账户</a></div>
+      <div class="cloud-footer-contact"><h2>联系我们</h2>{if $setting.company_phone}<span>电话：{$setting.company_phone}</span>{/if}{if $setting.company_email}<span>邮箱：{$setting.company_email}</span>{/if}{if $setting.company_address}<span>地址：{$setting.company_address}</span>{/if}</div>
     </div>
     {if $f_links}
-    <div class="cloud-shell cloud-friend-links">
-      <strong>友情链接</strong>
-      {foreach $f_links as $link}
-      <a href="{$link.domain}" {$link.link_tag}>{$link.name}</a>
-      {/foreach}
-    </div>
+    <div class="cloud-shell cloud-friend-links"><strong>友情链接</strong>{foreach $f_links as $link}<a href="{$link.domain}" {$link.link_tag}>{$link.name}</a>{/foreach}</div>
     {/if}
-    <div class="cloud-shell cloud-footer-meta">
-      <span>&copy; {:date('Y')} {$setting.company_name}. All Rights Reserved.</span>
-      {if $setting.company_record}<span>{$setting.company_record}</span>{/if}
-    </div>
+    <div class="cloud-shell cloud-footer-meta"><span>&copy; {:date('Y')} {$setting.company_name}. All Rights Reserved.</span>{if $setting.company_record}<span>{$setting.company_record}</span>{/if}</div>
   </footer>
 </body>
 </html>

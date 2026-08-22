@@ -2,7 +2,7 @@
 {if $SuccessMsg}{include file="themes/clientarea/default/error/notifications.tpl" value="$SuccessMsg" url="{$Setting.system_url}/clientarea"}{/if}
 
 <script src="/themes/clientarea/default/assets/js/public.js?v={$Ver}"></script>
-<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.0" rel="stylesheet" type="text/css">
+<link href="/themes/clientarea/codex_framework/assets_custom/login.css?v={$Ver}-1.0.1" rel="stylesheet" type="text/css">
 <script>var mk = '{$Setting.msfntk}';</script>
 
 <main class="cf-auth-shell cf-login-shell cf-auth-shell-scroll">

@@ -51,7 +51,7 @@
           <div><span>实例明细</span><h2 id="resources-title">资源列表</h2></div>
           <button class="cf-icon-command" type="button" data-source-retry aria-label="刷新资源列表" title="刷新资源列表"><i class="bx bx-reset"></i></button>
         </header>
-        <div id="sourceListBox" class="cf-resource-list" aria-live="polite" data-loading="{$Lang.data_loading|default='数据加载中'}" data-error="资源列表加载失败，请稍后重试">
+        <div id="sourceListBox" class="cf-resource-list" aria-live="polite" aria-busy="false" data-loading="{$Lang.data_loading|default='数据加载中'}" data-error="资源列表加载失败，请稍后重试">
           <div class="cf-loading-state"><span></span>正在加载资源...</div>
         </div>
       </section>
@@ -102,4 +102,4 @@
   </div>
 </div>
 
-<script src="/themes/clientarea/codex_framework/assets_custom/js/dashboard.js?v=1.0.0"></script>
+<script src="/themes/clientarea/codex_framework/assets_custom/js/dashboard.js?v={$Ver}-1.0.1"></script>

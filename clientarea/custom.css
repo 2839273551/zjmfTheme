@@ -733,6 +733,9 @@ a:hover {
 .cf-sort-icons { display: inline-flex; flex-direction: column; margin-left: 5px; color: #aeb7bf; font-size: 10px; line-height: 0.65; vertical-align: middle; }
 .cf-status-dot { display: inline-block; width: 7px; height: 7px; margin-right: 7px; background: #a9b2bb; border-radius: 50%; }
 .cf-status-dot.is-success { background: var(--cf-green); }
+.cf-status-dot.is-warning { background: var(--cf-amber); }
+.cf-status-dot.is-danger { background: var(--cf-red); }
+.cf-status-dot.is-muted { background: #a9b2bb; }
 .cf-table-empty { display: flex; align-items: center; flex-direction: column; justify-content: center; gap: 6px; min-height: 130px; color: var(--cf-muted); }
 .cf-table-empty i { color: #b8c1c9; font-size: 30px; }
 .cf-resource-footer { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-top: 14px; color: var(--cf-muted); font-size: 11px; }
@@ -1373,7 +1376,7 @@ a:hover {
   .cf-loading-state > span { animation: none; }
 }
 
-/* Premium surface pass: clean surfaces, depth, and consistent interaction feedback. */
+/* Component surfaces and consistent interaction feedback. */
 .cf-app-page {
   background: var(--cf-bg);
 }

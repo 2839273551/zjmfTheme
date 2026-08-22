@@ -12,9 +12,13 @@ cart/                        Cart 购物车主题
 clientarea/                  Client Area 用户中心主题
 plugins/
 └─ geetest_captcha/          本项目开发的极验 GT4 插件
+文档/
+└─ 三端主题维护规范.md        三端模板、样式、脚本和发布检查规范
+scripts/
+└─ validate-theme.ps1        本地静态校验脚本
 ```
 
-四个目录均为服务器覆盖包，不能把仓库根目录直接作为网站根目录运行。
+Web、Cart、Client Area 和插件四个目录是服务器覆盖包，不能把仓库根目录直接作为网站根目录运行。
 
 ## 安装映射
 
@@ -43,9 +47,9 @@ clientarea_default_themes = codex_framework
 
 | 界面 | 当前版本 |
 | --- | --- |
-| Web | `1.0.0` |
-| Cart | `1.0.0` |
-| Client Area | `1.0.0` |
+| Web | `1.1.1` |
+| Cart | `1.0.1` |
+| Client Area | `1.0.1` |
 
 版本维护规则：
 
@@ -54,6 +58,8 @@ clientarea_default_themes = codex_framework
 - 该端主题自有静态资源 URL 的缓存参数必须与 `VERSION` 一致。Client Area 可保留平台 `{$Ver}` 前缀，例如 `?v={$Ver}-1.0.1`。
 - 平台父主题和第三方资源继续使用系统的 `{$Ver}`，不得为了主题版本统一而修改 `default`。
 - 被多端共同使用的文件发生变化时，应提升所有实际受影响端的版本。
+
+详细的代码维护、模板契约和验收规则见 [`文档/三端主题维护规范.md`](文档/三端主题维护规范.md)。提交前必须完成其中的静态检查清单；发现重复覆盖、状态硬编码或未保护的父主题变量时，不得直接发布。
 
 ## 当前功能
 
@@ -94,3 +100,10 @@ clientarea_default_themes = codex_framework
 - 服务器备份和暂存均按发布标识保留，原有 8 个文件已备份，原先缺失的 2 个 `VERSION` 已记录。
 - 10 个暂存文件和线上文件均通过 SHA-256 校验，所有者及权限为 `www:www 0644`，`php think clear` 成功。
 - 已使用真实首页、产品中心和可用商品配置页验收桌面与 390px 手机视口；AJAX skeleton、`aria-busy`、摘要恢复和加购按钮状态正常，无横向溢出或控制台错误。
+
+### 2026-08-22：三端维护性清理 1.1.1 / 1.0.1 / 1.0.1
+
+- Web：移除当前首页不再使用的旧 Hero/能力/CTA CSS，修复离场 skeleton 对新轮播的选择器，补齐轮播和产品 Tab 的 ARIA 关联，并让导航缺失时不阻断其他模块初始化。
+- Cart：将 Premium surface 样式合并回唯一规则源，移动端 hover 仅在支持 hover 的设备启用，移除 `:has()`，为配置状态增加兼容 class 同步，并保护父主题密码校验变量。
+- Client Area：按服务端状态渲染资源状态点，修复注册下拉回填和重复 DOM ID，补齐资源列表 AJAX 失败态、二次验证 Token 名称和主题缓存版本。
+- 本轮没有删除模板字段、Hook、表单 action、AJAX 参数或父主题 include。

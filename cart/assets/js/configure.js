@@ -101,6 +101,18 @@
     });
   }
 
+  function syncConfigureState() {
+    $('.configure-native .form-group.row').each(function () {
+      var row = $(this);
+      row.toggleClass('is-empty', !row.find('input, select, textarea, button').length);
+      row.toggleClass('is-dropdown-open', !!row.find('.bootstrap-select.show').length);
+    });
+
+    $('.configure-native .btn-group-toggle').each(function () {
+      $(this).toggleClass('has-disabled-option', !!$(this).find('> .btn input:disabled').length);
+    });
+  }
+
   $(function () {
     var passwordInput = $('#password');
     var randomPasswordControl = $('.create_random_pass');
@@ -134,6 +146,22 @@
         this.click();
       }
     });
+
+    syncConfigureState();
+
+    $(document).on('shown.bs.select.codexConfigure hidden.bs.select.codexConfigure', '.bootstrap-select', function () {
+      $(this).closest('.form-group.row').toggleClass('is-dropdown-open', $(this).hasClass('show'));
+    });
+
+    if (window.MutationObserver) {
+      var configureRoot = document.querySelector('.configure-native');
+      if (configureRoot) {
+        new MutationObserver(syncConfigureState).observe(configureRoot, {
+          childList: true,
+          subtree: true
+        });
+      }
+    }
 
     $(document).on('click.codexConfigure', '[data-configure-summary-retry]', function () {
       if (typeof window.configoption_ajax === 'function') {

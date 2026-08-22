@@ -1,5 +1,5 @@
 {include file="themes/web/codex_framework/static/cart/header.html" title="产品中心" /}
-<link rel="stylesheet" href="/themes/cart/codex_framework/assets/css/cart.css?v=1.0.0">
+<link rel="stylesheet" href="/themes/cart/codex_framework/assets/css/cart.css?v=1.0.1">
 
 <main class="store" id="cart-content">
   <div class="store-shell">
@@ -121,5 +121,5 @@
   <button class="store-category-overlay" type="button" aria-label="关闭产品菜单" data-category-overlay></button>
 </main>
 
-<script src="/themes/cart/codex_framework/assets/js/cart.js?v=1.0.0"></script>
+<script src="/themes/cart/codex_framework/assets/js/cart.js?v=1.0.1"></script>
 {include file="themes/web/codex_framework/static/cart/footer.html"/}
