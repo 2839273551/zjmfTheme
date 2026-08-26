@@ -81,7 +81,6 @@
         this.ready = false;
         this.token = null;
         this.pending = null;
-        this.allowSubmit = false;
         this.slot = null;
         this.status = null;
         this.captchaBox = null;
@@ -271,7 +270,6 @@
 
     function submitForm(form, gate) {
         gate.attachToken();
-        gate.allowSubmit = true;
         if (typeof form.requestSubmit === 'function') {
             form.requestSubmit();
         } else {
@@ -286,12 +284,11 @@
             if (!gate) {
                 return;
             }
-            if (gate.allowSubmit) {
-                gate.allowSubmit = false;
-                gate.attachToken();
+            if (event.defaultPrevented) {
                 return;
             }
-            if (event.defaultPrevented) {
+            if (gate.token) {
+                gate.attachToken();
                 return;
             }
 

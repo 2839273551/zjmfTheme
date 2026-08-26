@@ -1,4 +1,4 @@
-<link href="/themes/clientarea/codex_framework/assets_custom/service.css?v={$Ver}-1.0.1" rel="stylesheet" type="text/css">
+<link href="/themes/clientarea/codex_framework/assets_custom/service.css?v={$Ver}-1.0.2" rel="stylesheet" type="text/css">
 
 <section class="cf-service-page" aria-labelledby="cf-service-overview-title">
   <header class="cf-service-overview">

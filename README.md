@@ -45,8 +45,8 @@ clientarea_default_themes = codex_framework
 | --- | --- |
 | Web | `1.1.1` |
 | Cart | `1.0.1` |
-| Client Area | `1.0.1` |
-| GeeTest GT4 插件 | `1.0.2` |
+| Client Area | `1.0.2` |
+| GeeTest GT4 插件 | `1.0.3` |
 
 版本事实以各目录当前 `VERSION` 和插件声明为准；版本变化时同步更新本表。
 

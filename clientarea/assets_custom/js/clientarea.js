@@ -66,7 +66,11 @@
     }
   });
 
-  if (document.documentElement.dataset.cfAuthFormsBound !== "true") {
+  function bindAuthFormLoading() {
+    if (document.documentElement.dataset.cfAuthFormsBound === "true") {
+      return;
+    }
+
     document.documentElement.dataset.cfAuthFormsBound = "true";
     document.addEventListener("submit", function (event) {
       var form = event.target;
@@ -83,6 +87,12 @@
       submit.setAttribute("aria-busy", "true");
       submit.classList.add("is-loading");
     });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindAuthFormLoading);
+  } else {
+    bindAuthFormLoading();
   }
 
   var currentUrl = new URL(window.location.href);
