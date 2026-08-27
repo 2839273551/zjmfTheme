@@ -7,8 +7,8 @@
   <meta name="keywords" content="{$setting.web_seo_keywords}">
   <meta name="author" content="{$setting.company_name}">
   <title>{$setting.company_name} - 云计算服务</title>
-  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=1.1.1">
-  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=1.1.1"></script>
+  <link rel="stylesheet" href="/themes/web/codex_framework/static/css/framework.css?v=1.1.2">
+  <script defer src="/themes/web/codex_framework/static/js/framework.js?v=1.1.2"></script>
 </head>
 <body class="cloud-web-home home-v2">
   <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -57,21 +57,46 @@
 
     <section class="home-carousel" aria-label="精选云服务" aria-roledescription="轮播图" data-carousel>
       <div id="home-slide-0" class="home-slide home-slide-datacenter is-active" role="tabpanel" aria-labelledby="home-carousel-tab-0" aria-roledescription="幻灯片" aria-label="第 1 张，共 3 张" aria-hidden="false" data-slide>
-        <div class="cloud-shell home-slide-inner">
+        <div class="home-slide-atmosphere" aria-hidden="true">
+          <span class="home-slide-glow"></span>
+          <span class="home-slide-grid"></span>
+        </div>
+        <div class="cloud-shell home-slide-inner home-slide-split home-slide-split-panel">
           <div class="home-hero-copy">
-            <p class="home-kicker">云基础设施 · 稳定交付</p>
+            <p class="home-kicker home-hero-status"><span class="home-hero-status-dot" aria-hidden="true"></span>基础设施已就绪</p>
             <h1>{$setting.company_name}</h1>
+            <p class="home-hero-kicker">弹性云计算基础设施</p>
             <p class="home-hero-lead">{$setting.company_profile|default="为网站、应用与企业业务提供稳定、灵活、可持续扩展的云计算服务。"}</p>
             <div class="home-hero-actions">
               <a class="cloud-button cloud-button-primary" href="{$setting.web_url}/cart">选购云产品</a>
               <a class="cloud-button home-button-ghost" href="{$setting.web_url}/clientarea">进入控制台</a>
             </div>
-            <ul class="home-hero-points" aria-label="服务特点">
-              <li><strong>分钟级</strong><span>资源交付</span></li>
-              <li><strong>全天候</strong><span>工单支持</span></li>
-              <li><strong>按需</strong><span>弹性扩展</span></li>
-            </ul>
           </div>
+          <aside class="home-hero-panel" aria-label="服务概览">
+            <div class="home-hero-panel-head">
+              <span>服务概览</span>
+              <span class="home-hero-panel-live"><span aria-hidden="true"></span>运行中</span>
+            </div>
+            <dl class="home-hero-metrics">
+              <div>
+                <dt>交付时效</dt>
+                <dd>分钟级</dd>
+              </div>
+              <div>
+                <dt>节点覆盖</dt>
+                <dd>多区域</dd>
+              </div>
+              <div>
+                <dt>支持响应</dt>
+                <dd>7×24</dd>
+              </div>
+            </dl>
+            <div class="home-hero-panel-foot">
+              <span>弹性算力</span>
+              <span>稳定连接</span>
+              <span>按需交付</span>
+            </div>
+          </aside>
         </div>
       </div>
 

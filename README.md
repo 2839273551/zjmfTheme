@@ -43,7 +43,7 @@ clientarea_default_themes = codex_framework
 
 | 界面 | 版本 |
 | --- | --- |
-| Web | `1.1.1` |
+| Web | `1.1.2` |
 | Cart | `1.0.1` |
 | Client Area | `1.0.2` |
 | GeeTest GT4 插件 | `1.0.3` |
