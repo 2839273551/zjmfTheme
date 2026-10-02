@@ -668,6 +668,45 @@
     targetWindow.location.href = fallback;
   }
 
+  function updateThemeUI(isLight) {
+    var btn = document.getElementById('themeToggleBtn');
+    if (btn) {
+      btn.setAttribute('title', isLight ? '切换为黑色页面' : '切换为白色页面');
+      var sun = btn.querySelector('.theme-icon-sun');
+      var moon = btn.querySelector('.theme-icon-moon');
+      if (sun) sun.style.display = isLight ? 'none' : 'inline-flex';
+      if (moon) moon.style.display = isLight ? 'inline-flex' : 'none';
+    }
+    var sideText = document.getElementById('sidebarThemeText');
+    if (sideText) sideText.textContent = isLight ? '切换黑色页面' : '切换白色页面';
+    var sideIcon = document.getElementById('sidebarThemeIcon');
+    if (sideIcon) {
+      sideIcon.innerHTML = isLight
+        ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'
+        : '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    }
+  }
+
+  function toggleTheme() {
+    var isLight = !document.documentElement.classList.contains('theme-light');
+    document.documentElement.classList.toggle('theme-light', isLight);
+    if (document.body) document.body.classList.toggle('theme-light', isLight);
+    try {
+      localStorage.setItem('abcloud_theme_mode', isLight ? 'light' : 'dark');
+    } catch (e) {}
+    updateThemeUI(isLight);
+    toast(isLight ? '已切换为白色页面' : '已切换为黑色页面');
+  }
+
+  function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('abcloud_theme_mode'); } catch (e) {}
+    var isLight = saved === 'light';
+    document.documentElement.classList.toggle('theme-light', isLight);
+    if (document.body) document.body.classList.toggle('theme-light', isLight);
+    updateThemeUI(isLight);
+  }
+
   window.PluginAdmin = {
     renderItems: renderItems,
     renderLogs: renderLogs,
@@ -686,7 +725,9 @@
     pick: pick,
     moveItem: moveItem,
     applyNewOrder: applyNewOrder,
-    exitToFinance: exitToFinance
+    exitToFinance: exitToFinance,
+    toggleTheme: toggleTheme,
+    initTheme: initTheme
   };
 
   document.addEventListener('click', function (event) {
@@ -723,6 +764,7 @@
       toggle.setAttribute('aria-expanded', String(open));
     });
     if (backdrop) backdrop.addEventListener('click', closeMenu);
+    initTheme();
     if (C.page === 'resources' || C.picker) loadResources();
     if (C.page === 'operation_log') renderLogs();
     if (C.page === 'config' || C.page === 'carousel_global') configForm();
@@ -730,6 +772,7 @@
   });
 
   if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initTheme();
     if (C.page === 'resources' || C.picker) loadResources();
     if (C.page === 'operation_log') renderLogs();
     if (C.page === 'config' || C.page === 'carousel_global') configForm();

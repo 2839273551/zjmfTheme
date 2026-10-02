@@ -804,6 +804,163 @@ body.dark-mode .install-container .info { background: #1a1a3e; color: #ccc; }
   .top-exit-btn { padding: 0 8px; width: 32px; justify-content: center; }
 }
 
+/* ===== 白色/浅色主题 (White / Light Mode) ===== */
+html.theme-light body,
+body.theme-light {
+  background: #f5f7fa !important;
+  color: #303133 !important;
+}
+
+body.theme-light .top-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e4e7ed !important;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.06) !important;
+}
+body.theme-light .top-header-left .logo-text {
+  color: #1f2d3d !important;
+}
+body.theme-light .header-version {
+  color: #909399 !important;
+}
+body.theme-light .plugin-mobile-menu {
+  color: #303133 !important;
+}
+body.theme-light .tool-btn {
+  background: #f4f4f5 !important;
+  border: 1px solid #dcdfe6 !important;
+  color: #606266 !important;
+}
+body.theme-light .tool-btn svg {
+  color: #606266 !important;
+  stroke: #606266 !important;
+}
+body.theme-light .tool-btn:hover {
+  background: #ecf5ff !important;
+  border-color: #b3d8ff !important;
+  color: #409eff !important;
+}
+body.theme-light .tool-btn:hover svg {
+  color: #409eff !important;
+  stroke: #409eff !important;
+}
+body.theme-light .user-dropdown {
+  background: #f4f4f5 !important;
+  border: 1px solid #e4e7ed !important;
+}
+body.theme-light .user-dropdown:hover {
+  background: #e9e9eb !important;
+}
+body.theme-light .user-name {
+  color: #303133 !important;
+}
+body.theme-light .top-exit-btn {
+  background: #fef0f0 !important;
+  border-color: #fbc4c4 !important;
+  color: #f56c6c !important;
+}
+body.theme-light .top-exit-btn:hover {
+  background: #f56c6c !important;
+  border-color: #f56c6c !important;
+  color: #fff !important;
+}
+
+/* 侧边栏白色主题 */
+body.theme-light .sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e4e7ed !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03) !important;
+}
+body.theme-light .sidebar-menu a {
+  color: #4e5969 !important;
+}
+body.theme-light .sidebar-menu a .menu-icon svg {
+  color: #86909c !important;
+  stroke: #86909c !important;
+}
+body.theme-light .sidebar-menu a:hover {
+  color: #1890ff !important;
+  background: #f2f3f5 !important;
+}
+body.theme-light .sidebar-menu a:hover .menu-icon svg {
+  color: #1890ff !important;
+  stroke: #1890ff !important;
+}
+body.theme-light .sidebar-menu a.submenu-toggle.has-active-child {
+  color: #1890ff !important;
+  background: #e8f3ff !important;
+  font-weight: 500 !important;
+}
+body.theme-light .sidebar-menu a.submenu-toggle.has-active-child .menu-icon svg {
+  color: #1890ff !important;
+  stroke: #1890ff !important;
+}
+body.theme-light .sidebar-menu a.active:not(.submenu-toggle) {
+  color: #fff !important;
+  background: #1890ff !important;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3) !important;
+}
+body.theme-light .sidebar-menu a.active:not(.submenu-toggle) .menu-icon svg {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+body.theme-light .sidebar-menu .submenu {
+  background: #f7f8fa !important;
+  border: 1px solid #f0f2f5 !important;
+}
+body.theme-light .sidebar-menu .submenu a {
+  color: #606266 !important;
+}
+body.theme-light .sidebar-menu .submenu a:hover {
+  color: #1890ff !important;
+  background: #eef2f7 !important;
+}
+body.theme-light .sidebar-menu .submenu a.active {
+  color: #fff !important;
+  background: #1890ff !important;
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25) !important;
+}
+body.theme-light .sidebar-menu .submenu-arrow {
+  color: #86909c !important;
+}
+body.theme-light .sidebar-divider {
+  border-top-color: #ebeef5 !important;
+}
+body.theme-light .sidebar-theme-link {
+  color: #409eff !important;
+}
+body.theme-light .sidebar-theme-link:hover {
+  background: #ecf5ff !important;
+}
+body.theme-light .sidebar-exit-link {
+  color: #f56c6c !important;
+}
+body.theme-light .sidebar-exit-link:hover {
+  background: #fef0f0 !important;
+  color: #f56c6c !important;
+}
+
+/* 主内容区白色主题增强 */
+body.theme-light .tab-bar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e4e7ed !important;
+}
+body.theme-light .plugin-card {
+  background: #ffffff !important;
+  border: 1px solid #e4e7ed !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.03) !important;
+}
+body.theme-light .plugin-stat {
+  background: #ffffff !important;
+  border: 1px solid #ebeef5 !important;
+}
+body.theme-light .plugin-table th {
+  background: #f8f9fb !important;
+  color: #606266 !important;
+}
+body.theme-light .plugin-table td {
+  border-bottom: 1px solid #ebeef5 !important;
+}
+
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
   .sidebar { width: 0; overflow: hidden; }

@@ -98,6 +98,9 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= $e($pageNames[$page] ?? 'ABCLOUD 管理后台') ?></title>
+    <script>
+    (function(){try{if(localStorage.getItem('abcloud_theme_mode')==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
+    </script>
     <link rel="stylesheet" href="<?= $e($context['assetUrl']) ?>/css/admin.css">
     <style>
         .layout>.main{min-width:0;max-width:100%}
@@ -211,12 +214,51 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
         .plugin-chip.off{background:#fef0f0;color:#f56c6c}
         @media(max-width:900px){.plugin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plugin-field{grid-template-columns:1fr;gap:4px}.plugin-field>label{text-align:left;padding-top:0}.plugin-actions{padding-left:0}.plugin-table{min-width:760px}.plugin-card{overflow:auto}.content-box{overflow-x:auto}}
         @media(max-width:560px){.plugin-grid{grid-template-columns:1fr}.plugin-toolbar{align-items:stretch}.plugin-toolbar .left,.plugin-toolbar .right{width:100%}.plugin-toolbar button,.plugin-toolbar .plugin-input{flex:1}.plugin-dialog-body{padding:14px}.top-exit-btn span{display:none}.top-exit-btn{padding:0 8px;width:32px;justify-content:center}}
+        /* 白色/浅色主题适配 */
+        html.theme-light body,body.theme-light{background:#f5f7fa!important;color:#303133!important}
+        body.theme-light .top-header{background:#fff!important;border-bottom:1px solid #e4e7ed!important;box-shadow:0 1px 4px rgba(0,21,41,.06)!important}
+        body.theme-light .top-header-left .logo-text{color:#1f2d3d!important}
+        body.theme-light .header-version{color:#909399!important}
+        body.theme-light .plugin-mobile-menu{color:#303133!important}
+        body.theme-light .tool-btn{background:#f4f4f5!important;border:1px solid #dcdfe6!important;color:#606266!important}
+        body.theme-light .tool-btn svg{color:#606266!important;stroke:#606266!important}
+        body.theme-light .tool-btn:hover{background:#ecf5ff!important;border-color:#b3d8ff!important;color:#409eff!important}
+        body.theme-light .tool-btn:hover svg{color:#409eff!important;stroke:#409eff!important}
+        body.theme-light .user-dropdown{background:#f4f4f5!important;border:1px solid #e4e7ed!important}
+        body.theme-light .user-dropdown:hover{background:#e9e9eb!important}
+        body.theme-light .user-name{color:#303133!important}
+        body.theme-light .top-exit-btn{background:#fef0f0!important;border-color:#fbc4c4!important;color:#f56c6c!important}
+        body.theme-light .top-exit-btn:hover{background:#f56c6c!important;border-color:#f56c6c!important;color:#fff!important}
+        body.theme-light .sidebar{background:#fff!important;border-right:1px solid #e4e7ed!important;box-shadow:2px 0 8px rgba(0,0,0,.03)!important}
+        body.theme-light .sidebar-menu a{color:#4e5969!important}
+        body.theme-light .sidebar-menu a .menu-icon svg{color:#86909c!important;stroke:#86909c!important}
+        body.theme-light .sidebar-menu a:hover{color:#1890ff!important;background:#f2f3f5!important}
+        body.theme-light .sidebar-menu a:hover .menu-icon svg{color:#1890ff!important;stroke:#1890ff!important}
+        body.theme-light .sidebar-menu a.submenu-toggle.has-active-child{color:#1890ff!important;background:#e8f3ff!important;font-weight:500!important}
+        body.theme-light .sidebar-menu a.submenu-toggle.has-active-child .menu-icon svg{color:#1890ff!important;stroke:#1890ff!important}
+        body.theme-light .sidebar-menu a.active:not(.submenu-toggle){color:#fff!important;background:#1890ff!important;box-shadow:0 2px 8px rgba(24,144,255,.3)!important}
+        body.theme-light .sidebar-menu a.active:not(.submenu-toggle) .menu-icon svg{color:#fff!important;stroke:#fff!important}
+        body.theme-light .sidebar-menu .submenu{background:#f7f8fa!important;border:1px solid #f0f2f5!important}
+        body.theme-light .sidebar-menu .submenu a{color:#606266!important}
+        body.theme-light .sidebar-menu .submenu a:hover{color:#1890ff!important;background:#eef2f7!important}
+        body.theme-light .sidebar-menu .submenu a.active{color:#fff!important;background:#1890ff!important;box-shadow:0 2px 6px rgba(24,144,255,.25)!important}
+        body.theme-light .sidebar-menu .submenu-arrow{color:#86909c!important}
+        body.theme-light .sidebar-divider{border-top-color:#ebeef5!important}
+        body.theme-light .sidebar-theme-link{color:#409eff!important}
+        body.theme-light .sidebar-theme-link:hover{background:#ecf5ff!important}
+        body.theme-light .sidebar-exit-link{color:#f56c6c!important}
+        body.theme-light .sidebar-exit-link:hover{background:#fef0f0!important;color:#f56c6c!important}
+        body.theme-light .tab-bar{background:#fff!important;border-bottom:1px solid #e4e7ed!important}
+        body.theme-light .plugin-card{background:#fff!important;border:1px solid #e4e7ed!important;box-shadow:0 2px 12px 0 rgba(0,0,0,.03)!important}
+        body.theme-light .plugin-stat{background:#fff!important;border:1px solid #ebeef5!important}
+        body.theme-light .plugin-table th{background:#f8f9fb!important;color:#606266!important}
+        body.theme-light .plugin-table td{border-bottom:1px solid #ebeef5!important}
     </style>
 </head>
 <body class="<?= $isPicker ? 'resource-picker' : '' ?>">
 <div class="top-header">
     <div class="top-header-left"><button class="plugin-mobile-menu" id="pluginMenuToggle" type="button" aria-label="打开管理菜单" aria-expanded="false">☰</button><div class="header-logo plugin-brand"><img src="<?= $e($context['assetUrl']) ?>/img/APE.png" alt="ABCLOUD"><span class="logo-text">ABCLOUD 主题管理</span></div><div class="header-version"><?= $e(date('Y年n月j日')) ?></div></div>
-    <div class="top-header-right"><div class="header-tools"><button class="tool-btn" type="button" title="刷新页面" onclick="location.reload()"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></button><button class="tool-btn" type="button" title="切换全屏" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></button></div><div class="user-dropdown"><div class="user-avatar" title="当前登录管理员"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><span class="user-name"><?= $e($context['adminName']) ?></span></div><button class="top-exit-btn" type="button" title="一键退出插件回到财务后台" onclick="PluginAdmin.exitToFinance()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span>返回财务后台</span></button></div>
+    <div class="top-header-right"><div class="header-tools"><button class="tool-btn theme-toggle-btn" id="themeToggleBtn" type="button" title="切换白色/黑色页面" onclick="PluginAdmin.toggleTheme()"><span class="theme-icon-sun" style="display:inline-flex"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span><span class="theme-icon-moon" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span></button><button class="tool-btn" type="button" title="刷新页面" onclick="location.reload()"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></button><button class="tool-btn" type="button" title="切换全屏" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></button></div><div class="user-dropdown"><div class="user-avatar" title="当前登录管理员"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><span class="user-name"><?= $e($context['adminName']) ?></span></div><button class="top-exit-btn" type="button" title="一键退出插件回到财务后台" onclick="PluginAdmin.exitToFinance()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span>返回财务后台</span></button></div>
 </div>
 <?php if ($isPicker): ?>
 <div class="layout"><div class="main" style="margin-left:0;width:100%"><div class="content-box"><div class="plugin-toolbar"><div><b>资源库选择器</b><span class="plugin-note">点击资源即可返回原表单</span></div><a class="layui-btn layui-btn-sm" href="javascript:window.close()">关闭</a></div><div id="resourcePickerRoot"></div></div></div></div>
@@ -234,7 +276,8 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
         <li><a href="<?= $e($navUrl('resources')) ?>" class="<?= $page==='resources'?'active':'' ?>"><span class="menu-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span><span class="menu-title">资源库管理</span></a></li>
         <li><a href="<?= $e($navUrl('config')) ?>" class="<?= $page==='config'?'active':'' ?>"><span class="menu-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span><span class="menu-title">网站配置</span></a></li>
         <li><a href="<?= $e($navUrl('operation_log')) ?>" class="<?= $page==='operation_log'?'active':'' ?>"><span class="menu-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span><span class="menu-title">操作日志</span></a></li>
-        <li style="margin:10px 12px;border-top:1px solid rgba(255,255,255,0.08)"></li>
+        <li style="margin:10px 12px;border-top:1px solid rgba(255,255,255,0.08)" class="sidebar-divider"></li>
+        <li><a href="javascript:;" onclick="PluginAdmin.toggleTheme()" class="sidebar-theme-link" title="切换浅色/深色主题"><span class="menu-icon"><svg id="sidebarThemeIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span><span class="menu-title" id="sidebarThemeText">切换白色页面</span></a></li>
         <li><a href="javascript:;" onclick="PluginAdmin.exitToFinance()" class="sidebar-exit-link" title="退出插件回到财务后台"><span class="menu-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></span><span class="menu-title">返回财务后台</span></a></li>
     </ul></div>
     <div class="main"><div class="tab-bar"><span class="page-title"><?= $e($pageNames[$page] ?? '') ?></span></div><div class="content-box">
@@ -259,5 +302,5 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
 window.PLUGIN_CONTEXT = {page:<?= $j($page) ?>,module:<?= $j($module) ?>,items:<?= $j($items) ?>,configs:<?= $j($configs) ?>,logs:<?= $j($rows) ?>,csrf:<?= $j($context['csrfToken']) ?>,pageUrl:<?= $j($context['pageUrl']) ?>,adminUrl:<?= $j($context['adminUrl'] ?? '/admin/') ?>,apiUrl:<?= $j($context['apiUrl']) ?>,assetUrl:<?= $j($context['assetUrl']) ?>,publicUrl:<?= $j($context['publicUrl']) ?>,picker:<?= $isPicker?'true':'false' ?>,pickerField:<?= $j($pickerField) ?>};
 window.BASE_URL=window.PLUGIN_CONTEXT.pageUrl; window.PAGE_URL=window.PLUGIN_CONTEXT.pageUrl; window.API_URL=window.PLUGIN_CONTEXT.apiUrl; window.CSRF_TOKEN=window.PLUGIN_CONTEXT.csrf;
 </script>
-<script src="<?= $e($context['assetUrl']) ?>/js/plugin-admin.js?v=1.0.3"></script>
+<script src="<?= $e($context['assetUrl']) ?>/js/plugin-admin.js?v=1.0.4"></script>
 </body></html>
