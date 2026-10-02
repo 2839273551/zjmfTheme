@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{$setting.company_profile}">
+    <meta name="keywords" content="{$setting.web_seo_keywords}">
+    <title>{$setting.company_name} - 云计算服务</title>
+    <link rel="icon" href="/themes/web/ABCLOUD/static/ape/upload/logo.png" type="image/png">
+    <!-- 引入Bootstrap 5 CSS -->
+    <link href="/themes/web/ABCLOUD/static/ape/css/bootstrap.min.css?v=3.0.0" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/web/ABCLOUD/static/ape/css/common.css?v=3.0.0">
+    <link rel="stylesheet" href="/themes/web/ABCLOUD/static/ape/css/public.css?v=3.0.0">
+    <link rel="stylesheet" href="/themes/web/ABCLOUD/static/ape/css/index.css?v=3.0.0">
+    <link rel="stylesheet" href="/themes/web/ABCLOUD/static/ape/css/theme-integration.css?v=3.0.0">
+    <link rel="preload" as="script" href="/themes/web/ABCLOUD/static/ape/lib/echarts/echarts.min.js?v=3.0.0">
+    <link rel="preload" as="script" href="/themes/web/ABCLOUD/static/ape/lib/echarts-gl/echarts-gl.min.js?v=3.0.0">
+
+    <!-- 本地预览保留源站头部的用户下拉菜单契约 -->
+    <style>
+        .ape-user-box { position: relative; display: inline-flex; align-items: center; }
+        .ape-user-btn { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; border-radius: 20px; transition: background 0.2s; }
+        .ape-user-btn:hover { background: rgba(0, 0, 0, 0.04); }
+        .ape-user-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; background: #409eff; }
+        .ape-user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .ape-user-name { font-size: 14px; color: #333; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .ape-user-arrow { color: #999; transition: transform 0.3s; }
+        .ape-user-box.active .ape-user-arrow { transform: rotate(180deg); }
+        .ape-user-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; min-width: 200px; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); padding: 8px 0; z-index: 9999; }
+        .ape-user-box.active .ape-user-panel { display: block; }
+        .ape-user-panel-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 14px; color: #333; cursor: pointer; transition: background 0.2s; }
+        .ape-user-panel-item:hover { background: #f5f7fa; }
+        .ape-user-panel-item svg { flex-shrink: 0; color: #606266; }
+        .ape-panel-val { margin-left: auto; color: #409eff; font-weight: 600; font-size: 13px; }
+        .ape-panel-tag { margin-left: auto; font-size: 12px; padding: 2px 8px; border-radius: 10px; }
+        .ape-panel-tag.cert-yes { background: #f0f9eb; color: #67c23a; }
+        .ape-panel-logout, .ape-panel-logout svg { color: #f56c6c; }
+        .ape-login-group { display: flex; align-items: center; height: 60px; white-space: nowrap; }
+        .ape-mobile-user-panel { display: none; position: absolute; top: 100%; right: 0; min-width: 220px; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); padding: 12px 16px; z-index: 9999; margin-top: 8px; }
+        .ape-mobile-user-panel.active { display: flex; gap: 12px; }
+        .ape-mobile-user-panel a { flex: 1; padding: 8px 12px; text-align: center; text-decoration: none; border: 1px solid #d9d9d9; border-radius: 4px; color: #333; }
+        .ape-mobile-user-panel a:last-child { color: #fff; background: #1a6dd4; border-color: #1a6dd4; }
+        @media (min-width: 1281px) and (max-width: 1500px) {
+            .public-nav li { padding: 0; }
+            .public-nav li a { padding: 0 10px; font-size: 13px; }
+            .public-header-left { padding-left: 12px; }
+            .public-header .public-logo { width: 110px; }
+            .public-header-search { margin-right: 8px; padding: 0 8px; }
+            .public-search-input { width: 90px; }
+            .public-entry-nav a { padding: 0 6px; margin-right: 4px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
+        .popup-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9999; display: none; align-items: center; justify-content: center; }
+        .popup-modal { background: #fff; border-radius: 8px; max-width: 640px; width: 90%; max-height: 80vh; overflow: hidden; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15); display: flex; flex-direction: column; }
+        .popup-header { padding: 20px 24px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .popup-header h3 { margin: 0; font-size: 18px; color: #1a1a1a; font-weight: 700; }
+        .popup-close { background: none; border: none; font-size: 26px; cursor: pointer; color: #999; padding: 0; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 4px; flex-shrink: 0; }
+        .popup-close:hover { color: #333; background: #f0f0f0; }
+        .popup-body { padding: 0 24px 20px; overflow-y: auto; flex: 1; }
+        .popup-content { color: #444; line-height: 1.8; font-size: 14px; }
+        .popup-content p { margin: 0 0 12px; }
+        .popup-content pre { background: #f5f7fa; border: 1px solid #e8e8e8; border-radius: 4px; padding: 12px 16px; font-size: 13px; color: #333; overflow-x: auto; margin: 12px 0; line-height: 1.6; }
+        .popup-content a { color: #409eff; text-decoration: none; }
+        .popup-footer { padding: 16px 24px 20px; display: flex; justify-content: flex-end; border-top: 1px solid #f0f0f0; }
+        .popup-btn { padding: 8px 28px; font-size: 14px; border-radius: 4px; cursor: pointer; border: 1px solid #d9d9d9; background: #f0f0f0; color: #666; }
+        .popup-btn:hover { background: #e8e8e8; color: #333; }
+    </style>
+
+</head>
+<body class="ape-web-home">
+    {tagdata name="helpList,helpCate" /}
+    <template id="apeHelpSource">
+        {if isset($helpList.list)}
+        {foreach $helpList.list as $doc}
+        {if isset($doc.id) && isset($doc.title)}
+        <a href="/knowledgebaseview?id={$doc.id}" data-date="{$doc.create_time|default=''}">{$doc.title}</a>
+        {/if}
+        {/foreach}
+        {/if}
+    </template>
+    <a class="ape-skip-link" href="#main-content">跳到主要内容</a>
+    <!-- 顶部公告条 -->
+    <div class="public-notice show" id="apeTopNotice" style="min-height: 38px; line-height: 38px; background: rgb(21, 28, 67); color: rgb(255, 255, 255);">
+        <div class="public-notice-inner" style="justify-content: center; min-height: 38px; background: rgb(21, 28, 67);">
+            <div class="public-notice-body" style="display: flex; align-items: center; gap: 8px;">
+                <svg class="public-notice-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="public-notice-text">最新公告加载中...</span>
+            </div>
+            <span class="public-notice-close" id="closeNoticeBtn" style="color: #fff; cursor: pointer; margin-left: 12px; font-size: 18px; line-height: 1;" title="关闭">&times;</span>
+        </div>
+    </div>
+
+    <!-- 头部信息 -->
+    <header class="public-header" style="top: 38px;">
+        <div class="wrap">
+            <div class="public-header-left">
+                <a class="public-logo" href="{$setting.web_url}">
+                    {if $setting.web_logo}
+                    <img id="apeSiteLogo" src="{$setting.web_logo}" alt="{$setting.company_name}" style="height: 40px; width: auto; object-fit: contain;" />
+                    {else/}
+                    <span class="ape-brand-fallback">{$setting.company_name}</span>
+                    {/if}
+                </a>
+                <ul class="public-nav" id="publicNav">
+                    <li><a href="{$setting.web_url}" class="nav-parent active">首页</a></li>
+                    <li class="has-mega" data-mega-type="product" data-product-menu="1">
+                        <a href="javascript:void(0)" class="nav-parent">
+                            <span class="nav-hot-tag">HOT</span>
+                            产品与服务
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                        <div class="mega-menu">
+                            <div class="mega-menu-close" title="关闭"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                            <div class="mega-menu-inner">
+                                <div class="mega-menu-left mega-cat-list"></div>
+                                <div class="mega-menu-right">
+                                    <div class="mega-product-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="has-mega" data-mega-type="solution">
+                        <a href="javascript:void(0)" class="nav-parent">
+                            解决方案
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                        <div class="mega-menu">
+                            <div class="mega-menu-close" title="关闭"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                            <div class="mega-menu-inner">
+                                <div class="mega-menu-left mega-cat-list">
+                                    <div class="mega-cat-item active" data-cat="ind">行业解决方案</div>
+                                    <div class="mega-cat-item" data-cat="comm">通用解决方案</div>
+                                </div>
+                                <div class="mega-menu-right">
+                                    <div class="mega-solution-content">
+                                        <div class="mega-solution-group" data-cat="ind" style="display:grid;">
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">企业级网站</div><div class="mega-solution-desc">助您打造专业、高效的品牌官网</div></a>
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">游戏云</div><div class="mega-solution-desc">高效稳定的游戏云，提升玩家体验</div></a>
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">移动云</div><div class="mega-solution-desc">一站式移动云，助力企业无缝拓展</div></a>
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">电商云</div><div class="mega-solution-desc">轻松打造线上商城，实现数字化经营</div></a>
+                                        </div>
+                                        <div class="mega-solution-group" data-cat="comm" style="display:none;">
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">云存储方案</div><div class="mega-solution-desc">海量云存储服务，数据安全按需付费</div></a>
+                                            <a href="#industry-solutions" class="mega-solution-card"><div class="mega-solution-name">CDN加速方案</div><div class="mega-solution-desc">全球CDN加速，提升访问速度降低延迟</div></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="javascript:void(0)" class="nav-parent">
+                            生态合作
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                        <ul class="nav-dropdown">
+                            <li><a href="#partners">百站赞助公益计划<span class="nav-desc">赞助百个站点服务器资源，支持健康发展</span></a></li>
+                            <li><a href="#partners">技术合作伙伴<span class="nav-desc">共同发展，实现互利共赢的合作关系</span></a></li>
+                            <li><span class="ape-nav-inert">推广返利<span class="nav-desc">享受推广优惠，轻松赚取额外收益</span></span></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="javascript:void(0)" class="nav-parent">
+                            <span class="nav-hot-tag" style="background: #52c41a;">NEW</span>
+                            应用市场
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                        <ul class="nav-dropdown">
+                            <li><a href="#cloud-market">宝塔面板<span class="nav-desc">服务器管理面板，简单易用高效</span></a></li>
+                            <li><a href="#cloud-market">建站程序<span class="nav-desc">WordPress等主流建站程序一键部署</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="javascript:void(0)" class="nav-parent">
+                            支持与服务
+                            <svg class="nav-arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </a>
+                        <ul class="nav-dropdown">
+                            <li><a href="{$setting.web_url}/knowledgebase">帮助文档<span class="nav-desc">详细的使用指南和常见问题解答</span></a></li>
+                            <li><a href="{$setting.web_url}/supporttickets">提交工单<span class="nav-desc">遇到问题提交工单，我们尽快为您解决</span></a></li>
+                            <li><a href="#service-assurance">服务保障<span class="nav-desc">全方位保障，确保您的服务安全可靠</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#footer">关于我们</a></li>
+                </ul>
+            </div>
+
+            <div class="public-header-right">
+                <div class="public-header-right-nav">
+                    <form class="public-header-search" role="search" action="{$setting.web_url}/knowledgebase" method="get">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="search" name="keywords" class="public-search-input" aria-label="搜索产品或文档" placeholder="搜索产品/文档">
+                    </form>
+                    <div class="public-entry-nav">
+                        <a href="{$setting.web_url}/knowledgebase">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            文档中心
+                        </a>
+                        <span style="margin: 0 8px; display: flex; align-items: center; height: 60px;">|</span>
+                        <a href="{$setting.web_url}/clientarea">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            控制台
+                        </a>
+                        {if !$userInfo}
+                        <span class="ape-login-group" id="apeLoginGroup">
+                            <span class="ape-login-divider" style="margin: 0 8px; display: flex; align-items: center; height: 60px;">|</span>
+                            <a href="{$setting.web_url}/login" id="apeLoginBtn">登录</a>
+                        </span>
+                        {else/}
+                        <div class="ape-user-box" id="apeUserBox" data-auth-state="authenticated">
+                            <div class="ape-user-btn" id="apeUserBtn">
+                                <span class="ape-user-avatar" id="apeAvatar"><img src="/themes/web/ABCLOUD/static/ape/icon/grzx.png" alt="头像" id="apeAvatarImg"></span>
+                                <span class="ape-user-name" id="apeDisplayName">个人中心</span>
+                                <svg class="ape-user-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div class="ape-user-panel" id="apeUserPanel">
+                                <a class="ape-user-panel-item" href="{$setting.web_url}/clientarea">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                    <span>用户中心</span>
+                                </a>
+                                <a class="ape-user-panel-item" href="{$setting.web_url}/clientarea">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                                    <span>余额充值</span>
+                                </a>
+                                <a class="ape-user-panel-item ape-panel-logout" id="apeLogoutBtn" href="{$setting.web_url}/logout">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                    <span>退出登录</span>
+                                </a>
+                            </div>
+                        </div>
+                        {/if}
+                    </div>
+                    {if !$userInfo}<a href="{$setting.web_url}/register" class="public-entry-reg" id="apeRegBtn"><img src="/themes/web/ABCLOUD/static/ape/icon/zctb.png" alt="" width="18" height="18">快速注册</a>{/if}
+                </div>
+                <div class="public-header-right-m-nav">
+                    <div class="public-header-right-m-nav-btn" data-title="user" id="apeMobileUserBtn" role="button" tabindex="0" aria-controls="apeMobileUserPanel" aria-expanded="false">
+                        <img src="/themes/web/ABCLOUD/static/ape/icon/grzx.png" alt="个人中心" width="28" height="28">
+                    </div>
+                    <div class="ape-mobile-user-panel" id="apeMobileUserPanel">
+                        {if $userInfo}
+                        <a href="{$setting.web_url}/clientarea">个人中心</a><a href="{$setting.web_url}/logout">退出</a>
+                        {else/}
+                        <a href="{$setting.web_url}/login">登录</a><a href="{$setting.web_url}/register">注册</a>
+                        {/if}
+                    </div>
+                    <div class="public-header-right-m-nav-btn hamburger" data-title="menu">
+                        <div class="hamburger__line"></div>
+                        <div class="hamburger__line"></div>
+                        <div class="hamburger__line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单抽屉 -->
+    <div class="mobile-menu-overlay">
+        <div class="mobile-menu-container">
+            <div class="mobile-menu-left">
+                <ul class="mobile-menu-list">
+                    <li class="mobile-menu-item"><a href="{$setting.web_url}" class="mobile-menu-link">首页</a></li>
+                    <li class="mobile-menu-item"><a href="{$setting.web_url}/cart" class="mobile-menu-link">产品</a></li>
+                    <li class="mobile-menu-item"><a href="{$setting.web_url}/knowledgebase" class="mobile-menu-link">文档中心</a></li>
+                    <li class="mobile-menu-item"><a href="{$setting.web_url}/clientarea" class="mobile-menu-link">控制台</a></li>
+                </ul>
+            </div>
+            <div class="mobile-menu-right"></div>
+        </div>
+    </div>
+
+    <main id="main-content">
+    <!-- 轮播图部分（完全依照开源原版） -->
+    <div class="banner-container" id="banner" data-effect="default" style="--banner-height: 600px; --progress-height: 42px; --progress-bar: 4px; --video-zoom: 35px;">
+        <!-- 侧边导航 -->
+        <div class="banner-sidebar" id="bannerSidebar">
+            <div class="banner-nav-item active" data-index="0">实例轮播图</div>
+        </div>
+
+        <!-- 轮播项 -->
+        <div class="banner-inner" id="bannerInner">
+            <div class="banner-item banner-item-image pc-theme-black mobile-theme-black active" data-index="0">
+                <img src="/themes/web/ABCLOUD/static/ape/upload/img/1.png" class="banner-mobile-img" alt="实例轮播图" style="display: block;">
+                <div class="banner-text-wrapper">
+                    <div class="banner-text">
+                        <div class="banner-label-row">
+                            <span class="banner-label-text">APE模板</span>
+                            <span class="banner-label">推荐</span>
+                        </div>
+                        <h1 class="banner-title">实例轮播图</h1>
+                        <p class="banner-desc">实例轮播图展示</p>
+                        <a href="{$setting.web_url}/cart" class="banner-btn">了解详情</a>
+                        <div class="banner-dots-inline">
+                            <button class="banner-dot inline-dot active" data-index="0"><span class="dot-progress"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 进度条指示器 -->
+        <div class="banner-dots" id="bannerDots">
+            <button class="banner-dot active" data-index="0"><span class="dot-progress"></span></button>
+        </div>
+
+        <!-- 左右切换按钮 -->
+        <button class="banner-arrow banner-prev" id="bannerPrev" aria-label="上一张">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="banner-arrow banner-next" id="bannerNext" aria-label="下一张">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+    </div>
+
+    <!-- 用户红圈圈出的核心区域：快捷入口区域（透明毛玻璃效果 + 5大卡片） -->
+    <section class="feature-buttons-section animate-in">
+        <div class="feature-buttons-container" id="featureList">
+            <a href="{$setting.web_url}" class="feature-entry-item">
+                <div class="feature-icon"><img src="/themes/web/ABCLOUD/static/ape/upload/icon/1.png" alt="轮播图管理"></div>
+                <div class="feature-info">
+                    <h3 class="feature-title">轮播图管理</h3>
+                    <p class="feature-desc">管理首页轮播图内容</p>
+                </div>
+                <div class="feature-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+            <a href="{$setting.web_url}" class="feature-entry-item">
+                <div class="feature-icon"><img src="/themes/web/ABCLOUD/static/ape/upload/icon/2.png" alt="快捷入口"></div>
+                <div class="feature-info">
+                    <h3 class="feature-title">快捷入口</h3>
+                    <p class="feature-desc">管理首页快捷入口</p>
+                </div>
+                <div class="feature-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+            <a href="{$setting.web_url}" class="feature-entry-item">
+                <div class="feature-icon"><img src="/themes/web/ABCLOUD/static/ape/upload/icon/3.png" alt="导航管理"></div>
+                <div class="feature-info">
+                    <h3 class="feature-title">导航管理</h3>
+                    <p class="feature-desc">管理顶部和底部导航</p>
+                </div>
+                <div class="feature-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+            <a href="{$setting.web_url}" class="feature-entry-item">
+                <div class="feature-icon"><img src="/themes/web/ABCLOUD/static/ape/upload/icon/4.png" alt="弹窗通知"></div>
+                <div class="feature-info">
+                    <h3 class="feature-title">弹窗通知</h3>
+                    <p class="feature-desc">管理弹窗通知内容</p>
+                </div>
+                <div class="feature-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+            <a href="{$setting.web_url}" class="feature-entry-item">
+                <div class="feature-icon"><img src="/themes/web/ABCLOUD/static/ape/upload/icon/5.png" alt="资源库"></div>
+                <div class="feature-info">
+                    <h3 class="feature-title">资源库</h3>
+                    <p class="feature-desc">管理网站资源文件</p>
+                </div>
+                <div class="feature-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+            </a>
+        </div>
+    </section>
+
+<!-- 产品服务展示模块 -->
+<section class="product-service-section py-5" id="product-service">
+    <div class="container-fluid product-service-container">
+        <!-- 标题区域 -->
+        <div class="mb-5 mobile-accordion-header product-header" id="productAccordionHeader">
+            <h2 class="display-6 fw-bold mb-2 accordion-title text-center">畅销推荐 - 稳定高效，守护您的云端安全</h2>
+            <div class="product-header-row">
+                <p class="text-muted mb-0 accordion-desc">基于多年技术积累，提供高性能、高安全的云计算服务，保障企业数据与应用无忧上云</p>
+                <a href="/cart" class="text-primary fw-medium d-none d-lg-inline product-view-all">查看全部 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+            </div>
+        </div>
+
+        <!-- 选项卡导航：由产品一级分组 JS 渲染 -->
+        <ul class="nav nav-tabs justify-content-center mb-4 product-tabs-nav" id="productTabs" role="tablist"></ul>
+
+        <!-- 选项卡内容：由产品二级分组/商品 JS 渲染 -->
+        <div class="tab-content product-tabs-content" id="productTabsContent"></div>
+    </div>
+</section>
+
+<!-- 云市场服务展示 -->
+<section class="cloud-market-section py-5" id="cloud-market">
+    <div class="container-fluid cloud-market-container">
+        <!-- 标题区域 -->
+        <div class="cloud-market-header text-center mb-5">
+            <h2 class="cloud-market-title">一站式助力企业业务发展的云市场</h2>
+            <p class="cloud-market-desc">满足多样化的需求服务、打造为客户赋能的全过程生态体系</p>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="cloud-market-content">
+            <!-- 左侧描述 -->
+            <div class="cloud-market-left">
+                <p class="cloud-market-text">
+                    IDC云计算千帆携手7000+优秀伙伴，覆盖全行业品类的产品，满足企业上云和各类业务的应用需求。打造100+的场景方案、输出10000+的优质产品服务、服务40万+客户，与伙伴共建云生态，助力客户产业变革
+                </p>
+                <ul class="cloud-market-features">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>精选优质服务商</span>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>官方质保检测</span>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>全程服务</span>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>退款后无忧</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右侧图标卡片 -->
+            <div class="cloud-market-right">
+                <div class="cloud-market-grid">
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/1.svg" alt="商标注册">
+                        </div>
+                        <h4 class="cloud-market-item-title">商标注册</h4>
+                    </div>
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/2.svg" alt="服务器运维">
+                        </div>
+                        <h4 class="cloud-market-item-title">服务器运维</h4>
+                    </div>
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/3.svg" alt="企业官网搭建">
+                        </div>
+                        <h4 class="cloud-market-item-title">企业官网搭建</h4>
+                    </div>
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/4.svg" alt="数据处理">
+                        </div>
+                        <h4 class="cloud-market-item-title">数据处理</h4>
+                    </div>
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/5.svg" alt="企业资质办理">
+                        </div>
+                        <h4 class="cloud-market-item-title">企业资质办理</h4>
+                    </div>
+                    <div class="cloud-market-item">
+                        <div class="cloud-market-icon">
+                            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/icon/svg/6.svg" alt="400电话办理">
+                        </div>
+                        <h4 class="cloud-market-item-title">400电话办理</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 行业解决方案 -->
+<section class="industry-solutions-section" id="industry-solutions">
+    <!-- 背景图层 -->
+    <div class="is-bg-layer" id="isBgLayer" style="background-image: url('/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d681ab80.jpeg');"></div>
+    <div class="is-overlay">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/qyy.png" alt="企业级网站" class="is-overlay-img active" data-target="enterprise">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/yxy.png" alt="游戏云" class="is-overlay-img" data-target="game">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/ydy.png" alt="移动云" class="is-overlay-img" data-target="mobile">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/jry.png" alt="金融云" class="is-overlay-img" data-target="finance">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/dsy.png" alt="电商云" class="is-overlay-img" data-target="ecommerce">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/jyy.png" alt="教育云" class="is-overlay-img" data-target="education">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/wly.png" alt="医疗云" class="is-overlay-img" data-target="medical">
+        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/jjfa/yly.png" alt="物联网云" class="is-overlay-img" data-target="iot">
+    </div>
+
+    <div class="is-container">
+        <!-- 标题 -->
+        <div class="is-header">
+            <h2 class="is-title">携手全球客户，邀请你一起见证云端力量</h2>
+        </div>
+
+        <!-- 标签导航 -->
+        <div class="is-tabs">
+            <div class="is-tab active" data-target="enterprise" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/qyy.png">企业级网站</div>
+            <div class="is-tab" data-target="game" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/yxy.png">游戏云</div>
+            <div class="is-tab" data-target="mobile" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/ydy.png">移动云</div>
+            <div class="is-tab" data-target="finance" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/jry.png">金融云</div>
+            <div class="is-tab" data-target="ecommerce" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/dsy.png">电商云</div>
+            <div class="is-tab" data-target="education" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/jyy.png">教育云</div>
+            <div class="is-tab" data-target="medical" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/wly.png">医疗云</div>
+            <div class="is-tab" data-target="iot" data-bg="/themes/web/ABCLOUD/static/ape/img/jjfa/yly.png">物联网云</div>
+        </div>
+
+        <!-- 内容区 -->
+        <div class="is-content">
+            <!-- 企业级网站建设 -->
+            <div class="is-panel active" id="enterprise">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">企业数字化</span>
+                        <span class="is-panel-tag tag-green">品牌官网</span>
+                        <span class="is-panel-tag tag-orange">CDN加速</span>
+                    </div>
+                    <h3 class="is-panel-title">企业级网站建设解决方案</h3>
+                    <p class="is-panel-desc">提供完整的企业级网站建设解决方案，涵盖品牌官网、营销型网站、功能性网站等多种类型。基于云服务器的稳定架构和高性能CDN加速，为企业打造安全、快速、易维护的在线展示平台。</p>
+                    <a href="solution-enterprise.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">99.9%</div>
+                        <div class="is-highlight-label">服务可用性</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">3<span>天</span></div>
+                        <div class="is-highlight-label">快速上线</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">200<span>+</span></div>
+                        <div class="is-highlight-label">功能模块</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 游戏云 -->
+            <div class="is-panel" id="game">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">游戏行业</span>
+                        <span class="is-panel-tag tag-green">高并发</span>
+                        <span class="is-panel-tag tag-orange">DDoS防护</span>
+                    </div>
+                    <h3 class="is-panel-title">游戏云解决方案</h3>
+                    <p class="is-panel-desc">专为游戏行业打造的云解决方案，提供高性能服务器、全球CDN加速、DDoS防护等服务。支持多人在线游戏的高并发需求，保障游戏体验的流畅稳定。</p>
+                    <a href="solution-game.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">1000<span>万</span></div>
+                        <div class="is-highlight-label">同时在线</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">30<span>ms</span></div>
+                        <div class="is-highlight-label">超低延迟</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">T级</div>
+                        <div class="is-highlight-label">DDoS防护</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 移动云 -->
+            <div class="is-panel" id="mobile">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">移动应用</span>
+                        <span class="is-panel-tag tag-green">弹性计算</span>
+                        <span class="is-panel-tag tag-orange">快速部署</span>
+                    </div>
+                    <h3 class="is-panel-title">移动云解决方案</h3>
+                    <p class="is-panel-desc">针对移动端应用的云服务解决方案，提供弹性计算、存储、数据库等核心服务。支持App快速部署和水平扩展，为移动应用提供稳定可靠的后端支撑。</p>
+                    <a href="solution-mobile.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">10<span>倍</span></div>
+                        <div class="is-highlight-label">弹性扩容</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">99.99%</div>
+                        <div class="is-highlight-label">高可用</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">秒级</div>
+                        <div class="is-highlight-label">响应速度</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 金融云 -->
+            <div class="is-panel" id="finance">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">金融行业</span>
+                        <span class="is-panel-tag tag-green">安全合规</span>
+                        <span class="is-panel-tag tag-orange">区块链</span>
+                    </div>
+                    <h3 class="is-panel-title">金融云解决方案</h3>
+                    <p class="is-panel-desc">安全合规、高性能的金融科技解决方案，涵盖银行、证券、保险、互联网金融等机构数字化转型。基于云计算、大数据、人工智能及区块链技术，构建完整产品矩阵。</p>
+                    <a href="solution-finance.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">等保三级</div>
+                        <div class="is-highlight-label">安全认证</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">500<span>+</span></div>
+                        <div class="is-highlight-label">金融客户</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">PB级</div>
+                        <div class="is-highlight-label">数据处理</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 电商云 -->
+            <div class="is-panel" id="ecommerce">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">电商行业</span>
+                        <span class="is-panel-tag tag-green">智能推荐</span>
+                        <span class="is-panel-tag tag-orange">弹性扩容</span>
+                    </div>
+                    <h3 class="is-panel-title">电商云解决方案</h3>
+                    <p class="is-panel-desc">电商行业专属云解决方案，提供稳定的电商平台架构、智能推荐系统、支付安全保障等一站式服务。支持大促期间的弹性扩容，保障高并发下的稳定运行。</p>
+                    <a href="solution-ecommerce.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">千万级</div>
+                        <div class="is-highlight-label">QPS支持</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">99.9%</div>
+                        <div class="is-highlight-label">支付成功率</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">24<span>h</span></div>
+                        <div class="is-highlight-label">实时监控</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 教育云 -->
+            <div class="is-panel" id="education">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">教育行业</span>
+                        <span class="is-panel-tag tag-green">在线教学</span>
+                        <span class="is-panel-tag tag-orange">智慧校园</span>
+                    </div>
+                    <h3 class="is-panel-title">教育云解决方案</h3>
+                    <p class="is-panel-desc">面向教育行业的一站式云解决方案，提供在线教学平台、智慧校园、教育资源云等服务。支持大规模在线课程直播与点播，助力教育数字化转型。</p>
+                    <a href="solution-education.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">百万级</div>
+                        <div class="is-highlight-label">并发在线</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">1080P</div>
+                        <div class="is-highlight-label">高清直播</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">5000<span>+</span></div>
+                        <div class="is-highlight-label">教育机构</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 医疗云 -->
+            <div class="is-panel" id="medical">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">医疗行业</span>
+                        <span class="is-panel-tag tag-green">影像云</span>
+                        <span class="is-panel-tag tag-orange">远程会诊</span>
+                    </div>
+                    <h3 class="is-panel-title">医疗云解决方案</h3>
+                    <p class="is-panel-desc">专业的医疗行业云解决方案，提供医疗影像云、电子病历、远程会诊等核心服务。符合医疗数据安全合规要求，助力医院信息化升级。</p>
+                    <a href="solution-medical.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">等保三级</div>
+                        <div class="is-highlight-label">安全合规</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">亿级</div>
+                        <div class="is-highlight-label">影像存储</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">2000<span>+</span></div>
+                        <div class="is-highlight-label">医疗机构</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 物联网云 -->
+            <div class="is-panel" id="iot">
+                <div class="is-panel-left">
+                    <div class="is-panel-tags">
+                        <span class="is-panel-tag tag-blue">物联网</span>
+                        <span class="is-panel-tag tag-green">设备接入</span>
+                        <span class="is-panel-tag tag-orange">智能分析</span>
+                    </div>
+                    <h3 class="is-panel-title">物联网云解决方案</h3>
+                    <p class="is-panel-desc">面向物联网行业的云解决方案，提供设备接入、数据采集、智能分析等一站式服务。支持海量设备连接与实时数据处理，推动万物互联。</p>
+                    <a href="solution-iot.html" class="is-panel-btn">了解更多
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="is-panel-right">
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">10<span>亿</span></div>
+                        <div class="is-highlight-label">设备连接</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">毫秒级</div>
+                        <div class="is-highlight-label">数据响应</div>
+                    </div>
+                    <div class="is-highlight">
+                        <div class="is-highlight-num">99.99%</div>
+                        <div class="is-highlight-label">系统稳定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 全球基础设施 -->
+<section class="global-infra-section">
+    <div class="global-infra-container">
+        <!-- 顶部居中标题 -->
+        <div class="gi-top-title">
+            <h2 class="gi-main-title">基础设施即服务，让业务全球可达</h2>
+        </div>
+
+        <div class="gi-body">
+            <!-- 左侧 -->
+            <div class="gi-left">
+                <div class="gi-left-header">
+                    <h3 class="gi-left-title">全球基础设施</h3>
+                    <p class="gi-left-desc">布局全球多个地理区域，提供高速稳定的全球云联接网络</p>
+                    <a href="javascript:;" class="gi-detail-btn">了解详情</a>
+                </div>
+                <div class="gi-stats">
+                    <div class="gi-stat">
+                        <div class="gi-stat-label">国家和地区</div>
+                        <div class="gi-stat-value">170+</div>
+                    </div>
+                    <div class="gi-stat">
+                        <div class="gi-stat-label">区域</div>
+                        <div class="gi-stat-value">34个</div>
+                    </div>
+                    <div class="gi-stat">
+                        <div class="gi-stat-label">CDN节点</div>
+                        <div class="gi-stat-value">2800+</div>
+                    </div>
+                    <div class="gi-stat">
+                        <div class="gi-stat-label">可用区</div>
+                        <div class="gi-stat-value">103个</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧球体 -->
+            <div class="gi-right">
+                <div class="globe-toggle" id="globeToggle">
+                    <button type="button" class="globe-toggle-btn is-active" data-mode="globe">3D球体</button>
+                    <button type="button" class="globe-toggle-btn" data-mode="flat">平铺地图</button>
+                </div>
+                <div class="globe-stage">
+                    <div id="globeSphere" class="globe-canvas"></div>
+                    <div id="globeFlat" class="globe-canvas"></div>
+                </div>
+                <div class="globe-legend">
+                    <span class="globe-legend-item"><span class="globe-legend-dot region"></span>Region</span>
+                    <span class="globe-legend-item"><span class="globe-legend-dot iec"></span>IEC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部认证 -->
+        <div class="gi-certs">
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-1.png" alt="ISO 22301:2012">
+                <span>ISO 22301:2012</span>
+            </div>
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-2.png" alt="ISO 27001:2013">
+                <span>ISO 27001:2013</span>
+            </div>
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-3.png" alt="SOC 2 Type II Report">
+                <span>SOC 2 Type II Report</span>
+            </div>
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-4.png" alt="PCI DSS">
+                <span>PCI DSS</span>
+            </div>
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-5.png" alt="网络安全等级保护">
+                <span>网络安全等级保护</span>
+            </div>
+            <div class="gi-cert">
+                <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/qsjcss/icon-6.png" alt="CSA STAR 金牌认证">
+                <span>CSA STAR 金牌认证</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container_bg1">
+    <div class="comp_container comp_container_auto">
+        <div class="chooseUs-container">
+            <div class="sk-title-container">
+                <h1 class="sk-title">为什么选择我们</h1>
+                <span class="sk-desc">提供极致体验的企业上云服务，拥有安全有效的解决方案，为您云上旅程保障</span>
+            </div>
+            <div class="chooseUs-row-a">
+                <div class="chooseUs-itme">
+                    <div class="chooseUs-itme-main">
+                        <h1 class="chooseUs-itme-title">弹性计算</h1>
+                        <span class="chooseUs-itme-desc">您可以在几分钟之内快速根据业务需求，可弹性创建与释放云服务器，轻松应对业务的快速变化。</span>
+                        <div class="chooseUs-itme-tags">
+                            <span class="chooseUs-tag">快速部署</span>
+                            <span class="chooseUs-tag">成本优化</span>
+                            <span class="chooseUs-tag">业务弹性</span>
+                        </div>
+                    </div>
+                    <div class="chooseUs-itme-icon">
+                        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/local6614bd16b60b6.png" alt="弹性计算">
+                    </div>
+                </div>
+                <div class="chooseUs-itme">
+                    <div class="chooseUs-itme-main">
+                        <h1 class="chooseUs-itme-title">多样化配置</h1>
+                        <span class="chooseUs-itme-desc">提供多种类型的实例、操作系统和软件包。各实例中的 CPU、内存、硬盘和带宽可以灵活调整。</span>
+                        <div class="chooseUs-itme-tags">
+                            <span class="chooseUs-tag">灵活选择</span>
+                            <span class="chooseUs-tag">定制化服务</span>
+                            <span class="chooseUs-tag">多系统支持</span>
+                        </div>
+                    </div>
+                    <div class="chooseUs-itme-icon">
+                        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/local6614bd5c67f1a.png" alt="多样化配置">
+                    </div>
+                </div>
+                <div class="chooseUs-itme">
+                    <div class="chooseUs-itme-main">
+                        <h1 class="chooseUs-itme-title">安全的网络</h1>
+                        <span class="chooseUs-itme-desc">通过云控制台，切实保证您云上资源的安全性。您还可以完全掌控您的私有网络环境配置等。</span>
+                        <div class="chooseUs-itme-tags">
+                            <span class="chooseUs-tag">数据保护</span>
+                            <span class="chooseUs-tag">网络隔离</span>
+                            <span class="chooseUs-tag">访问管理</span>
+                            <span class="chooseUs-tag">安全加固</span>
+                        </div>
+                    </div>
+                    <div class="chooseUs-itme-icon">
+                        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/local6614bd64e065b.png" alt="安全的网络">
+                    </div>
+                </div>
+                <div class="chooseUs-itme">
+                    <div class="chooseUs-itme-main">
+                        <h1 class="chooseUs-itme-title">管理简单</h1>
+                        <span class="chooseUs-itme-desc">可以使用云控制台、进行重启等重要操作，这样管理实例就像管理操作您的计算机一样简单方便。</span>
+                        <div class="chooseUs-itme-tags">
+                            <span class="chooseUs-tag">一键操作</span>
+                            <span class="chooseUs-tag">直观界面</span>
+                            <span class="chooseUs-tag">管理便捷</span>
+                            <span class="chooseUs-tag">高效运维</span>
+                            <span class="chooseUs-tag">实时监控</span>
+                        </div>
+                    </div>
+                    <div class="chooseUs-itme-icon">
+                        <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/local6614bd6f9e44f.png" alt="管理简单">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 新闻动态 -->
+<section class="section news-section">
+  <div class="news-section-inner">
+    <!-- 头部 -->
+    <div class="news-section-header">
+      <div class="news-header-left">
+        <div class="news-section-label">NEWS</div>
+        <h2 class="news-section-title">新闻动态</h2>
+      </div>
+      <div class="news-tabs">
+        <div class="news-tab active" data-type="announce">公告中心</div>
+        <div class="news-tab" data-type="news">新闻中心</div>
+      </div>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="news-layout">
+      <!-- 左侧：精选文章 -->
+      <div class="news-featured" id="newsFeatured">
+        <div class="news-featured-img">
+          <a href="javascript:;" class="news-featured-detail-link">
+            <img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/zx.png" alt="精选文章">
+          </a>
+        </div>
+        <div class="news-featured-info">
+          <div class="news-featured-date">发布日期：--</div>
+          <a href="javascript:;" class="news-featured-detail-link">
+            <h3 class="news-featured-title">加载中...</h3>
+          </a>
+        </div>
+        <a href="/news" class="news-featured-btn">查看更多新闻</a>
+      </div>
+
+      <!-- 右侧：新闻列表 -->
+      <div class="news-list-wrap">
+        <div class="news-list-items" id="newsListItems">
+          <div class="news-list-loading">加载中...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 合作展示 -->
+<section class="partner-section" id="partners">
+  <div class="section-content">
+    <div class="section-header fade-in-up">
+      <h1 class="sk-title">联合各大运营商-全新网络体验</h1>
+      <span class="sk-desc">全球数十家顶级运营商合作，满足多行业应用需求，为您提供安全、稳定、合规的云服务</span>
+    </div>
+
+    <div class="partner-logo-container">
+      <!-- 第一排：从右往左滚动 -->
+      <div class="partner-scroll-row partner-scroll-left">
+        <div class="partner-scroll-track">
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/aliy.png" alt="阿里云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/baidu.png" alt="百度"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/bt.png" alt="宝塔"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/dianxin.png" alt="电信"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/dxyk.png" alt="丁香园"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/hgc.png" alt="和记环球"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/hki.png" alt="HKI"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/huawei.png" alt="华为"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/liantong.png" alt="联通"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/ntt.png" alt="NTT"></div>
+          <!-- 复制一份用于无缝滚动 -->
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/aliy.png" alt="阿里云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/baidu.png" alt="百度"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/bt.png" alt="宝塔"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/dianxin.png" alt="电信"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/dxyk.png" alt="丁香园"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/hgc.png" alt="和记环球"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/hki.png" alt="HKI"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/huawei.png" alt="华为"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/liantong.png" alt="联通"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/ntt.png" alt="NTT"></div>
+        </div>
+      </div>
+
+      <!-- 第二排：从左往右滚动 -->
+      <div class="partner-scroll-row partner-scroll-right">
+        <div class="partner-scroll-track">
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/qiniu.png" alt="七牛"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/txyun.svg" alt="腾讯云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/tyy.png" alt="天翼云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/udk.png" alt="UDK"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/xgkp.png" alt="新加坡"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/yidong.png" alt="移动"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/zgyd.png" alt="中国移动"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d681ab80.jpeg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d6d7b96f.jpeg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d70398c6.jpg" alt="合作伙伴"></div>
+          <!-- 复制一份用于无缝滚动 -->
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/qiniu.png" alt="七牛"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/txyun.svg" alt="腾讯云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/tyy.png" alt="天翼云"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/udk.png" alt="UDK"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/xgkp.png" alt="新加坡"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/yidong.png" alt="移动"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/zgyd.png" alt="中国移动"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d681ab80.jpeg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d6d7b96f.jpeg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d70398c6.jpg" alt="合作伙伴"></div>
+        </div>
+      </div>
+
+      <!-- 第三排：从右往左滚动 -->
+      <div class="partner-scroll-row partner-scroll-left">
+        <div class="partner-scroll-track">
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d7304309.jpg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681798362.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681802376.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681807597.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681811685.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681815858.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681816166.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681819770.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681823466.png" alt="合作伙伴"></div>
+          <!-- 复制一份用于无缝滚动 -->
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/local65b51d7304309.jpg" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681798362.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681802376.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681807597.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681811685.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681815858.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681816166.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681819770.png" alt="合作伙伴"></div>
+          <div class="partner-logo-item"><img loading="lazy" decoding="async" src="/themes/web/ABCLOUD/static/ape/img/hzhb/remoteL17063681823466.png" alt="合作伙伴"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 加入我们横幅 -->
+<section class="join-banner">
+    <video class="join-banner-video" src="/themes/web/ABCLOUD/static/ape/img/dbsp.mp4" autoplay muted loop playsinline></video>
+    <div class="join-banner-overlay"></div>
+    <div class="join-banner-content">
+        <div class="join-banner-left">
+            <h2>加入我们，立即开启您的云服务之旅！</h2>
+            <div class="join-banner-features">
+                <span class="join-feature-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    80+ 产品免费试用
+                </span>
+                <span class="join-feature-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    首购享5折起优惠
+                </span>
+                <span class="join-feature-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    新产品抢先体验
+                </span>
+            </div>
+        </div>
+        <div class="join-banner-right">
+            <a href="/cart" class="join-cta-btn">立即免费体验</a>
+        </div>
+    </div>
+</section>
+
+
+    <!-- 服务保障条 -->
+    <section class="footer-service-bar" id="service-assurance">
+        <div class="container">
+            <div class="service-bar-inner">
+                <div class="service-bar-item"><img src="/themes/web/ABCLOUD/static/ape/img/dbtb/4.png" alt="全天候售后服务" class="service-bar-icon"><div class="service-bar-text"><strong>全天候售后服务</strong><span>7*24小时专业工程师高品质服务</span></div></div>
+                <div class="service-bar-item"><img src="/themes/web/ABCLOUD/static/ape/img/dbtb/3.png" alt="极速服务应答" class="service-bar-icon"><div class="service-bar-text"><strong>极速服务应答</strong><span>秒级应答为业务保驾护航</span></div></div>
+                <div class="service-bar-item"><img src="/themes/web/ABCLOUD/static/ape/img/dbtb/1.png" alt="客户价值为先" class="service-bar-icon"><div class="service-bar-text"><strong>客户价值为先</strong><span>从服务价值到创造客户价值</span></div></div>
+                <div class="service-bar-item"><img src="/themes/web/ABCLOUD/static/ape/img/dbtb/2.png" alt="稳定合规运营" class="service-bar-icon"><div class="service-bar-text"><strong>稳定合规运营</strong><span>助力企业安全、高效上云</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    <!-- 页脚部分 -->
+    <footer class="footer bg-white text-dark" id="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-nav" id="footerNav">
+                    <div class="footer-nav-col">
+                        <h5 class="footer-title">服务指南</h5>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="{$setting.web_url}/cart">产品中心</a></li>
+                            <li><a href="{$setting.web_url}/knowledgebase">帮助文档</a></li>
+                            <li><a href="{$setting.web_url}/news">系统公告</a></li>
+                            <li><a href="{$setting.web_url}/supporttickets">提交工单</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5 class="footer-title">账户服务</h5>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="{$setting.web_url}/clientarea">控制台</a></li>
+                            <li><a href="{$setting.web_url}/billing">账单中心</a></li>
+                            <li><a href="{$setting.web_url}/register">注册账户</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5 class="footer-title">帮助中心</h5>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="{$setting.web_url}/news">行业新闻</a></li>
+                            <li><a href="{$setting.web_url}/knowledgebase">帮助中心</a></li>
+                            <li><a href="{$setting.web_url}/supporttickets">服务支持</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5 class="footer-title">关于我们</h5>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="{$setting.web_url}">公司简介</a></li>
+                            <li><a href="{$setting.web_url}/supporttickets">联系我们</a></li>
+                            <li><a href="{$setting.web_url}/news">公司动态</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-contact">
+                    <div class="footer-qr-codes">
+                        <div class="qr-item"><img src="/themes/web/ABCLOUD/static/ape/upload/local6626389782fe8.png" alt="微信二维码" class="footer-qr-img"><span>微信二维码</span></div>
+                        <div class="qr-item"><img src="/themes/web/ABCLOUD/static/ape/upload/local662638252e82d.png" alt="小程序二维码" class="footer-qr-img"><span>小程序二维码</span></div>
+                    </div>
+                    <div class="footer-contact-info">
+                        {if $setting.company_phone}<p>服务热线：{$setting.company_phone}</p>{/if}
+                        {if $setting.company_email}<p>电子邮箱：{$setting.company_email}</p>{/if}
+                        {if $setting.company_address}<p>地址：{$setting.company_address}</p>{/if}
+                    </div>
+                </div>
+            </div>
+            <div class="footer-certs">
+                <img src="/themes/web/ABCLOUD/static/ape/img/dbtb/aqrz.png" alt="安全认证">
+                <img src="/themes/web/ABCLOUD/static/ape/img/dbtb/97ebqd4v.png" alt="安全网站">
+                <img src="/themes/web/ABCLOUD/static/ape/img/dbtb/foot02.png" alt="可信网站">
+                <img src="/themes/web/ABCLOUD/static/ape/img/dbtb/kyrdorvp.png" alt="行业认证">
+            </div>
+            <div class="footer-bottom">
+                <p id="apeFooterCopyright">Copyright &copy; {:date('Y')} {$setting.company_name}. All Rights Reserved.</p>
+                <div class="footer-icp" id="apeFooterIcpList">
+                    {if $setting.company_record}<a class="footer-icp-item" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><span>{$setting.company_record}</span></a>{/if}
+                </div>
+            </div>
+        </div>
+        {if $f_links}
+        <div class="ape-friend-links"><strong>友情链接</strong>{foreach $f_links as $link}<a href="{$link.domain}" {$link.link_tag}>{$link.name}</a>{/foreach}</div>
+        {/if}
+    </footer>
+
+    <!-- 左侧浮动“网站通知”按钮（与用户截图完全一致） -->
+    <div class="ape-notice-float-btn" id="apeNoticeFloatBtn" style="bottom: 180px;" role="button" tabindex="0" aria-controls="popupOverlay">
+        <span>网站通知</span>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-label="网站通知" aria-hidden="true">
+        <div class="popup-modal">
+            <div class="popup-header"><h3>网站通知</h3><button class="popup-close" id="popupClose" type="button" aria-label="关闭">&times;</button></div>
+            <div class="popup-body"><div class="popup-content">
+                <p>正在加载公告...</p>
+            </div></div>
+            <div class="popup-footer"><button class="popup-btn" id="popupCloseBtn" type="button">关闭</button></div>
+        </div>
+    </div>
+
+    <!-- 右侧浮动工具栏（带机器人头像，与用户截图完全一致） -->
+    <div id="apeFloats">
+        <div class="side-floats">
+            <div class="side-toolbar-avatar" title="在线咨询">
+                <div class="avatar-wrap"><img src="/themes/web/ABCLOUD/static/ape/upload/jqr.gif" alt="客服"></div>
+                <span class="avatar-label">在线咨询</span>
+            </div>
+            <div class="side-toolbar" id="sideToolbar">
+                <div class="side-toolbar-item" title="QQ客服">
+                    <div class="side-toolbar-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    </div>
+                    <div class="side-toolbar-popup"><div class="popup-title">联系客服</div><div class="popup-contact-row"><div class="popup-contact-info"><div class="popup-contact-name">{$setting.company_name}</div><a class="popup-contact-desc" href="/supporttickets">提交工单</a></div></div></div>
+                </div>
+                <div class="side-toolbar-item" title="提交工单">
+                    <div class="side-toolbar-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    </div>
+                    <div class="side-toolbar-popup"><div class="popup-title">工单服务</div><div class="popup-ticket-row"><div class="popup-ticket-info"><div class="popup-ticket-name">提交工单</div><div class="popup-ticket-desc">售后问题提交工单，快速响应解决。</div></div></div><div class="popup-ticket-row"><div class="popup-ticket-info"><div class="popup-ticket-name">建议反馈</div><div class="popup-ticket-desc">欢迎提出宝贵建议，我们持续改进。</div></div></div></div>
+                </div>
+                <div class="side-toolbar-item side-toolbar-wechat" title="二维码">
+                    <div class="side-toolbar-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+                    </div>
+                    <div class="side-toolbar-popup"><div class="popup-title">扫码关注</div><div class="popup-qrcode"><img src="/themes/web/ABCLOUD/static/ape/upload/local6626389782fe8.png" alt="微信二维码"><div class="popup-qrcode-desc">微信二维码</div></div><div class="popup-qrcode"><img src="/themes/web/ABCLOUD/static/ape/upload/local662638252e82d.png" alt="小程序二维码"><div class="popup-qrcode-desc">小程序二维码</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <div class="side-toolbar-top-btn" id="backToTop" title="回到顶部">
+        <div class="side-toolbar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </div>
+        <span class="top-label">TOP</span>
+    </div>
+
+    <!-- 交互核心脚本 -->
+    <script src="/themes/web/ABCLOUD/static/ape/js/popper.min.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/bootstrap.min.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/mega-menu.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/carousel.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/back-to-top.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/industry-solutions.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/globe-map.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/finance-data.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/site-content.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/plugin-content.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/product-service.js?v=3.0.0"></script>
+    <script src="/themes/web/ABCLOUD/static/ape/js/news-script.js?v=3.0.0"></script>
+
+    <!-- 原生交互与状态脚本 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var popupOverlay = document.getElementById('popupOverlay');
+        var popupTrigger = document.getElementById('apeNoticeFloatBtn');
+        function setPopupOpen(open) {
+            popupOverlay.style.display = open ? 'flex' : 'none';
+            popupOverlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+            if (open) document.getElementById('popupClose').focus();
+            else popupTrigger.focus();
+        }
+        popupTrigger.addEventListener('click', function() { setPopupOpen(true); });
+        popupTrigger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setPopupOpen(true); }
+        });
+        document.getElementById('popupClose').addEventListener('click', function() { setPopupOpen(false); });
+        document.getElementById('popupCloseBtn').addEventListener('click', function() { setPopupOpen(false); });
+        popupOverlay.addEventListener('click', function(e) { if (e.target === popupOverlay) setPopupOpen(false); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popupOverlay.getAttribute('aria-hidden') === 'false') setPopupOpen(false);
+        });
+        // 顶部公告关闭
+        var closeNotice = document.getElementById('closeNoticeBtn');
+        var noticeBar = document.getElementById('apeTopNotice');
+        var header = document.querySelector('.public-header');
+        if (closeNotice && noticeBar) {
+            closeNotice.addEventListener('click', function(e) {
+                e.stopPropagation();
+                noticeBar.classList.remove('show');
+                noticeBar.style.display = 'none';
+                if (header) header.style.top = '0px';
+            });
+        }
+
+        // 账户显示由服务端模板决定，脚本只处理面板开关。
+        var userBtn = document.getElementById('apeUserBtn');
+        var userBox = document.getElementById('apeUserBox');
+        var loginGroup = document.getElementById('apeLoginGroup');
+        var regBtn = document.getElementById('apeRegBtn');
+        if (userBox && userBox.getAttribute('data-auth-state') !== 'authenticated') {
+            userBox.style.display = 'none';
+            userBox.setAttribute('aria-hidden', 'true');
+            if (loginGroup) loginGroup.style.display = 'flex';
+            if (regBtn) regBtn.style.display = '';
+        }
+        if (userBtn && userBox) {
+            userBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userBox.classList.toggle('active');
+            });
+            document.addEventListener('click', function(e) {
+                if (!userBox.contains(e.target)) {
+                    userBox.classList.remove('active');
+                }
+            });
+        }
+        var mobileUserBtn = document.getElementById('apeMobileUserBtn');
+        var mobileUserPanel = document.getElementById('apeMobileUserPanel');
+        function setMobileUserOpen(open) {
+            mobileUserPanel.classList.toggle('active', open);
+            mobileUserBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        mobileUserBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            setMobileUserOpen(!mobileUserPanel.classList.contains('active'));
+        });
+        mobileUserBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); mobileUserBtn.click(); }
+        });
+        document.addEventListener('click', function(e) {
+            if (!mobileUserPanel.contains(e.target) && !mobileUserBtn.contains(e.target)) setMobileUserOpen(false);
+        });
+
+        // Mega Menu 悬停交互：给鼠标从触发项移动到固定面板留出过渡时间
+        document.querySelectorAll('li.has-mega').forEach(function(li) {
+            var catItems = li.querySelectorAll('.mega-cat-item');
+            var groups = li.querySelectorAll('.mega-solution-group');
+            var megaMenu = li.querySelector('.mega-menu');
+            var closeTimer;
+            function cancelClose() {
+                if (closeTimer) {
+                    window.clearTimeout(closeTimer);
+                    closeTimer = null;
+                }
+            }
+            function openMenu() {
+                cancelClose();
+                li.classList.add('active');
+            }
+            function scheduleClose() {
+                cancelClose();
+                closeTimer = window.setTimeout(function() {
+                    if (!li.hasAttribute('data-click-lock')) li.classList.remove('active');
+                }, 260);
+            }
+            catItems.forEach(function(item) {
+                item.addEventListener('mouseenter', function() {
+                    catItems.forEach(function(c) { c.classList.remove('active'); });
+                    this.classList.add('active');
+                    var targetCat = this.getAttribute('data-cat');
+                    groups.forEach(function(g) {
+                        g.style.display = (g.getAttribute('data-cat') === targetCat) ? 'grid' : 'none';
+                    });
+                });
+            });
+            li.addEventListener('mouseenter', openMenu);
+            li.addEventListener('mouseleave', scheduleClose);
+            if (megaMenu) {
+                megaMenu.addEventListener('mouseenter', openMenu);
+                megaMenu.addEventListener('mouseleave', scheduleClose);
+                megaMenu.addEventListener('click', function(e) {
+                    if (e.target.closest('a[href]:not([href^="javascript:"])')) {
+                        cancelClose();
+                        li.classList.remove('active');
+                    }
+                });
+                var closeButton = megaMenu.querySelector('.mega-menu-close');
+                if (closeButton) closeButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cancelClose();
+                    li.classList.remove('active');
+                    li.removeAttribute('data-click-lock');
+                });
+            }
+        });
+
+    });
+    </script>
+</body>
+</html>

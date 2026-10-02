@@ -1,0 +1,46 @@
+{
+  "missingAssets": [],
+  "duplicateIds": [],
+  "modules": {
+    "cloud-market": {
+      "elements": 50,
+      "targetElements": 50,
+      "equal": true
+    },
+    "industry-solutions": {
+      "elements": 201,
+      "targetElements": 201,
+      "equal": true
+    },
+    "global-infrastructure": {
+      "elements": 53,
+      "targetElements": 53,
+      "equal": true
+    },
+    "why-choose-us": {
+      "elements": 49,
+      "targetElements": 49,
+      "equal": true
+    },
+    "partners": {
+      "elements": 127,
+      "targetElements": 127,
+      "equal": true
+    },
+    "join-banner": {
+      "elements": 20,
+      "targetElements": 20,
+      "equal": true
+    },
+    "product-service": {
+      "elements": 10,
+      "targetElements": 10,
+      "equal": true
+    },
+    "news": {
+      "elements": 21,
+      "targetElements": 21,
+      "equal": true
+    }
+  }
+}

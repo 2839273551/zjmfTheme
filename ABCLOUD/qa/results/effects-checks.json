@@ -1,0 +1,32 @@
+{
+  "quickEntryReveal": true,
+  "industryTabs": 8,
+  "chooseUs": [
+    {
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    {
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    {
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    {
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    }
+  ],
+  "partnerMarquee": true,
+  "carousel": {
+    "sourceSlides": 1,
+    "fixtureSlides": 2,
+    "manual": true,
+    "auto": true
+  },
+  "products_empty": true,
+  "products_error": true,
+  "consoleErrors": []
+}

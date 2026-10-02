@@ -1,0 +1,800 @@
+/* ABCLOUD Client Area Dashboard Styles - Faithful Port of APE User Center */
+:root {
+  --abcloud-primary: #006EFF;
+  --abcloud-primary-hover: #0056cc;
+  --abcloud-primary-light: #eff6ff;
+  --abcloud-bg: #edf2f7;
+  --abcloud-card-bg: #ffffff;
+  --abcloud-text-main: #0f172a;
+  --abcloud-text-sub: #64748b;
+  --abcloud-text-muted: #94a3b8;
+  --abcloud-border: #e2e8f0;
+  --abcloud-border-light: #f1f5f9;
+  --abcloud-radius: 10px;
+}
+
+body[data-sidebar="dark"],
+body[data-sidebar="light"],
+body {
+  background-color: var(--abcloud-bg) !important;
+  color: var(--abcloud-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ================= Topbar ================= */
+#page-topbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--abcloud-border) !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04) !important;
+  height: 64px;
+}
+
+.navbar-header {
+  height: 64px;
+  padding: 0 24px;
+}
+
+.navbar-brand-box {
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.navbar-brand-box .logo img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+#vertical-menu-btn {
+  color: var(--abcloud-text-sub) !important;
+  font-size: 18px;
+  border-radius: 6px;
+  margin-left: 12px;
+}
+
+#vertical-menu-btn:hover {
+  background-color: var(--abcloud-border-light);
+  color: var(--abcloud-primary) !important;
+}
+
+.header-item {
+  color: var(--abcloud-text-sub) !important;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.header-item:hover {
+  color: var(--abcloud-primary) !important;
+}
+
+.noti-icon i {
+  font-size: 20px;
+}
+
+/* User Profile in Topbar */
+.abcloud-top-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  border: 1px solid var(--abcloud-border);
+  transition: all 0.2s;
+}
+
+.abcloud-top-user-btn:hover {
+  border-color: var(--abcloud-primary);
+  background: var(--abcloud-primary-light);
+}
+
+.abcloud-avatar-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--abcloud-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ================= Sidebar Menu ================= */
+.vertical-menu {
+  background-color: #ffffff !important;
+  border-right: 1px solid var(--abcloud-border) !important;
+  box-shadow: none !important;
+  top: 64px;
+}
+
+#sidebar-menu ul li a {
+  color: var(--abcloud-text-sub) !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 20px;
+  border-radius: 6px;
+  margin: 2px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+#sidebar-menu ul li a i {
+  font-size: 17px;
+  color: var(--abcloud-text-muted);
+  width: 20px;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+#sidebar-menu ul li a:hover {
+  color: var(--abcloud-primary) !important;
+  background-color: var(--abcloud-primary-light) !important;
+}
+
+#sidebar-menu ul li a:hover i {
+  color: var(--abcloud-primary) !important;
+}
+
+#sidebar-menu ul li.mm-active > a,
+#sidebar-menu ul li a.active {
+  color: #ffffff !important;
+  background: var(--abcloud-primary) !important;
+  box-shadow: 0 4px 12px rgba(0, 110, 255, 0.28);
+}
+
+#sidebar-menu ul li.mm-active > a i,
+#sidebar-menu ul li a.active i {
+  color: #ffffff !important;
+}
+
+.sub-menu {
+  padding-left: 12px !important;
+}
+
+.sub-menu li a {
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+}
+
+/* ================= Main Content Container ================= */
+.main-content {
+  margin-top: 64px;
+  background-color: var(--abcloud-bg);
+}
+
+.page-content {
+  padding: 24px;
+}
+
+/* ================= Dashboard Cards ================= */
+.abcloud-card {
+  background: var(--abcloud-card-bg);
+  border: 1px solid var(--abcloud-border);
+  border-radius: var(--abcloud-radius);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.abcloud-card:hover {
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+
+.abcloud-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--abcloud-text-main);
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* User Info Card (APE Style) */
+.abcloud-user-info-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+}
+
+.abcloud-user-info-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.abcloud-user-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #006EFF 0%, #0052cc 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 110, 255, 0.32);
+  flex-shrink: 0;
+}
+
+.abcloud-user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.abcloud-user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.abcloud-user-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--abcloud-text-main);
+}
+
+.abcloud-user-id-badge {
+  font-size: 12px;
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.abcloud-cert-tag {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.abcloud-cert-tag.ok {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.abcloud-cert-tag.uncert {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.abcloud-cert-tag.uncert:hover {
+  text-decoration: underline;
+}
+
+.abcloud-user-contacts {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--abcloud-text-sub);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.abcloud-user-contacts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 4 Status Icons */
+.abcloud-status-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--abcloud-border);
+}
+
+.abcloud-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--abcloud-border);
+  color: var(--abcloud-text-sub);
+}
+
+.abcloud-status-badge.active {
+  background: var(--abcloud-primary-light);
+  border-color: rgba(0, 110, 255, 0.25);
+  color: var(--abcloud-primary);
+  font-weight: 500;
+}
+
+/* VIP Level Card (APE Style) */
+.abcloud-vip-banner {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #ffffff;
+}
+
+.abcloud-vip-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.abcloud-vip-info {
+  flex: 1;
+}
+
+.abcloud-vip-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.abcloud-vip-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
+.abcloud-vip-tag {
+  font-size: 11px;
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.abcloud-vip-text {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.abcloud-vip-progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.abcloud-vip-progress-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* Quick Action Buttons */
+.abcloud-quick-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.abcloud-quick-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid var(--abcloud-border);
+  border-radius: 6px;
+  color: var(--abcloud-text-main);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.abcloud-quick-btn:hover {
+  background: var(--abcloud-primary-light);
+  border-color: var(--abcloud-primary);
+  color: var(--abcloud-primary);
+}
+
+/* ================= Financial Card ================= */
+.abcloud-finance-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.abcloud-finance-footer-link {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--abcloud-border);
+}
+
+.abcloud-balance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.abcloud-balance-label {
+  font-size: 13px;
+  color: var(--abcloud-text-sub);
+  margin-bottom: 4px;
+}
+
+.abcloud-balance-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--abcloud-primary);
+  line-height: 1.1;
+  font-family: Bahnschrift, "DIN Alternate", -apple-system, sans-serif;
+}
+
+.abcloud-recharge-btn {
+  padding: 8px 20px;
+  background: var(--abcloud-primary);
+  color: #ffffff !important;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 110, 255, 0.25);
+  transition: all 0.2s;
+}
+
+.abcloud-recharge-btn:hover {
+  background: var(--abcloud-primary-hover);
+  transform: translateY(-1px);
+}
+
+.abcloud-finance-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.abcloud-finance-tile {
+  background: #f8fafc;
+  border: 1px solid var(--abcloud-border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+.abcloud-finance-tile-title {
+  font-size: 12px;
+  color: var(--abcloud-text-sub);
+  margin-bottom: 4px;
+}
+
+.abcloud-finance-tile-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--abcloud-text-main);
+  font-family: Bahnschrift, "DIN Alternate", -apple-system, sans-serif;
+}
+
+/* ================= 4 Metric Counters ================= */
+.abcloud-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.abcloud-stat-card {
+  background: #ffffff;
+  border: 1px solid var(--abcloud-border);
+  border-radius: var(--abcloud-radius);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.abcloud-stat-card:hover {
+  border-color: var(--abcloud-primary);
+  box-shadow: 0 4px 16px rgba(0, 110, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.abcloud-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.abcloud-stat-label {
+  font-size: 13px;
+  color: var(--abcloud-text-sub);
+  margin-bottom: 4px;
+}
+
+.abcloud-stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--abcloud-text-main);
+  line-height: 1.1;
+  font-family: Bahnschrift, "DIN Alternate", -apple-system, sans-serif;
+}
+
+.abcloud-stat-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.abcloud-stat-icon-wrap.blue { background: #eff6ff; color: #006EFF; }
+.abcloud-stat-icon-wrap.orange { background: #fff7ed; color: #f97316; }
+.abcloud-stat-icon-wrap.green { background: #f0fdf4; color: #16a34a; }
+.abcloud-stat-icon-wrap.purple { background: #faf5ff; color: #9333ea; }
+
+/* ================= Product Groups Grid ================= */
+.abcloud-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.abcloud-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid var(--abcloud-border);
+  border-radius: 6px;
+  color: var(--abcloud-text-main);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.abcloud-group-item:hover {
+  background: var(--abcloud-primary-light);
+  border-color: var(--abcloud-primary);
+  color: var(--abcloud-primary);
+}
+
+.abcloud-group-count {
+  font-size: 12px;
+  color: var(--abcloud-text-muted);
+}
+
+/* ================= Resource Table ================= */
+.abcloud-resource-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.abcloud-resource-table th {
+  background: #f8fafc;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--abcloud-text-sub);
+  border-bottom: 1px solid var(--abcloud-border);
+  text-align: left;
+}
+
+.abcloud-resource-table td {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--abcloud-text-main);
+  border-bottom: 1px solid var(--abcloud-border-light);
+  vertical-align: middle;
+}
+
+.abcloud-resource-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.abcloud-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.abcloud-status-dot.green { background: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }
+.abcloud-status-dot.red { background: #ef4444; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
+
+/* Announcements List */
+.abcloud-news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.abcloud-news-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--abcloud-border);
+  gap: 12px;
+}
+
+.abcloud-news-item:last-child {
+  border-bottom: none;
+}
+
+.abcloud-news-rank {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: var(--abcloud-text-sub);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.abcloud-news-rank.top-1 { background: #fee2e2; color: #dc2626; }
+.abcloud-news-rank.top-2 { background: #ffedd5; color: #ea580c; }
+.abcloud-news-rank.top-3 { background: #fef9c3; color: #ca8a04; }
+
+.abcloud-news-title {
+  flex: 1;
+  font-size: 13px;
+  color: var(--abcloud-text-main);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.abcloud-news-title:hover {
+  color: var(--abcloud-primary);
+}
+
+.abcloud-news-time {
+  font-size: 12px;
+  color: var(--abcloud-text-muted);
+  flex-shrink: 0;
+}
+
+/* Empty State */
+.abcloud-empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--abcloud-text-muted);
+}
+
+.abcloud-empty-state img {
+  width: 120px;
+  height: auto;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+.abcloud-empty-state p {
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+/* Footer */
+footer.footer {
+  background: #ffffff !important;
+  border-top: 1px solid var(--abcloud-border) !important;
+  padding: 16px 24px;
+  color: var(--abcloud-text-muted);
+  font-size: 12px;
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+  .abcloud-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-content {
+    padding: 16px 12px;
+  }
+
+  .abcloud-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .abcloud-user-info-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .abcloud-user-contacts {
+    justify-content: center;
+  }
+
+  .abcloud-status-icons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .abcloud-vip-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .abcloud-quick-btn {
+    min-width: 45%;
+  }
+
+  .abcloud-balance-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* ================= Full Width Promo Banner ================= */
+.abcloud-promo-full-banner {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0efff 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--abcloud-radius);
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0, 110, 255, 0.05);
+}
+
+.abcloud-promo-features {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.abcloud-promo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(191, 219, 254, 0.8);
+}

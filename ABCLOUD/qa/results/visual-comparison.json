@@ -1,0 +1,210 @@
+[
+  {
+    "width": 1440,
+    "module": "cloud-market",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      522
+    ],
+    "targetSize": [
+      1440,
+      522
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "industry-solutions",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      641
+    ],
+    "targetSize": [
+      1440,
+      641
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "global-infrastructure",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      882
+    ],
+    "targetSize": [
+      1440,
+      882
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "why-choose-us",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      686
+    ],
+    "targetSize": [
+      1440,
+      686
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "partners",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      580
+    ],
+    "targetSize": [
+      1440,
+      580
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "join-banner",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      128
+    ],
+    "targetSize": [
+      1440,
+      128
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "product-service",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      250
+    ],
+    "targetSize": [
+      1440,
+      250
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 1440,
+    "module": "news",
+    "equalSize": true,
+    "sourceSize": [
+      1440,
+      668
+    ],
+    "targetSize": [
+      1440,
+      668
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "cloud-market",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      788
+    ],
+    "targetSize": [
+      390,
+      788
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "industry-solutions",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      657
+    ],
+    "targetSize": [
+      390,
+      657
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "global-infrastructure",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      709
+    ],
+    "targetSize": [
+      390,
+      709
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "why-choose-us",
+    "sourceVisible": false,
+    "targetVisible": false
+  },
+  {
+    "width": 390,
+    "module": "partners",
+    "sourceVisible": false,
+    "targetVisible": false
+  },
+  {
+    "width": 390,
+    "module": "join-banner",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      128
+    ],
+    "targetSize": [
+      390,
+      128
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "product-service",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      303
+    ],
+    "targetSize": [
+      390,
+      303
+    ],
+    "pixelDifference": 0
+  },
+  {
+    "width": 390,
+    "module": "news",
+    "equalSize": true,
+    "sourceSize": [
+      390,
+      603
+    ],
+    "targetSize": [
+      390,
+      603
+    ],
+    "pixelDifference": 0
+  }
+]

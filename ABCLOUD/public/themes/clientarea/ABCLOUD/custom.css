@@ -1,0 +1,81 @@
+/* ABCLOUD Global Client Area Custom Theme Styling */
+body[data-sidebar="dark"],
+body[data-sidebar="light"],
+body {
+  background-color: #edf2f7 !important;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#page-topbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+.vertical-menu {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+#sidebar-menu ul li a {
+  color: #64748b !important;
+  font-weight: 500;
+  border-radius: 6px;
+  margin: 2px 10px;
+  transition: all 0.2s ease;
+}
+
+#sidebar-menu ul li a:hover {
+  color: #006EFF !important;
+  background-color: #eff6ff !important;
+}
+
+#sidebar-menu ul li.mm-active > a,
+#sidebar-menu ul li a.active {
+  color: #ffffff !important;
+  background: #006EFF !important;
+  box-shadow: 0 4px 12px rgba(0, 110, 255, 0.28) !important;
+}
+
+#sidebar-menu ul li.mm-active > a i,
+#sidebar-menu ul li a.active i {
+  color: #ffffff !important;
+}
+
+.card {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03) !important;
+  background-color: #ffffff !important;
+}
+
+.btn-primary {
+  background-color: #006EFF !important;
+  border-color: #006EFF !important;
+  box-shadow: 0 4px 12px rgba(0, 110, 255, 0.22) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #0056cc !important;
+  border-color: #0056cc !important;
+}
+
+.table th {
+  background-color: #f8fafc;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0 !important;
+  font-weight: 600;
+}
+
+.table td {
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+footer.footer {
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  color: #94a3b8 !important;
+}

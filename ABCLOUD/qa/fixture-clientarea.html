@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<title>控制台首页 | 云信网络</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+	<link href="../public/themes/clientarea/ABCLOUD/assets/css/clientarea.css" rel="stylesheet" type="text/css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body data-sidebar="light" style="background-color: #edf2f7;">
+	<!-- Fixed Top Bar -->
+	<header id="page-topbar" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+		<div class="d-flex align-items-center">
+			<img src="../public/themes/web/ABCLOUD/static/ape/img/logo.png" height="32" alt="Logo" onerror="this.src='../public/themes/clientarea/ABCLOUD/assets/img/vip/why.png'" />
+			<span class="ml-3 font-weight-bold" style="font-size: 16px; color: #0f172a;">控制台</span>
+		</div>
+		<div class="d-flex align-items-center">
+			<button type="button" class="btn header-item d-inline-flex align-items-center abcloud-top-user-btn" style="background: transparent; border: none;">
+				<div class="abcloud-avatar-sm" style="width: 32px; height: 32px; border-radius: 50%; background: #eff6ff; color: #0066ff; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8px;">
+					崔
+				</div>
+				<span class="font-weight-500" style="color: #334155;">崔康毅</span>
+			</button>
+		</div>
+	</header>
+
+	<!-- Main Content with Top Padding to clear fixed navbar -->
+	<div class="main-content" style="padding-top: 70px;">
+		<div class="page-content" style="padding: 24px;">
+			<div class="container-fluid" style="max-width: 1440px;">
+
+				<!-- ABCLOUD Client Area Dashboard (Faithful Port of APE User Center) -->
+				<div class="row">
+					<!-- Left Column: User Profile, Metrics, and Resources -->
+					<div class="col-xl-8 col-lg-12">
+						<!-- 1. User Profile & VIP Status -->
+						<div class="abcloud-card abcloud-user-info-card">
+							<div class="abcloud-user-info-header">
+								<div class="abcloud-user-avatar">
+									崔
+								</div>
+
+								<div class="abcloud-user-details">
+									<div class="abcloud-user-name-row">
+										<span class="abcloud-user-name">崔康毅</span>
+										<span class="abcloud-user-id-badge">ID: 1</span>
+										<span class="abcloud-cert-tag ok"><i class="bx bx-check-shield"></i> 已实名认证</span>
+									</div>
+
+									<div class="abcloud-user-contacts">
+										<span><i class="bx bx-mobile text-primary"></i> 手机：132****4758</span>
+										<span><i class="bx bx-envelope text-primary"></i> 邮箱：2839273551@qq.com</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- 4 Status Badges -->
+							<div class="abcloud-status-icons">
+								<span class="abcloud-status-badge active">
+									<i class="bx bx-envelope"></i> 邮箱已绑定
+								</span>
+								<span class="abcloud-status-badge active">
+									<i class="bx bx-mobile"></i> 手机已验证
+								</span>
+								<span class="abcloud-status-badge active">
+									<i class="bx bx-id-card"></i> 实名已通过
+								</span>
+								<span class="abcloud-status-badge active">
+									<i class="bx bx-gift"></i> 推介计划有效
+								</span>
+							</div>
+
+							<!-- APE VIP Level Card -->
+							<div class="abcloud-vip-banner">
+								<img class="abcloud-vip-img" id="abcloudVipImg" src="../public/themes/clientarea/ABCLOUD/assets/img/vip/why.png" alt="会员等级" />
+								<div class="abcloud-vip-info">
+									<div class="abcloud-vip-title-row">
+										<span class="abcloud-vip-title" id="abcloudVipTitle">普通会员</span>
+										<span class="abcloud-vip-tag" id="abcloudVipTag">尊享云特权</span>
+									</div>
+									<p class="abcloud-vip-text" id="abcloudVipDesc">
+										本月消费金额：￥0.00，持续使用享受更高折扣与优先技术支持。
+									</p>
+									<div class="abcloud-vip-progress">
+										<div class="abcloud-vip-progress-inner" id="abcloudVipBar" style="width: 20%;"></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Quick Actions -->
+							<div class="abcloud-quick-actions">
+								<a href="/details" class="abcloud-quick-btn">
+									<i class="bx bx-user text-primary"></i> 账户设置
+								</a>
+								<a href="/security" class="abcloud-quick-btn">
+									<i class="bx bx-shield-quarter text-success"></i> 安全中心
+								</a>
+								<a href="/verified" class="abcloud-quick-btn">
+									<i class="bx bx-id-card text-info"></i> 实名认证
+								</a>
+								<a href="/billing" class="abcloud-quick-btn">
+									<i class="bx bx-receipt text-warning"></i> 账单记录
+								</a>
+								<a href="/supporttickets" class="abcloud-quick-btn">
+									<i class="bx bx-support text-danger"></i> 工单列表
+								</a>
+							</div>
+						</div>
+
+						<!-- 2. 4 Metric Counters (Harmonious in Left Column) -->
+						<div class="abcloud-stats-grid">
+							<a href="/supporttickets" class="abcloud-stat-card">
+								<div class="abcloud-stat-info">
+									<span class="abcloud-stat-label">待处理工单</span>
+									<span class="abcloud-stat-num text-warning">0</span>
+								</div>
+								<div class="abcloud-stat-icon-wrap orange">
+									<i class="bx bx-support"></i>
+								</div>
+							</a>
+
+							<a href="/billing" class="abcloud-stat-card">
+								<div class="abcloud-stat-info">
+									<span class="abcloud-stat-label">待支付订单</span>
+									<span class="abcloud-stat-num text-danger">1</span>
+								</div>
+								<div class="abcloud-stat-icon-wrap blue">
+									<i class="bx bx-credit-card"></i>
+								</div>
+							</a>
+
+							<a href="/service" class="abcloud-stat-card">
+								<div class="abcloud-stat-info">
+									<span class="abcloud-stat-label">已开通产品总数</span>
+									<span class="abcloud-stat-num text-success">0</span>
+								</div>
+								<div class="abcloud-stat-icon-wrap green">
+									<i class="bx bx-server"></i>
+								</div>
+							</a>
+
+							<a href="/security" class="abcloud-stat-card">
+								<div class="abcloud-stat-info">
+									<span class="abcloud-stat-label">账户安全评分</span>
+									<span class="abcloud-stat-num text-primary">85分</span>
+								</div>
+								<div class="abcloud-stat-icon-wrap purple">
+									<i class="bx bx-shield-check"></i>
+								</div>
+							</a>
+						</div>
+
+						<!-- 3. Resource List (Live Host AJAX) -->
+						<div class="abcloud-card">
+							<div class="abcloud-card-title">
+								<span>我的资源列表</span>
+								<div class="d-flex gap-2">
+									<a href="/cart" class="btn btn-sm btn-primary py-1 px-3">
+										<i class="bx bx-plus font-size-12 mr-1"></i>新建实例
+									</a>
+								</div>
+							</div>
+
+							<div id="sourceListBox">
+								<div class="abcloud-empty-state">
+									<p>您当前名下暂无激活中的产品实例</p>
+									<a href="/cart" class="btn btn-sm btn-primary px-3">
+										<i class="bx bx-cart font-size-12 mr-1"></i>前往选购大厅
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right Column: Financial Assets, Announcements, and Security Tips -->
+					<div class="col-xl-4 col-lg-12">
+						<!-- 1. Financial Assets (Compact, Natural Height) -->
+						<div class="abcloud-card abcloud-finance-box">
+							<div class="abcloud-card-title">
+								<span>费用与资产信息</span>
+								<a href="/billing" class="font-size-12 text-primary font-weight-normal">全部账单 <i class="bx bx-chevron-right"></i></a>
+							</div>
+
+							<div class="abcloud-balance-row">
+								<div>
+									<div class="abcloud-balance-label">当前可用余额</div>
+									<div class="abcloud-balance-amount">￥1,280.00</div>
+								</div>
+								<a href="/addfunds" class="abcloud-recharge-btn">
+									<i class="bx bx-wallet"></i> 在线充值
+								</a>
+							</div>
+
+							<div class="abcloud-finance-tiles">
+								<a href="/billing" class="abcloud-finance-tile">
+									<div class="abcloud-finance-tile-title">未支付金额</div>
+									<div class="abcloud-finance-tile-value text-danger">￥0.00</div>
+								</a>
+								<a href="/billing" class="abcloud-finance-tile">
+									<div class="abcloud-finance-tile-title">本月累计消费</div>
+									<div class="abcloud-finance-tile-value text-primary">￥3,680.00</div>
+								</a>
+							</div>
+
+							<div class="abcloud-finance-footer-link">
+								<div class="d-flex justify-content-between align-items-center font-size-13 text-muted">
+									<span>资金流水明细</span>
+									<a href="/transaction" class="text-primary font-weight-500">查看明细 <i class="bx bx-right-arrow-alt"></i></a>
+								</div>
+							</div>
+						</div>
+
+						<!-- 2. Latest Announcements -->
+						<div class="abcloud-card">
+							<div class="abcloud-card-title">
+								<span>官方新闻与公告</span>
+								<a href="/news" class="font-size-12 text-primary font-weight-normal">更多公告 <i class="bx bx-chevron-right"></i></a>
+							</div>
+
+							<ul class="abcloud-news-list">
+								<li class="abcloud-news-item">
+									<span class="abcloud-news-rank top-1">1</span>
+									<a href="/newsview?id=1" class="abcloud-news-title" title="机器说明（买前必看）">机器说明（买前必看）</a>
+									<span class="abcloud-news-time">01-09</span>
+								</li>
+								<li class="abcloud-news-item">
+									<span class="abcloud-news-rank top-2">2</span>
+									<a href="/newsview?id=2" class="abcloud-news-title" title="服务条款-违规补充说明">服务条款-违规补充说明</a>
+									<span class="abcloud-news-time">01-09</span>
+								</li>
+								<li class="abcloud-news-item">
+									<span class="abcloud-news-rank top-3">3</span>
+									<a href="/newsview?id=3" class="abcloud-news-title" title="服务条款-注册默认同意">服务条款-注册默认同意</a>
+									<span class="abcloud-news-time">01-09</span>
+								</li>
+							</ul>
+						</div>
+
+						<!-- 3. Safety Tips Card -->
+						<div class="abcloud-card">
+							<div class="abcloud-card-title">
+								<span>安全提醒与帮助</span>
+								<a href="/security" class="font-size-12 text-primary font-weight-normal">安全中心 <i class="bx bx-chevron-right"></i></a>
+							</div>
+
+							<div class="font-size-13 text-muted">
+								<div class="mb-3 d-flex align-items-start gap-2">
+									<i class="bx bx-check-shield text-success font-size-16 mt-1"></i>
+									<span>请妥善保管账号密码，切勿将验证码泄露给他人。</span>
+								</div>
+								<div class="mb-3 d-flex align-items-start gap-2">
+									<i class="bx bx-key text-primary font-size-16 mt-1"></i>
+									<span>建议定期修改密码并绑定安全手机，提升账号防护等级。</span>
+								</div>
+								<div class="d-flex align-items-start gap-2">
+									<i class="bx bx-help-circle text-info font-size-16 mt-1"></i>
+									<span>如遇机器或网络异常，可随时前往工单中心提交问题。</span>
+								</div>
+							</div>
+
+							<div class="mt-4 pt-3 border-top d-flex gap-2">
+								<a href="/submitticket" class="btn btn-outline-primary btn-sm flex-1">
+									<i class="bx bx-edit font-size-12 mr-1"></i>提交工单
+								</a>
+								<a href="/knowledgebase" class="btn btn-outline-secondary btn-sm flex-1">
+									<i class="bx bx-book-open font-size-12 mr-1"></i>帮助文档
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Full-Width Bottom Promo Banner (Spans 12 Columns, Seamlessly Aligned) -->
+				<div class="row">
+					<div class="col-12">
+						<div class="abcloud-promo-full-banner">
+							<div class="d-flex align-items-center justify-content-between flex-wrap" style="gap: 16px;">
+								<div style="flex: 1; min-width: 280px;">
+									<div class="d-flex align-items-center" style="gap: 10px;">
+										<div style="width: 40px; height: 40px; border-radius: 8px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0, 110, 255, 0.15); flex-shrink: 0;">
+											<i class="bx bx-gift text-primary" style="font-size: 22px;"></i>
+										</div>
+										<h4 style="font-size: 16px; font-weight: 700; color: #1e3a8a; margin: 0;">
+											推荐好友加入，享高额返利分成
+										</h4>
+									</div>
+									<p style="font-size: 13px; color: #3b82f6; margin: 8px 0 0 50px;">
+										成为官方推介使者，新用户通过您的推广链接注册并下单，即可获得丰厚现金返还！
+									</p>
+									<div class="abcloud-promo-features" style="margin-left: 50px;">
+										<span class="abcloud-promo-tag"><i class="bx bx-check-circle text-primary"></i> 高额返利分成</span>
+										<span class="abcloud-promo-tag"><i class="bx bx-check-circle text-primary"></i> 持续管道收益</span>
+										<span class="abcloud-promo-tag"><i class="bx bx-check-circle text-primary"></i> 提现极速到账</span>
+									</div>
+								</div>
+								<a href="/affiliates" class="btn btn-primary px-4 py-2 font-weight-600" style="border-radius: 6px; box-shadow: 0 4px 12px rgba(0, 110, 255, 0.25); white-space: nowrap;">
+									立即推广 <i class="bx bx-right-arrow-alt font-size-16 align-middle ml-1"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

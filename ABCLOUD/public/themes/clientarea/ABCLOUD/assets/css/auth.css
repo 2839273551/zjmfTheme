@@ -1,0 +1,604 @@
+/* ABCLOUD Clientarea Auth Styles - Faithful Port of APE User Center */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.abcloud-auth-body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1e2736;
+  background-color: #f1f5f9;
+}
+
+.abcloud-auth-wrap {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../img/c3f153dd-80a0-40a8-9a54-a3b7d6717ab8.jpg") center center / cover no-repeat;
+  position: relative;
+  padding: 40px 16px 80px;
+}
+
+.abcloud-auth-logo-link {
+  position: fixed;
+  top: 24px;
+  left: 36px;
+  z-index: 100;
+  display: block;
+  line-height: 0;
+}
+
+.abcloud-auth-logo {
+  height: 42px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  transition: opacity 0.2s;
+}
+
+.abcloud-auth-logo:hover {
+  opacity: 0.88;
+}
+
+.abcloud-auth-container {
+  width: 920px;
+  min-height: 560px;
+  max-width: 96vw;
+  display: flex;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.16);
+  position: relative;
+  z-index: 10;
+}
+
+/* Left Brand Panel (APE WELCOME) */
+.abcloud-auth-back {
+  width: 420px;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, rgba(235, 244, 255, 0.85) 0%, rgba(215, 233, 255, 0.6) 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.abcloud-auth-back::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 110, 255, 0.12);
+  top: -80px;
+  right: -80px;
+  pointer-events: none;
+}
+
+.abcloud-auth-back::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 110, 255, 0.08) 0%, transparent 70%);
+  bottom: 40px;
+  right: 20px;
+  pointer-events: none;
+}
+
+.abcloud-back-line1,
+.abcloud-back-line2,
+.abcloud-back-line3 {
+  position: absolute;
+  width: 48px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.abcloud-back-line1 {
+  height: 380px;
+  transform: rotate(45deg);
+  top: -90px;
+  left: 280px;
+}
+
+.abcloud-back-line2 {
+  height: 500px;
+  transform: rotate(110deg);
+  top: -30px;
+  left: 320px;
+}
+
+.abcloud-back-line3 {
+  height: 360px;
+  transform: rotate(45deg);
+  top: 180px;
+  left: 90px;
+}
+
+.abcloud-back-content {
+  position: relative;
+  z-index: 2;
+}
+
+.abcloud-text-welcome {
+  font-family: Bahnschrift, "DIN Alternate", -apple-system, sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.abcloud-text-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #006EFF;
+  margin-bottom: 12px;
+}
+
+.abcloud-text-desc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+/* Right Form Panel */
+.abcloud-auth-form-panel {
+  flex: 1;
+  min-width: 0;
+  background: #ffffff;
+  padding: 44px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.abcloud-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.abcloud-form-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+.abcloud-form-switch {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.abcloud-form-switch a {
+  color: #006EFF;
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.abcloud-form-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Tab Headers */
+.abcloud-auth-tabs {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 24px;
+  gap: 28px;
+}
+
+.abcloud-auth-tab-btn {
+  padding-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+}
+
+.abcloud-auth-tab-btn:hover {
+  color: #006EFF;
+}
+
+.abcloud-auth-tab-btn.active {
+  color: #006EFF;
+  font-weight: 600;
+  border-bottom: 2px solid #006EFF;
+}
+
+/* Alerts */
+.abcloud-alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-left: 4px solid #ef4444;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #b91c1c;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.abcloud-alert-success {
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #15803d;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Form Items */
+.abcloud-form-group {
+  margin-bottom: 18px;
+}
+
+.abcloud-form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.abcloud-input-field {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0 14px;
+  font-size: 14px;
+  color: #0f172a;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.abcloud-input-field:focus {
+  border-color: #006EFF;
+  box-shadow: 0 0 0 3px rgba(0, 110, 255, 0.12);
+}
+
+.abcloud-phone-group {
+  display: flex;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.abcloud-phone-group:focus-within {
+  border-color: #006EFF;
+  box-shadow: 0 0 0 3px rgba(0, 110, 255, 0.12);
+}
+
+.abcloud-phone-code-select {
+  width: 110px;
+  flex-shrink: 0;
+  border: none;
+  border-right: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  padding: 0 8px;
+  font-size: 13px;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+}
+
+.abcloud-phone-group .abcloud-input-field {
+  border: none;
+  border-radius: 0;
+}
+
+.abcloud-phone-group .abcloud-input-field:focus {
+  box-shadow: none;
+}
+
+/* Password with Eye Toggle */
+.abcloud-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.abcloud-pwd-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.abcloud-pwd-toggle-btn:hover {
+  color: #006EFF;
+}
+
+/* SMS Code Group */
+.abcloud-code-group {
+  display: flex;
+  gap: 10px;
+}
+
+.abcloud-code-group .abcloud-input-field {
+  flex: 1;
+}
+
+.abcloud-code-btn {
+  width: 116px;
+  flex-shrink: 0;
+  height: 44px;
+  background-color: #006EFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.abcloud-code-btn:hover {
+  background-color: #0056cc;
+}
+
+.abcloud-code-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Form Meta (Remember & Mode Toggles) */
+.abcloud-form-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  margin-top: 14px;
+  margin-bottom: 22px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.abcloud-form-meta a,
+.abcloud-form-meta .pointer {
+  color: #006EFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.abcloud-form-meta a:hover,
+.abcloud-form-meta .pointer:hover {
+  text-decoration: underline;
+}
+
+.abcloud-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Submit Button */
+.abcloud-submit-btn {
+  width: 100%;
+  height: 46px;
+  background-color: #006EFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 110, 255, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.abcloud-submit-btn:hover {
+  background-color: #0056cc;
+  box-shadow: 0 6px 18px rgba(0, 110, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.abcloud-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* OAuth Section */
+.abcloud-oauth-section {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.abcloud-oauth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.abcloud-oauth-divider::before,
+.abcloud-oauth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+.abcloud-oauth-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.abcloud-oauth-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.abcloud-oauth-item a:hover {
+  border-color: #006EFF;
+  transform: scale(1.08);
+}
+
+.abcloud-oauth-item img,
+.abcloud-oauth-item svg {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Frosted Glass Footer */
+.abcloud-auth-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+  z-index: 50;
+}
+
+.abcloud-auth-footer a {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.abcloud-auth-footer a:hover {
+  color: #006EFF;
+}
+
+.abcloud-footer-divider {
+  color: #cbd5e1;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .abcloud-auth-wrap {
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 24px 16px 80px !important;
+  }
+
+  .abcloud-auth-logo-link {
+    position: static !important;
+    display: block !important;
+    margin: 0 auto 20px !important;
+    text-align: center !important;
+  }
+
+  .abcloud-auth-logo {
+    position: static !important;
+    margin: 0 auto !important;
+    height: 38px !important;
+  }
+
+  .abcloud-auth-container {
+    width: 100% !important;
+    max-width: 440px !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12) !important;
+  }
+
+  .abcloud-auth-back {
+    display: none !important;
+  }
+
+  .abcloud-auth-form-panel {
+    width: 100% !important;
+    padding: 30px 22px !important;
+  }
+
+  .abcloud-form-title {
+    font-size: 20px;
+  }
+
+  .abcloud-auth-tabs {
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .abcloud-code-btn {
+    width: 100px;
+    font-size: 12px;
+  }
+
+  .abcloud-auth-footer {
+    font-size: 11px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+}

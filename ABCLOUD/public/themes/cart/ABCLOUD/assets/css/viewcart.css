@@ -1,0 +1,742 @@
+/* ==========================================================================
+   ABCLOUD 购物车与结算页深度美化样式 (viewcart.css)
+   遵循 APE 云模板高质感视觉：现代冷灰底色、精致双栏布局、规整表单、卡片化产品明细
+   ========================================================================== */
+
+.viewcart-page-main {
+  background-color: #edf2f7;
+  min-height: calc(100vh - 76px);
+  padding: 32px 0 60px;
+}
+
+.viewcart-layout-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== 顶部步骤指示条 (Stepper) ===== */
+.viewcart-stepper-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 16px 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.viewcart-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.viewcart-stepper .step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.viewcart-stepper .step-item.is-completed {
+  color: #059669;
+}
+
+.viewcart-stepper .step-item.is-completed .step-num {
+  background: #d1fae5;
+  color: #059669;
+  border-color: #a7f3d0;
+}
+
+.viewcart-stepper .step-item.is-active {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.viewcart-stepper .step-item.is-active .step-num {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.viewcart-stepper .step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid #cbd5e1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.viewcart-stepper .step-divider {
+  flex: 1;
+  max-width: 80px;
+  height: 1.5px;
+  background: #e2e8f0;
+}
+
+/* ===== 当前产品主标题与返回栏 ===== */
+.viewcart-header-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 18px 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.viewcart-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 6px;
+  transition: color 0.15s ease;
+}
+
+.viewcart-back-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.viewcart-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* ===== 左侧卡片：支付订单与账户 ===== */
+.viewcart-workspace #submit-form .card {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  margin-bottom: 24px !important;
+}
+
+.viewcart-workspace #submit-form .card .card-body {
+  padding: 24px 28px !important;
+}
+
+.viewcart-workspace #submit-form .card-body:first-child {
+  padding-bottom: 16px !important;
+}
+
+.viewcart-workspace #submit-form h5 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.viewcart-workspace #submit-form hr {
+  border: 0 !important;
+  border-top: 1px solid #e2e8f0 !important;
+  margin: 0 !important;
+}
+
+/* ===== 输入框统一样式 ===== */
+.viewcart-workspace .form-control {
+  height: 42px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  color: #0f172a !important;
+  padding: 0 14px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease !important;
+}
+
+.viewcart-workspace .form-control:focus {
+  border-color: #2563eb !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* ===== 核心：保证被 jQuery hide() 隐藏的元素绝对不显示 ===== */
+.viewcart-workspace .registerphone[style*="display: none"],
+.viewcart-workspace .registerphone[style*="display:none"],
+.viewcart-workspace .registeremail[style*="display: none"],
+.viewcart-workspace .registeremail[style*="display:none"],
+.viewcart-workspace .loginphone[style*="display: none"],
+.viewcart-workspace .loginphone[style*="display:none"],
+.viewcart-workspace .loginemail[style*="display: none"],
+.viewcart-workspace .loginemail[style*="display:none"],
+.viewcart-workspace [style*="display: none"],
+.viewcart-workspace [style*="display:none"] {
+  display: none !important;
+}
+
+/* ===== 手机注册模式：国家代码与手机号一体化组合框 ===== */
+.viewcart-workspace .registerphone,
+.viewcart-workspace .registeremail,
+.viewcart-workspace .loginphone,
+.viewcart-workspace .loginemail {
+  margin-bottom: 18px !important;
+}
+
+/* 仅在未隐藏时，国家代码和手机号组合为单行横向无缝组合栏 */
+.viewcart-workspace .registerphone:has(#register_phone_code):not([style*="display: none"]):not([style*="display:none"]),
+.viewcart-workspace .loginphone:has(#register_phone_code):not([style*="display: none"]):not([style*="display:none"]),
+.viewcart-workspace div:has(> #register_phone_code):not([style*="display: none"]):not([style*="display:none"]) {
+  display: flex !important;
+  align-items: stretch !important;
+  flex-wrap: nowrap !important;
+  height: 42px !important;
+}
+
+.viewcart-workspace #register_phone_code {
+  float: none !important;
+  flex: 0 0 115px !important;
+  max-width: 115px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 42px !important;
+}
+
+.viewcart-workspace #register_phone_code select {
+  height: 42px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: 0 !important;
+  background-color: #f8fafc !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+.viewcart-workspace #register_phone {
+  float: none !important;
+  flex: 1 1 auto !important;
+  max-width: calc(100% - 115px) !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  height: 42px !important;
+}
+
+/* ===== 图形验证码与短信验证码 input-group：彻底消灭换行并排 ===== */
+.viewcart-workspace .input-group {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  height: 42px !important;
+}
+
+.viewcart-workspace .input-group .custom-file {
+  width: auto !important;
+  flex: 1 1 auto !important;
+  height: 42px !important;
+  position: static !important;
+  display: block !important;
+}
+
+.viewcart-workspace .input-group .custom-file .form-control {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: 0 !important;
+  width: 100% !important;
+  height: 42px !important;
+}
+
+.viewcart-workspace .input-group-append {
+  margin: 0 !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  height: 42px !important;
+}
+
+.viewcart-workspace .input-group-append img {
+  height: 42px !important;
+  width: 120px !important;
+  max-width: 130px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-left: 0 !important;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  cursor: pointer !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.viewcart-workspace #register_phone_get_code,
+.viewcart-workspace #register_email_get_code {
+  height: 42px !important;
+  line-height: 42px !important;
+  padding: 0 16px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+/* ===== 注册/登录模式切换胶囊 ===== */
+.viewcart-workspace .old-user,
+.viewcart-workspace .new-user {
+  cursor: pointer !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 6px 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.viewcart-workspace .btn-primary.old-user {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.viewcart-workspace span.old-user {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border: 1.5px solid #bfdbfe !important;
+}
+
+.viewcart-workspace span.old-user:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.viewcart-workspace .btn-warning.new-user {
+  background: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: #ffffff !important;
+}
+
+/* 手机注册 / 邮箱注册 Tab 胶囊化（消灭粗糙的单选圆点） */
+.viewcart-workspace .cart-register,
+.viewcart-workspace .cart-login {
+  background: #f1f5f9 !important;
+  padding: 3px !important;
+  border-radius: 20px !important;
+  border: 1px solid #e2e8f0 !important;
+  display: inline-flex !important;
+}
+
+.viewcart-workspace .cart-register .btn,
+.viewcart-workspace .cart-login .btn {
+  border: none !important;
+  background: transparent !important;
+  color: #64748b !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 6px 18px !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.viewcart-workspace .cart-register .btn input[type="radio"],
+.viewcart-workspace .cart-login .btn input[type="radio"] {
+  display: none !important;
+}
+
+.viewcart-workspace .cart-register .btn.active,
+.viewcart-workspace .cart-login .btn.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* ===== 支付方式卡片 ===== */
+.viewcart-workspace .addfunds {
+  margin-bottom: 12px !important;
+}
+
+.viewcart-workspace .addfunds-payment {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+  background: #ffffff !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 52px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+.viewcart-workspace .addfunds-payment:hover {
+  border-color: #93c5fd !important;
+  background: #f8fafc !important;
+}
+
+.viewcart-workspace .addfunds-payment.active {
+  border-color: #2563eb !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+.viewcart-workspace .addfunds-payment img {
+  max-height: 28px !important;
+  width: auto !important;
+}
+
+.viewcart-workspace .addfunds-payment input[type="radio"].hidden {
+  display: none !important;
+}
+
+/* ===== 优惠码输入框组 ===== */
+.viewcart-workspace #promo {
+  max-width: 360px !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+.viewcart-workspace #promo .custom-file {
+  flex: 1 1 auto !important;
+  height: 40px !important;
+}
+
+.viewcart-workspace #promo input[name="promo"] {
+  height: 40px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px 0 0 8px !important;
+  font-size: 13px !important;
+  padding: 0 12px !important;
+}
+
+.viewcart-workspace #promo .input-group-append button {
+  height: 40px !important;
+  border-radius: 0 8px 8px 0 !important;
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 0 18px !important;
+}
+
+/* ===== 右侧浮动吸顶订单总结卡片 ===== */
+.viewcart-workspace .col-md-4 {
+  position: sticky !important;
+  top: 76px !important;
+  align-self: flex-start !important;
+}
+
+.viewcart-workspace .col-md-4 .card {
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05) !important;
+}
+
+.viewcart-workspace .col-md-4 .card .card-body {
+  padding: 24px !important;
+}
+
+.viewcart-workspace .invoice-title h4 {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+}
+
+/* 清除右侧粗黑线 */
+.viewcart-workspace .col-md-4 hr {
+  margin: 14px 0 !important;
+  border: 0 !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+.viewcart-workspace .col-md-4 hr[style*="13px"] {
+  display: none !important;
+}
+
+/* ===== 产品清单卡片内部深度美化 ===== */
+.viewcart-workspace address {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 14px 16px !important;
+  margin-bottom: 12px !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease !important;
+}
+
+.viewcart-workspace address:hover {
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.viewcart-workspace address strong {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+/* 操作图标 */
+.viewcart-workspace address a {
+  color: #94a3b8 !important;
+  font-size: 14px !important;
+  transition: color 0.15s ease !important;
+}
+
+.viewcart-workspace address a:hover {
+  color: #ef4444 !important;
+}
+
+.viewcart-workspace address a .fa-pen:hover {
+  color: #2563eb !important;
+}
+
+/* 主机标识胶囊 */
+.viewcart-workspace address .goods_info .title {
+  display: inline-block !important;
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+  margin: 6px 0 !important;
+  text-indent: 0 !important;
+}
+
+.viewcart-workspace address .goods_info .info {
+  color: #64748b !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+
+.viewcart-workspace address p.mb-0 {
+  font-size: 12px !important;
+  color: #64748b !important;
+  line-height: 1.6 !important;
+}
+
+.viewcart-workspace address p.mb-0 .font-weight-medium {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+/* 小计紧凑单行 */
+.viewcart-workspace .col-md-4 div[style*="max-height"] > .font-size-16 {
+  padding: 8px 12px !important;
+  background: #f1f5f9 !important;
+  border-radius: 6px !important;
+  margin-top: 6px !important;
+  margin-bottom: 16px !important;
+  font-size: 13px !important;
+  color: #475569 !important;
+}
+
+.viewcart-workspace .col-md-4 div[style*="max-height"] > .font-size-16 strong {
+  color: #2563eb !important;
+  font-size: 15px !important;
+}
+
+/* 总计价格高亮 */
+.viewcart-workspace .col-md-4 > .card > .card-body > .font-size-16.mobile-hide {
+  background: transparent !important;
+  padding: 12px 0 16px !important;
+  border-top: 1.5px solid #e2e8f0 !important;
+  margin-top: 12px !important;
+}
+
+.viewcart-workspace .price-num {
+  color: #ef4444 !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+}
+
+/* 服务条款勾选 */
+.viewcart-workspace #terms {
+  width: 16px !important;
+  height: 16px !important;
+  accent-color: #2563eb !important;
+  cursor: pointer !important;
+}
+
+.viewcart-workspace label[for="terms"] {
+  font-size: 13px !important;
+  color: #475569 !important;
+  cursor: pointer !important;
+  margin-left: 6px !important;
+}
+
+.viewcart-workspace label[for="terms"] a {
+  color: #2563eb !important;
+  font-weight: 600 !important;
+}
+
+/* 结账按钮强化 */
+.viewcart-workspace .submit-btn {
+  height: 48px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  border: none !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+}
+
+.viewcart-workspace .submit-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ===== 移动端底部结账栏 ===== */
+@media (max-width: 992px) {
+  .viewcart-workspace .mobile-bottom-total {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #ffffff !important;
+    border-top: 1px solid #cbd5e1 !important;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08) !important;
+    z-index: 9999 !important;
+    padding: 10px 16px !important;
+  }
+}
+
+/* ===== 商品操作按钮（修改配置与删除商品） ===== */
+.viewcart-workspace address .d-flex.justify-content-between > div:last-child {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* 修改配置按钮 */
+.viewcart-workspace address a[href*="action=configureproduct"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 6px !important;
+  background: #eff6ff !important;
+  border: 1px solid #dbeafe !important;
+  color: #2563eb !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.viewcart-workspace address a[href*="action=configureproduct"]:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  transform: scale(1.05) !important;
+}
+
+/* 删除商品按钮 */
+.viewcart-workspace address a[onclick*="removeItem"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 6px !important;
+  background: #fef2f2 !important;
+  border: 1px solid #fee2e2 !important;
+  color: #ef4444 !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.viewcart-workspace address a[onclick*="removeItem"]:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+  transform: scale(1.05) !important;
+}
+
+.viewcart-workspace address a[onclick*="removeItem"] .fa-times-circle,
+.viewcart-workspace address a[onclick*="removeItem"] i {
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+/* 删除确认弹窗 (#customModal) 现代美化 */
+#customModal .modal-content {
+  border-radius: 14px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+  overflow: hidden !important;
+}
+
+#customModal .modal-header {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 16px 20px !important;
+}
+
+#customModal .modal-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+#customModal .modal-body {
+  padding: 24px 20px !important;
+  font-size: 14px !important;
+  color: #334155 !important;
+}
+
+#customModal .modal-footer {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 12px 20px !important;
+}
+
+#customModal #customSureBtn {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 8px 20px !important;
+}
+
+#customModal #customSureBtn:hover {
+  background: #dc2626 !important;
+}
+
+#customModal .btn-outline-light {
+  border: 1px solid #cbd5e1 !important;
+  color: #64748b !important;
+  background: #ffffff !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  padding: 8px 18px !important;
+}
+
+#customModal .btn-outline-light:hover {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+}

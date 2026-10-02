@@ -1,0 +1,2 @@
+aef9f7bf1aa72e2dd26f1b98687fdeb3f0cafa425d9b9f6b0b8c144f6526fbd5  public/plugins/addons/abcloud_theme/template/admin.php
+26d70c6e3bd34461c5411f036e68e92a72cecf542482a28c9de78414f75e76f9  public/plugins/addons/abcloud_theme/controller/AdminIndexController.php

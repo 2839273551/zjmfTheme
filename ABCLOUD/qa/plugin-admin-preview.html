@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ABCLOUD 插件后台预览</title>
+<link rel="stylesheet" href="../public/plugins/addons/abcloud_theme/assets/css/admin.css">
+<link rel="stylesheet" href="../public/plugins/addons/abcloud_theme/assets/css/pages.css">
+<link rel="stylesheet" href="../public/plugins/addons/abcloud_theme/assets/css/main_file.css">
+<style>
+.layout>.main{min-width:0;max-width:100%}
+.plugin-mobile-menu{display:none;border:0;background:transparent;color:#fff;font-size:22px;width:36px;height:36px}
+.plugin-menu-backdrop{display:none}
+@media(max-width:768px){.plugin-mobile-menu{display:inline-flex;align-items:center;justify-content:center}.plugin-menu-open .sidebar{width:240px;overflow-y:auto;z-index:201}.plugin-menu-open .plugin-menu-backdrop{display:block;position:fixed;inset:48px 0 0;background:rgba(0,0,0,.35);z-index:200}}
+.plugin-card{background:#fff;border:1px solid #ebeef5;border-radius:6px;padding:20px;overflow:auto}
+.plugin-toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.plugin-toolbar button{border:0;border-radius:4px;padding:7px 12px;background:#409eff;color:#fff}
+.plugin-table{width:100%;border-collapse:collapse;background:#fff}
+.plugin-table th,.plugin-table td{padding:12px 14px;border-bottom:1px solid #ebeef5;text-align:left;font-size:13px}
+.plugin-table th{background:#f8f9fb;color:#606266}
+.plugin-table td img{width:72px;height:42px;object-fit:cover}
+.plugin-actions{display:flex;gap:8px}
+.plugin-actions button{border:0;border-radius:4px;padding:7px 12px;background:#409eff;color:#fff}
+.plugin-actions button.danger{background:#f56c6c}
+@media(max-width:900px){.plugin-table{min-width:760px}.content-box{overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="top-header"><div class="top-header-left"><button class="plugin-mobile-menu" id="pluginMenuToggle" type="button" aria-label="打开管理菜单" aria-expanded="false">☰</button><div class="header-logo"><img src="../public/plugins/addons/abcloud_theme/assets/img/APE.png" alt="ABCLOUD" style="width:25px;height:25px;object-fit:contain"><span class="logo-text">ABCLOUD 主题管理</span></div></div><div class="top-header-right">管理员</div></div>
+<div class="layout">
+<div class="plugin-menu-backdrop" id="pluginMenuBackdrop"></div>
+<aside class="sidebar"><ul class="sidebar-menu"><li><a class="active">轮播图管理</a></li><li><a>快捷入口管理</a></li><li><a>顶部导航管理</a></li><li><a>弹窗通知管理</a></li><li><a>资源库管理</a></li></ul></aside>
+<div class="main"><div class="tab-bar"><span class="page-title">轮播图管理</span></div><div class="content-box"><div class="plugin-card"><div class="plugin-toolbar"><button>新增轮播图</button><input placeholder="搜索标题"></div><table class="plugin-table"><thead><tr><th>ID</th><th>图片</th><th>标题</th><th>类型</th><th>排序</th><th>状态</th><th>操作</th></tr></thead><tbody><tr><td>1</td><td><img src="../public/plugins/addons/abcloud_theme/assets/img/bg.png" alt=""></td><td>云服务器产品</td><td>图片</td><td>1</td><td>显示</td><td><div class="plugin-actions"><button>编辑</button><button class="danger">删除</button></div></td></tr><tr><td>2</td><td><img src="../public/plugins/addons/abcloud_theme/assets/img/gxbj.png" alt=""></td><td>全球基础设施</td><td>图片</td><td>2</td><td>显示</td><td><div class="plugin-actions"><button>编辑</button><button class="danger">删除</button></div></td></tr></tbody></table></div></div></div>
+</div>
+<script>window.PLUGIN_CONTEXT={page:'preview',apiUrl:'/',csrf:''};</script>
+<script src="../public/plugins/addons/abcloud_theme/assets/js/plugin-admin.js"></script>
+</body>
+</html>

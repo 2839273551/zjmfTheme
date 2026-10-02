@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>ABCLOUD 插件数据夹具</title></head>
+<body>
+<ul id="publicNav"><li><a class="nav-parent" href="/">首页</a></li><li class="has-mega" data-product-menu="1"><a class="nav-parent" href="/cart">产品与服务</a></li><li><a href="/news">旧导航</a></li></ul>
+<ul class="mobile-menu-list"><li><a href="/">首页</a></li><li><a href="/cart">产品</a></li><li><a href="/news">旧导航</a></li></ul>
+<div class="mobile-menu-left"><ul class="mobile-menu-list"><li><a href="/">首页</a></li><li><a href="/cart">产品</a></li><li><a href="/news">旧导航</a></li></ul></div>
+<div id="banner"><div id="bannerSidebar"></div><div id="bannerInner"><div class="banner-item active">旧轮播</div></div><div id="bannerDots"></div><button id="bannerPrev">上一个</button><button id="bannerNext">下一个</button></div>
+<div class="feature-buttons-section"><div id="featureList"><a href="/">旧快捷入口</a></div></div>
+<div id="footerNav"><a href="/">旧页脚</a></div>
+<div class="footer-qr-codes"></div>
+<div id="apeFloats"><div class="side-toolbar-avatar"><img src="/old.png" alt=""><span class="avatar-label">旧客服</span></div><div class="side-toolbar-wechat"><div class="side-toolbar-popup"></div></div></div>
+<div id="apeNoticeFloatBtn">网站通知</div>
+<div id="popupOverlay" aria-hidden="true"><div class="popup-header"><h3>旧弹窗</h3></div><div class="popup-content"></div><div class="popup-footer"></div></div>
+<script>
+window.fetch = function () {
+    var mode = new URLSearchParams(location.search).get('mode');
+    if (mode === 'fail') return Promise.reject(new Error('offline'));
+    var empty = mode === 'empty';
+    var data = {
+        managed: {carousel:true,feature:true,topnav:true,footernav:true,web_module:true,popup:true},
+        config: {carousel_speed:'10000'},
+        carousel: empty ? [] : [
+            {id:1,title:'测试轮播一',media_url:'/one.png',description:'第一张',status:1},
+            {id:2,title:'测试轮播二',media_url:'/two.png',description:'第二张',status:1}
+        ],
+        features: empty ? [] : [{id:1,title:'测试入口',description:'测试描述',icon_url:'/icon.png',link_url:'/cart'}],
+        topNav: empty ? [] : [{id:1,parent_id:0,title:'测试导航',link_url:'/news',menu_type:'mega'},{id:2,parent_id:1,title:'测试分类'},{id:3,parent_id:2,title:'测试三级',link_url:'/cart'}],
+        footerNav: empty ? [] : [{id:1,category:'测试分组',title:'测试页脚',link_url:'/news'}],
+        modules: empty ? [] : [{id:1,category:'侧边导航',title:'online_service',description:'{"service_image":"/avatar.png","btn_text":"测试客服"}'},{id:2,category:'侧边导航',title:'qrcode',description:'[{"image":"/qr.png","desc":"测试二维码"}]'}],
+        popup: empty ? [] : [{id:1,title:'测试弹窗',content:'<p>测试内容</p>',show_type:'always'}]
+    };
+    return Promise.resolve({ok:true,json:function(){return Promise.resolve({code:0,data:data});}});
+};
+</script>
+<script src="../public/themes/web/ABCLOUD/static/ape/js/carousel.js"></script>
+<script src="../public/themes/web/ABCLOUD/static/ape/js/plugin-content.js"></script>
+</body>
+</html>

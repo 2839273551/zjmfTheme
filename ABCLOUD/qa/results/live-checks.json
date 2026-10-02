@@ -1,0 +1,155 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "groups": 5,
+    "productCounts": [
+      8,
+      8,
+      0,
+      8,
+      8
+    ],
+    "docs": [
+      {
+        "title": "服务条款-违规补充说明",
+        "href": "/knowledgebaseview?id=2"
+      },
+      {
+        "title": "服务条款-注册默认同意",
+        "href": "/knowledgebaseview?id=1"
+      }
+    ],
+    "maps": {
+      "flat": {
+        "canvasCount": 2,
+        "colorDeviation": [
+          32,
+          21,
+          17
+        ],
+        "movingPixels": 5410
+      },
+      "globe": {
+        "canvasCount": 1,
+        "colorDeviation": [
+          115,
+          110,
+          103
+        ],
+        "movingPixels": 19232
+      }
+    },
+    "overflow": {
+      "scroll": 1440,
+      "client": 1440
+    },
+    "errors": [],
+    "failed": [],
+    "themeResources": 90
+  },
+  {
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "groups": 5,
+    "productCounts": [
+      8,
+      8,
+      0,
+      8,
+      8
+    ],
+    "docs": [
+      {
+        "title": "服务条款-违规补充说明",
+        "href": "/knowledgebaseview?id=2"
+      },
+      {
+        "title": "服务条款-注册默认同意",
+        "href": "/knowledgebaseview?id=1"
+      }
+    ],
+    "maps": {
+      "flat": {
+        "canvasCount": 2,
+        "colorDeviation": [
+          36,
+          23,
+          20
+        ],
+        "movingPixels": 4843
+      },
+      "globe": {
+        "canvasCount": 1,
+        "colorDeviation": [
+          118,
+          113,
+          106
+        ],
+        "movingPixels": 20370
+      }
+    },
+    "overflow": {
+      "scroll": 1280,
+      "client": 1280
+    },
+    "errors": [],
+    "failed": [],
+    "themeResources": 91
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "groups": 5,
+    "productCounts": [
+      8,
+      8,
+      0,
+      8,
+      8
+    ],
+    "docs": [
+      {
+        "title": "服务条款-违规补充说明",
+        "href": "/knowledgebaseview?id=2"
+      },
+      {
+        "title": "服务条款-注册默认同意",
+        "href": "/knowledgebaseview?id=1"
+      }
+    ],
+    "maps": {
+      "flat": {
+        "canvasCount": 2,
+        "colorDeviation": [
+          58,
+          37,
+          27
+        ],
+        "movingPixels": 2859
+      },
+      "globe": {
+        "canvasCount": 1,
+        "colorDeviation": [
+          115,
+          107,
+          100
+        ],
+        "movingPixels": 7370
+      }
+    },
+    "overflow": {
+      "scroll": 390,
+      "client": 390
+    },
+    "errors": [],
+    "failed": [],
+    "themeResources": 58
+  }
+]

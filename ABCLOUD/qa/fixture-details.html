@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<title>个人资料与账户中心 | 云信网络</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap & Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+	<!-- ABCLOUD Clientarea Unified Styles -->
+	<link href="../public/themes/clientarea/ABCLOUD/assets/css/clientarea.css" rel="stylesheet" type="text/css" />
+	<link href="../public/themes/clientarea/ABCLOUD/assets/css/details.css" rel="stylesheet" type="text/css" />
+
+	<!-- JAVASCRIPT -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body data-sidebar="light" style="background-color: #edf2f7;">
+	<!-- Top Bar -->
+	<header id="page-topbar" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px;">
+		<div class="d-flex align-items-center">
+			<img src="../public/themes/web/ABCLOUD/static/ape/img/logo.png" height="32" alt="Logo" onerror="this.src='../public/themes/clientarea/ABCLOUD/assets/img/vip/why.png'" />
+			<span class="ml-3 font-weight-bold" style="font-size: 16px; color: #0f172a;">控制台</span>
+		</div>
+		<div class="d-flex align-items-center">
+			<div class="dropdown d-inline-block">
+				<button type="button" class="btn header-item d-inline-flex align-items-center abcloud-top-user-btn" style="background: transparent; border: none;">
+					<div class="abcloud-avatar-sm" style="width: 32px; height: 32px; border-radius: 50%; background: #eff6ff; color: #0066ff; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 8px;">
+						崔
+					</div>
+					<span class="font-weight-500" style="color: #334155;">崔康毅</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<!-- Main Container -->
+	<div class="container-fluid py-4" style="max-width: 1360px;">
+		<div class="abcloud-profile-container">
+			<div class="abcloud-profile-card">
+				<!-- Header Title -->
+				<div class="abcloud-profile-header-title">
+					<i class="bx bxs-user-badge text-primary" style="font-size: 24px;"></i>
+					<span>个人资料与账户中心</span>
+				</div>
+
+				<!-- Top Profile Tabs -->
+				<div class="abcloud-profile-tabs">
+					<a href="javascript:void(0);" class="abcloud-tab-item active" id="tabBtnAccount" onclick="switchProfileTab('account')">
+						<i class="bx bx-user-circle font-size-16"></i> 基础资料与安全
+					</a>
+					<a href="javascript:void(0);" class="abcloud-tab-item" id="tabBtnLogs" onclick="switchProfileTab('logs')">
+						<i class="bx bx-history font-size-16"></i> 操作日志
+					</a>
+				</div>
+
+				<!-- TAB 1: 基础资料与安全 -->
+				<div id="paneAccount" class="abcloud-tab-content-pane">
+					<div class="abcloud-account-layout">
+						<!-- 左侧栏：用户信息卡片 + 实名认证卡片 -->
+						<div class="abcloud-account-side">
+							<div class="abcloud-side-card">
+								<div class="abcloud-side-title">用户信息</div>
+								<div class="abcloud-side-user">
+									<div class="abcloud-side-avatar" id="abcloudSideAvatar">
+										<img class="qq-avatar" src="https://q1.qlogo.cn/g?b=qq&nk=2839273551&s=100" alt="头像" onerror="handleAvatarError(this, '崔');" />
+									</div>
+									<div class="abcloud-side-badge">主账号</div>
+								</div>
+
+								<div class="abcloud-side-name">
+									<span>崔康毅</span>
+									<img class="country-flag" id="sideCountryFlag" src="../public/themes/clientarea/ABCLOUD/assets/img/cloud/CN.png" alt="国旗" title="中国" />
+								</div>
+								<div class="abcloud-side-uid">ID: 1</div>
+
+								<!-- 绑定状态列表 -->
+								<div class="abcloud-side-bind-list">
+									<div class="abcloud-side-bind-item">
+										<span class="abcloud-side-bind-label">安全手机</span>
+										<span class="abcloud-side-bind-val">132****4758</span>
+										<span class="abcloud-side-bind-status is-bound">
+											<i class="bx bxs-check-circle"></i> 已绑定
+										</span>
+									</div>
+
+									<div class="abcloud-side-bind-item">
+										<span class="abcloud-side-bind-label">安全邮箱</span>
+										<span class="abcloud-side-bind-val" title="2839273551@qq.com">2839273551@qq.com</span>
+										<span class="abcloud-side-bind-status is-bound">
+											<i class="bx bxs-check-circle"></i> 已绑定
+										</span>
+									</div>
+								</div>
+
+								<div class="abcloud-side-regtime">
+									注册于 2026-08-27 15:30:00
+								</div>
+							</div>
+
+							<!-- 实名认证卡片 -->
+							<div class="abcloud-side-card">
+								<div class="abcloud-side-title">实名信息</div>
+								<div class="abcloud-side-cert-box">
+									<a href="/verified" class="abcloud-cert-card">
+										<img src="../public/themes/clientarea/ABCLOUD/assets/img/account/personal_certification.png" class="abcloud-cert-icon" alt="实名通过" />
+										<div class="abcloud-cert-info">
+											<div class="abcloud-cert-title">已通过实名认证</div>
+											<div class="abcloud-cert-desc">尊享完整云资产与安全服务</div>
+										</div>
+										<span class="abcloud-cert-badge ok"><i class="bx bx-check"></i> 已认证</span>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<!-- 右侧栏：个人资料表单与安全设置 -->
+						<div class="abcloud-account-main">
+							<form id="formProfile" onsubmit="return false;">
+								<div class="abcloud-section-header">基本资料</div>
+								<div class="abcloud-form-grid">
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label" for="inpUsername">用户姓名 / 昵称</label>
+										<input type="text" class="abcloud-form-control" id="inpUsername" name="username" value="崔康毅" placeholder="请输入用户名" required />
+									</div>
+
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label" for="selLanguage">界面语言偏好</label>
+										<select class="abcloud-form-control" id="selLanguage" name="language">
+											<option value="chinese" selected>简体中文 (Chinese)</option>
+											<option value="english">English (英语)</option>
+										</select>
+									</div>
+
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label" for="inpCompany">企业 / 公司名称</label>
+										<input type="text" class="abcloud-form-control" id="inpCompany" name="companyname" value="云信网络科技" placeholder="个人用户可不填" />
+									</div>
+
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label" for="selCountry">国家 / 地区</label>
+										<select class="abcloud-form-control" id="selCountry" name="country">
+											<option value="China" selected>中国 (China)</option>
+											<option value="Hong Kong">中国香港 (Hong Kong)</option>
+											<option value="United States">美国 (United States)</option>
+										</select>
+									</div>
+
+									<div class="abcloud-form-item" style="grid-column: span 2;">
+										<label class="abcloud-form-label" for="inpAddress">联系详细地址</label>
+										<input type="text" class="abcloud-form-control" id="inpAddress" name="address" value="北京市海淀区中关村南大街科技园区" placeholder="请输入常用联系地址" />
+									</div>
+								</div>
+
+								<div class="abcloud-section-header">账号安全</div>
+								<div class="abcloud-form-grid">
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label">安全手机</label>
+										<div class="abcloud-clickable-input" onclick="openPhoneModal();" title="点击更换安全手机">
+											<input type="text" class="abcloud-form-control" readonly value="132****4758" />
+											<i class="bx bx-edit abcloud-clickable-icon"></i>
+										</div>
+									</div>
+
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label">安全邮箱</label>
+										<div class="abcloud-clickable-input" onclick="openEmailModal();" title="点击更换安全邮箱">
+											<input type="text" class="abcloud-form-control" readonly value="2839273551@qq.com" />
+											<i class="bx bx-edit abcloud-clickable-icon"></i>
+										</div>
+									</div>
+
+									<div class="abcloud-form-item">
+										<label class="abcloud-form-label">登录密码</label>
+										<div class="abcloud-clickable-input" onclick="openPasswordModal();" title="点击修改登录密码">
+											<input type="password" class="abcloud-form-control" readonly value="********" />
+											<i class="bx bx-edit abcloud-clickable-icon"></i>
+										</div>
+									</div>
+								</div>
+
+								<div class="abcloud-form-actions">
+									<button type="button" class="abcloud-btn-save" id="btnSaveDetails" onclick="saveBasicProfile();">
+										<i class="bx bx-save font-size-18"></i> 保存更改
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- TAB 2: 操作日志 -->
+				<div id="paneLogs" class="abcloud-tab-content-pane" style="display: none;">
+					<div class="abcloud-log-toolbar">
+						<div class="text-muted font-size-13">
+							记录账户近期关键操作、登录记录与安全审计。
+						</div>
+						<div class="abcloud-log-search-group">
+							<input type="text" class="abcloud-log-search-input" id="inpLogSearch" placeholder="搜索日志描述或IP..." onkeypress="handleLogSearchKey(event);" />
+							<i class="bx bx-search abcloud-log-search-icon" onclick="filterLogs();"></i>
+						</div>
+					</div>
+
+					<div class="abcloud-table-wrap">
+						<table class="abcloud-table" id="tableLogs">
+							<thead>
+								<tr>
+									<th style="width: 100px;">编号</th>
+									<th style="min-width: 320px;">操作行为描述</th>
+									<th style="width: 220px;">记录时间</th>
+									<th style="width: 180px;">登录 / 操作 IP</th>
+								</tr>
+							</thead>
+							<tbody id="logTableBody">
+								<tr>
+									<td>#102</td>
+									<td class="font-weight-500">更新个人资料：联系地址已成功变更</td>
+									<td>2026-10-01 16:40:12</td>
+									<td><span class="badge badge-light px-2 py-1">121.41.65.120</span></td>
+								</tr>
+								<tr>
+									<td>#101</td>
+									<td class="font-weight-500">用户手机验证码登录控制台成功</td>
+									<td>2026-10-01 16:30:25</td>
+									<td><span class="badge badge-light px-2 py-1">121.41.65.120</span></td>
+								</tr>
+								<tr>
+									<td>#100</td>
+									<td class="font-weight-500">订购香港CN2特价1区云服务器实例 (订单号: ORD20261001-09)</td>
+									<td>2026-09-30 18:22:15</td>
+									<td><span class="badge badge-light px-2 py-1">121.41.65.120</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="abcloud-mob-log-list" id="mobLogList">
+						<div class="abcloud-mob-log-card">
+							<div class="abcloud-mob-log-top">
+								<span>#102</span>
+								<span>121.41.65.120</span>
+							</div>
+							<div class="abcloud-mob-log-desc">更新个人资料：联系地址已成功变更</div>
+							<div class="abcloud-mob-log-footer">
+								<span>2026-10-01 16:40:12</span>
+							</div>
+						</div>
+						<div class="abcloud-mob-log-card">
+							<div class="abcloud-mob-log-top">
+								<span>#101</span>
+								<span>121.41.65.120</span>
+							</div>
+							<div class="abcloud-mob-log-desc">用户手机验证码登录控制台成功</div>
+							<div class="abcloud-mob-log-footer">
+								<span>2026-10-01 16:30:25</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<div class="modal fade abcloud-modal" id="modalPassword" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 480px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><i class="bx bx-key text-primary mr-1"></i> 修改登录密码</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="关闭">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="abcloud-modal-alert" id="pwdAlert" style="display: none;">
+						<i class="bx bx-error-circle font-size-16"></i> <span id="pwdAlertMsg"></span>
+					</div>
+					<form id="formPwd">
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">原登录密码</label>
+							<input type="password" class="abcloud-form-control" id="oldPassword" placeholder="请输入原登录密码" autocomplete="current-password" />
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">新登录密码</label>
+							<input type="password" class="abcloud-form-control" id="newPassword" placeholder="8-32位字符，包含字母与数字" autocomplete="new-password" />
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">确认新密码</label>
+							<input type="password" class="abcloud-form-control" id="renewPassword" placeholder="请再次输入新登录密码" autocomplete="new-password" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light px-4" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary px-4" id="btnSubmitPwd" onclick="doSubmitPassword();">确认修改</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade abcloud-modal" id="modalPhone" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 480px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><i class="bx bx-mobile-alt text-primary mr-1"></i> 更换安全手机号码</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="关闭">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="abcloud-modal-alert" id="phoneAlert" style="display: none;">
+						<i class="bx bx-error-circle font-size-16"></i> <span id="phoneAlertMsg"></span>
+					</div>
+					<div id="phoneStep1">
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">当前绑定手机</label>
+							<input type="text" class="abcloud-form-control" readonly value="13273184758" />
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">原手机验证码</label>
+							<div class="abcloud-code-input-group">
+								<input type="text" class="abcloud-form-control" id="oldPhoneCode" placeholder="请输入6位验证码" maxlength="8" />
+								<button type="button" class="abcloud-count-btn" id="btnSendOldPhone" onclick="sendVerificationCode('phone_old', this);">获取验证码</button>
+							</div>
+						</div>
+					</div>
+					<div id="phoneStep2" style="display:none;">
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">新手机号码</label>
+							<div class="abcloud-phone-combine-group">
+								<select class="abcloud-form-control" id="newPhoneCountryCode">
+									<option value="86" selected>+86(中国)</option>
+									<option value="852">+852(香港)</option>
+								</select>
+								<input type="text" class="abcloud-form-control" id="newPhoneNumber" placeholder="请输入新手机号" />
+							</div>
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">新手机验证码</label>
+							<div class="abcloud-code-input-group">
+								<input type="text" class="abcloud-form-control" id="newPhoneCode" placeholder="请输入6位验证码" maxlength="8" />
+								<button type="button" class="abcloud-count-btn" id="btnSendNewPhone" onclick="sendVerificationCode('phone_new', this);">获取验证码</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light px-4" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary px-4" id="btnSubmitPhone" onclick="doSubmitPhone();">下一步</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade abcloud-modal" id="modalEmail" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 480px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><i class="bx bx-envelope text-primary mr-1"></i> 更换安全邮箱地址</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="关闭">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="abcloud-modal-alert" id="emailAlert" style="display: none;">
+						<i class="bx bx-error-circle font-size-16"></i> <span id="emailAlertMsg"></span>
+					</div>
+					<div id="emailStep1">
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">当前绑定邮箱</label>
+							<input type="text" class="abcloud-form-control" readonly value="2839273551@qq.com" />
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">原邮箱验证码</label>
+							<div class="abcloud-code-input-group">
+								<input type="text" class="abcloud-form-control" id="oldEmailCode" placeholder="请输入邮件验证码" maxlength="8" />
+								<button type="button" class="abcloud-count-btn" id="btnSendOldEmail" onclick="sendVerificationCode('email_old', this);">获取验证码</button>
+							</div>
+						</div>
+					</div>
+					<div id="emailStep2" style="display:none;">
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">新邮箱地址</label>
+							<input type="email" class="abcloud-form-control" id="newEmailAddress" placeholder="name@domain.com" />
+						</div>
+						<div class="form-group mb-3">
+							<label class="abcloud-form-label">新邮箱验证码</label>
+							<div class="abcloud-code-input-group">
+								<input type="text" class="abcloud-form-control" id="newEmailCode" placeholder="请输入邮件验证码" maxlength="8" />
+								<button type="button" class="abcloud-count-btn" id="btnSendNewEmail" onclick="sendVerificationCode('email_new', this);">获取验证码</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light px-4" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary px-4" id="btnSubmitEmail" onclick="doSubmitEmail();">下一步</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.__USER_DATA__ = {
+			id: '1',
+			username: '崔康毅',
+			email: '2839273551@qq.com',
+			phonenumber: '13273184758',
+			country: 'China',
+			certStatus: '1'
+		};
+	</script>
+	<script src="../public/themes/clientarea/ABCLOUD/assets/js/details.js"></script>
+</body>
+</html>

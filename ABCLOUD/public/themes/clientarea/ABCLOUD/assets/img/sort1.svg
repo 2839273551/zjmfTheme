@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"
+     class="contribution-item-img__2-fih">
+    <defs>
+        <path id="rank1_svg__a" d="M13.69 20V9.616h-1.598l-3.139 2.61 1.027 1.218 1.95-1.804V20z"></path>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h32v32H0z"></path>
+        <g transform="translate(4 2.667)">
+            <path fill="#D16C11" d="M0 0h6.976l5.49 7.642L17.063 0H24L12 16z"></path>
+            <circle fill="#F7C049" cx="12" cy="14.667" r="12"></circle>
+            <circle fill="#FEE6AD" cx="12" cy="14.667" r="9.333"></circle>
+            <g fill-rule="nonzero">
+                <use fill="#FFF" href="#rank1_svg__a"></use>
+                <use fill="#D74D03" href="#rank1_svg__a"></use>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,546 @@
+/* =========================================================
+   ABCLOUD 产品配置页 (configureproduct) 深度精细化美化样式
+   ========================================================= */
+
+/* 页面主容器 */
+.configure-page-main {
+  background-color: var(--cscart-bg, #edf2f7) !important;
+  min-height: calc(100vh - 400px) !important;
+  padding: 76px 20px 60px !important;
+}
+
+.configure-layout-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== 顶部步骤指示条 (Stepper) ===== */
+.configure-stepper-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 16px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.05);
+}
+
+.configure-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none !important;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.step-num {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.step-item.is-completed .step-num {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.step-item.is-completed {
+  color: #15803d;
+}
+
+.step-item.is-active .step-num {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+}
+
+.step-item.is-active {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.step-divider {
+  flex: 1;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 16px;
+  max-width: 120px;
+}
+
+/* ===== 产品大标题卡片 ===== */
+.configure-header-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-top: 3px solid #2563eb;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
+}
+
+.configure-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none !important;
+  margin-bottom: 8px;
+  transition: color 0.15s;
+}
+
+.configure-back-link:hover {
+  color: #1d4ed8;
+}
+
+.configure-product-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.configure-product-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 8px;
+  line-height: 1.6;
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 3px solid #cbd5e1;
+}
+
+/* ===== 配置表单主体卡片 ===== */
+.abcloud-config-workspace #addCartForm .card {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06) !important;
+  margin-bottom: 20px !important;
+}
+
+.abcloud-config-workspace #addCartForm .card .card-body {
+  padding: 24px 28px !important;
+}
+
+/* 隐藏重复的自带老标题卡片，但保留业务错误提示 */
+.abcloud-config-workspace #addCartForm .card.border-bottom.mb-0 {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+}
+
+.abcloud-config-workspace #addCartForm .card.border-bottom.mb-0 .card-body {
+  padding: 0 !important;
+}
+
+.abcloud-config-workspace #addCartForm .card.border-bottom.mb-0 .d-flex,
+.abcloud-config-workspace #addCartForm .card.border-bottom.mb-0 .card-title {
+  display: none !important;
+}
+
+/* 业务错误与提示信息 */
+.abcloud-config-workspace .alert.alert-danger {
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+  border-left: 4px solid #ef4444 !important;
+  color: #991b1b !important;
+  border-radius: 8px !important;
+  padding: 14px 18px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* ===== 表单行与标签排版 ===== */
+.abcloud-config-workspace .form-group.row.configureproduct,
+.abcloud-config-workspace .form-group.row {
+  margin-bottom: 22px !important;
+  padding-bottom: 18px !important;
+  border-bottom: 1px dashed #f1f5f9 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+.abcloud-config-workspace .form-group.row:last-child {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.abcloud-config-workspace label.col-form-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  padding-top: 6px !important;
+  text-align: left !important;
+}
+
+/* ===== 核心单选规格胶囊卡片 (.btn-custom / .btn-group-toggle) ===== */
+.abcloud-config-workspace .btn-custom-group,
+.abcloud-config-workspace .btn-group-toggle {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  width: auto !important;
+}
+
+.abcloud-config-workspace .btn-custom,
+.abcloud-config-workspace .btn-group-toggle > .btn,
+.abcloud-config-workspace .btn-group-toggle label.btn {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 86px !important;
+  max-width: max-content !important;
+  height: 38px !important;
+  line-height: 36px !important;
+  padding: 0 18px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+}
+
+.abcloud-config-workspace .btn-custom:hover,
+.abcloud-config-workspace .btn-group-toggle > .btn:hover,
+.abcloud-config-workspace .btn-group-toggle label.btn:hover {
+  border-color: #93c5fd !important;
+  background: #f8fafc !important;
+  color: #2563eb !important;
+}
+
+.abcloud-config-workspace .btn-custom.active,
+.abcloud-config-workspace .btn-group-toggle > .btn.active,
+.abcloud-config-workspace .btn-group-toggle label.btn.active {
+  background: #eff6ff !important;
+  border-color: #2563eb !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 0 0 1px #2563eb !important;
+  font-weight: 700 !important;
+}
+
+/* 隐藏原生单选小圆点 */
+.abcloud-config-workspace .btn-group-toggle input[type="radio"],
+.abcloud-config-workspace .btn-custom input[type="radio"] {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ===== 计费周期卡片 (.cycle) ===== */
+.abcloud-config-workspace .cycle {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.abcloud-config-workspace .cycle .btn-custom {
+  min-width: 110px !important;
+  height: 46px !important;
+  line-height: 44px !important;
+  padding: 0 20px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  position: relative !important;
+  border-radius: 8px !important;
+}
+
+.abcloud-config-workspace .cycle-select-discount {
+  position: absolute !important;
+  top: -9px !important;
+  right: -6px !important;
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 2px 7px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35) !important;
+  line-height: 1.3 !important;
+}
+
+/* ===== 操作系统选择框美化 (彻底消除外层多余边框/底线，两框完全对齐) ===== */
+.abcloud-config-workspace .dropdown.bootstrap-select,
+.abcloud-config-workspace .bootstrap-select.form-control,
+.abcloud-config-workspace .bootstrap-select.configoption_os_group,
+.abcloud-config-workspace .bootstrap-select.configoption_os {
+  padding: 0 !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  background: transparent !important;
+  height: auto !important;
+  box-shadow: none !important;
+  outline: none !important;
+  width: 100% !important;
+}
+
+.abcloud-config-workspace .bootstrap-select > .btn.dropdown-toggle {
+  height: 42px !important;
+  line-height: 40px !important;
+  padding: 0 14px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease !important;
+}
+
+.abcloud-config-workspace .bootstrap-select > .btn.dropdown-toggle:hover,
+.abcloud-config-workspace .bootstrap-select > .btn.dropdown-toggle:focus {
+  border-color: #2563eb !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+.abcloud-config-workspace .bootstrap-select .filter-option {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-right: 18px !important;
+}
+
+.abcloud-config-workspace .bootstrap-select .filter-option-inner {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+.abcloud-config-workspace .bootstrap-select .filter-option-inner-inner {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  line-height: 1 !important;
+}
+
+.abcloud-config-workspace .bootstrap-select .filter-option-inner-inner img {
+  vertical-align: middle !important;
+  height: 20px !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+/* 操作系统版本原生下拉框与大类下拉框完全对齐 */
+.abcloud-config-workspace select.form-control,
+.abcloud-config-workspace select.configoption_os {
+  height: 42px !important;
+  line-height: 40px !important;
+  padding: 0 32px 0 14px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+.abcloud-config-workspace select.form-control:focus,
+.abcloud-config-workspace select.configoption_os:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+  outline: none !important;
+}
+
+/* ===== 输入框与密码设定 ===== */
+.abcloud-config-workspace input.form-control,
+.abcloud-config-workspace textarea.form-control {
+  height: 40px !important;
+  line-height: 38px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 0 12px !important;
+  font-size: 13px !important;
+  color: #0f172a !important;
+  background: #ffffff !important;
+  transition: all 0.2s ease !important;
+}
+
+.abcloud-config-workspace textarea.form-control {
+  height: auto !important;
+  line-height: 1.6 !important;
+  padding: 10px 12px !important;
+}
+
+.abcloud-config-workspace input.form-control:focus,
+.abcloud-config-workspace textarea.form-control:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* 密码随机生成按钮 */
+.create_random_pass {
+  font-size: 20px !important;
+  color: #2563eb !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.create_random_pass:hover {
+  transform: rotate(60deg) scale(1.1) !important;
+  color: #1d4ed8 !important;
+}
+
+/* ===== 右侧浮动吸顶订单总结面板 (.col-xl-4) ===== */
+@media screen and (min-width: 1200px) {
+  .abcloud-config-workspace .col-xl-4 {
+    position: sticky !important;
+    top: 76px !important;
+    align-self: flex-start !important;
+    z-index: 10 !important;
+  }
+}
+
+.abcloud-config-workspace .col-xl-4 .card {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-top: 3px solid #2563eb !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08) !important;
+  padding: 20px 22px !important;
+  box-sizing: border-box !important;
+}
+
+.abcloud-config-workspace .col-xl-4 .card .card-body {
+  padding: 0 !important;
+}
+
+.abcloud-config-workspace .col-xl-4 .card-title {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  margin-bottom: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* 汇总表格样式 */
+.abcloud-config-workspace .ordersummary td {
+  border: none !important;
+  padding: 8px 4px !important;
+  font-size: 13px !important;
+  color: #334155 !important;
+}
+
+.abcloud-config-workspace .ordersummary .color-999 {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+
+.abcloud-config-workspace .ordersummary tr.mobile-hide td {
+  padding-top: 14px !important;
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+.abcloud-config-workspace .ordersummary .font-weight-bold {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #dc2626 !important;
+}
+
+/* 立即加购 / 立即下单行动按钮容器与按钮 */
+.abcloud-config-workspace .text-sm-right[style*="position: absolute"],
+.abcloud-config-workspace .mobile-hide[style*="position: absolute"],
+.abcloud-config-workspace div:has(> #addToCartBtn) {
+  position: static !important;
+  width: 100% !important;
+  margin-top: 20px !important;
+  text-align: center !important;
+  bottom: auto !important;
+  right: auto !important;
+}
+
+.abcloud-config-workspace #addToCartBtn {
+  position: static !important;
+  width: 100% !important;
+  height: 44px !important;
+  line-height: 44px !important;
+  background: #2563eb !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  margin-top: 18px !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+.abcloud-config-workspace #addToCartBtn:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
+}
+
+/* ===== 移动端自适应 (≤768px) ===== */
+@media screen and (max-width: 768px) {
+  .configure-page-main {
+    padding: 72px 12px 40px !important;
+  }
+  .configure-stepper {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+  }
+  .step-divider {
+    display: none !important;
+  }
+  .abcloud-config-workspace .form-group.row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .abcloud-config-workspace label.col-form-label {
+    padding-top: 0 !important;
+  }
+  .abcloud-config-workspace .col-xl-4 {
+    margin-top: 20px !important;
+  }
+}
