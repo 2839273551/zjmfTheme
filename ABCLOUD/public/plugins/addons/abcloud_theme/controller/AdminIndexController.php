@@ -15,6 +15,8 @@ class AdminIndexController extends PluginAdminBaseController
         if ($this->request->param('ajax')) return $this->api();
         $page = (string) $this->request->param('page', 'dashboard');
         if (!in_array($page, array_merge(self::MODULES, ['dashboard','config','operation_log','resources','carousel_global']), true)) $page = 'dashboard';
+        $pageUrl = shd_addon_url('AbcloudTheme://AdminIndex/index');
+        $adminPath = preg_replace('#/addons.*$#', '', $pageUrl) ?: '/admin';
         $context = [
             'page' => $page,
             'items' => in_array($page, self::MODULES, true) ? Repository::list($page) : [],
@@ -26,7 +28,8 @@ class AdminIndexController extends PluginAdminBaseController
             'counts' => Repository::counts(),
             'adminName' => $this->adminName(),
             'csrfToken' => Security::csrfToken(),
-            'pageUrl' => shd_addon_url('AbcloudTheme://AdminIndex/index'),
+            'pageUrl' => $pageUrl,
+            'adminUrl' => rtrim($adminPath, '/') . '/',
             'apiUrl' => shd_addon_url('AbcloudTheme://AdminIndex/index', ['ajax'=>1]),
             'assetUrl' => '/plugins/addons/abcloud_theme/assets',
             'publicUrl' => '/abcloud/content'

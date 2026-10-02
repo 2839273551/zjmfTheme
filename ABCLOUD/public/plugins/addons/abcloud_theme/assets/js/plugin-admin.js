@@ -650,6 +650,24 @@
     }).catch(function (e) { toast(e.message, false); });
   }
 
+  function exitToFinance() {
+    var fallback = C.adminUrl || '';
+    if (!fallback) {
+      var path = window.location.pathname || '';
+      var match = path.match(/^(\/[^\/]+)\/addons/);
+      fallback = match && match[1] ? (match[1] + '/') : '/admin/';
+    }
+    if (window.opener && !window.opener.closed) {
+      try {
+        window.opener.focus();
+        window.close();
+        return;
+      } catch (e) {}
+    }
+    var targetWindow = window.top || window;
+    targetWindow.location.href = fallback;
+  }
+
   window.PluginAdmin = {
     renderItems: renderItems,
     renderLogs: renderLogs,
@@ -667,7 +685,8 @@
     openPicker: openPicker,
     pick: pick,
     moveItem: moveItem,
-    applyNewOrder: applyNewOrder
+    applyNewOrder: applyNewOrder,
+    exitToFinance: exitToFinance
   };
 
   document.addEventListener('click', function (event) {
