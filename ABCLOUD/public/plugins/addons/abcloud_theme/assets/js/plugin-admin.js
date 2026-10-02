@@ -62,6 +62,8 @@
       Object.keys(data || {}).forEach(function (k) {
         if (k === 'configs' && data[k] && typeof data[k] === 'object') {
           Object.keys(data[k]).forEach(function (sub) { params.append('configs[' + sub + ']', data[k][sub]); });
+        } else if (Array.isArray(data[k])) {
+          data[k].forEach(function (sub) { params.append(k + '[]', sub); });
         } else {
           params.append(k, data[k]);
         }
@@ -184,6 +186,8 @@
       + switchField('状态', 'status', Number(item.status) !== 0);
   }
 
+  var draggedRow = null;
+
   function renderItems() {
     var root = document.getElementById('itemsRoot');
     if (!root) return;
@@ -202,8 +206,8 @@
       : p === 'footernav' ? '<th>分类</th><th>标题</th><th>链接</th>'
       : p === 'web_module' ? '<th>分类</th><th>标题</th><th>内容</th>'
       : '<th>标题</th><th>内容</th><th>显示方式</th>';
-    var html = '<table class="plugin-table"><thead><tr><th>编号</th>' + head + '<th>排序</th><th>状态</th><th>操作</th></tr></thead><tbody>';
-    rows.forEach(function (x) {
+    var html = '<table class="plugin-table"><thead><tr>' + head + '<th class="col-sort-th" style="min-width:140px" title="按住拖拽或点击上下箭头快速调整显示顺序">快速排序</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    rows.forEach(function (x, idx) {
       var mid = '';
       if (p === 'carousel') mid = '<td><img src="' + esc(x.mobile_image_url || x.desktop_image_url || x.media_url || '') + '"></td><td>' + esc(x.title) + '</td><td>' + ((x.media_type === 'video' || /\.(mp4|webm)(\?|#|$)/i.test(x.media_url || '')) ? '视频' : '图片') + '</td>';
       else if (p === 'feature') mid = '<td><img src="' + esc(x.icon_url || '') + '"></td><td>' + esc(x.title) + '</td><td>' + esc(x.description) + '</td>';
@@ -211,9 +215,184 @@
       else if (p === 'footernav') mid = '<td>' + esc(x.category) + '</td><td>' + esc(x.title) + '</td><td>' + esc(x.link_url) + '</td>';
       else if (p === 'web_module') mid = '<td>' + esc(x.category) + '</td><td>' + esc(x.title) + '</td><td>' + esc((x.description || '').replace(/<[^>]+>/g, '').slice(0, 80)) + '</td>';
       else mid = '<td>' + esc(x.title) + '</td><td>' + esc((x.content || '').replace(/<[^>]+>/g, '').slice(0, 80)) + '</td><td>' + esc(showNames[x.show_type] || x.show_type || '每次显示') + '</td>';
-      html += '<tr><td>' + esc(x.id) + '</td>' + mid + '<td>' + esc(x.sort_order || 0) + '</td><td><span class="plugin-chip ' + (x.status ? '' : 'off') + '">' + (x.status ? '显示' : '隐藏') + '</span></td><td><div class="plugin-actions"><button onclick="PluginAdmin.openEditor(' + Number(x.id) + ')">编辑</button><button class="danger" onclick="PluginAdmin.remove(' + Number(x.id) + ')">删除</button></div></td></tr>';
+
+      var sortCell = '<td class="col-sort">'
+        + '<div class="quick-sort-cell">'
+        + '<span class="drag-handle" title="按住拖拽排序">'
+        + '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="9" cy="6" r="1.8"/><circle cx="15" cy="6" r="1.8"/><circle cx="9" cy="12" r="1.8"/><circle cx="15" cy="12" r="1.8"/><circle cx="9" cy="18" r="1.8"/><circle cx="15" cy="18" r="1.8"/></svg>'
+        + '</span>'
+        + '<span class="sort-badge" title="当前显示顺序">' + (idx + 1) + '</span>'
+        + '<div class="quick-sort-actions">'
+        + '<button type="button" class="sort-move-btn" title="上移" onclick="PluginAdmin.moveItem(' + Number(x.id) + ', -1)"' + (idx === 0 ? ' disabled' : '') + '>▲</button>'
+        + '<button type="button" class="sort-move-btn" title="下移" onclick="PluginAdmin.moveItem(' + Number(x.id) + ', 1)"' + (idx === rows.length - 1 ? ' disabled' : '') + '>▼</button>'
+        + '</div>'
+        + '</div>'
+        + '</td>';
+
+      html += '<tr class="sortable-row" data-id="' + Number(x.id) + '" draggable="true">'
+        + mid
+        + sortCell
+        + '<td><span class="plugin-chip ' + (x.status ? '' : 'off') + '">' + (x.status ? '显示' : '隐藏') + '</span></td>'
+        + '<td><div class="plugin-actions"><button onclick="PluginAdmin.openEditor(' + Number(x.id) + ')">编辑</button><button class="danger" onclick="PluginAdmin.remove(' + Number(x.id) + ')">删除</button></div></td>'
+        + '</tr>';
     });
     root.innerHTML = html + '</tbody></table>';
+    bindDragSort(root);
+  }
+
+  function bindDragSort(root) {
+    var rows = root.querySelectorAll('tbody tr.sortable-row');
+    rows.forEach(function (tr) {
+      tr.addEventListener('dragstart', handleDragStart);
+      tr.addEventListener('dragover', handleDragOver);
+      tr.addEventListener('dragleave', handleDragLeave);
+      tr.addEventListener('drop', handleDrop);
+      tr.addEventListener('dragend', handleDragEnd);
+    });
+  }
+
+  function handleDragStart(e) {
+    if (e.target.closest('button, a, input, select, textarea, .plugin-chip')) {
+      e.preventDefault();
+      return;
+    }
+    draggedRow = this;
+    this.classList.add('is-dragging');
+    if (e.dataTransfer) {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', this.dataset.id || '');
+    }
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    if (!draggedRow || draggedRow === this) return;
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+
+    var rect = this.getBoundingClientRect();
+    var midY = rect.top + rect.height / 2;
+    var isBelow = e.clientY > midY;
+
+    var tbody = this.closest('tbody');
+    if (tbody) {
+      tbody.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(function (el) {
+        if (el !== this) el.classList.remove('drag-over-top', 'drag-over-bottom');
+      }, this);
+    }
+
+    if (isBelow) {
+      this.classList.remove('drag-over-top');
+      this.classList.add('drag-over-bottom');
+    } else {
+      this.classList.remove('drag-over-bottom');
+      this.classList.add('drag-over-top');
+    }
+  }
+
+  function handleDragLeave(e) {
+    if (e.relatedTarget && this.contains(e.relatedTarget)) return;
+    this.classList.remove('drag-over-top', 'drag-over-bottom');
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!draggedRow || draggedRow === this) return;
+
+    var isBelow = this.classList.contains('drag-over-bottom');
+    this.classList.remove('drag-over-top', 'drag-over-bottom');
+
+    if (isBelow) {
+      this.parentNode.insertBefore(draggedRow, this.nextSibling);
+    } else {
+      this.parentNode.insertBefore(draggedRow, this);
+    }
+
+    applyNewOrder();
+  }
+
+  function handleDragEnd() {
+    if (draggedRow) {
+      draggedRow.classList.remove('is-dragging');
+      draggedRow = null;
+    }
+    var root = document.getElementById('itemsRoot');
+    if (root) {
+      root.querySelectorAll('.drag-over-top, .drag-over-bottom, .is-dragging').forEach(function (el) {
+        el.classList.remove('drag-over-top', 'drag-over-bottom', 'is-dragging');
+      });
+    }
+  }
+
+  function applyNewOrder() {
+    var root = document.getElementById('itemsRoot');
+    if (!root) return;
+    var rowEls = Array.from(root.querySelectorAll('tbody tr.sortable-row'));
+    if (!rowEls.length) return;
+    var newIds = rowEls.map(function (el) { return Number(el.dataset.id); });
+
+    rowEls.forEach(function (el, idx) {
+      var badge = el.querySelector('.sort-badge');
+      if (badge) badge.textContent = idx + 1;
+      var upBtn = el.querySelector('.sort-move-btn[title="上移"]');
+      var downBtn = el.querySelector('.sort-move-btn[title="下移"]');
+      if (upBtn) upBtn.disabled = (idx === 0);
+      if (downBtn) downBtn.disabled = (idx === rowEls.length - 1);
+    });
+
+    var itemMap = {};
+    (C.items || []).forEach(function (it) { itemMap[Number(it.id)] = it; });
+    var reordered = [];
+    newIds.forEach(function (id, idx) {
+      if (itemMap[id]) {
+        itemMap[id].sort_order = idx + 1;
+        reordered.push(itemMap[id]);
+      }
+    });
+    (C.items || []).forEach(function (it) {
+      if (newIds.indexOf(Number(it.id)) < 0) {
+        reordered.push(it);
+      }
+    });
+    C.items = reordered;
+
+    var payload = { orders: newIds };
+    if (C.page === 'topnav' && itemMap[newIds[0]] && itemMap[newIds[0]].parent_id != null) {
+      payload.parent_id = itemMap[newIds[0]].parent_id;
+    }
+    post(C.page, 'sort', payload).then(function () {
+      toast('排序已保存');
+    }).catch(function (e) {
+      toast('保存排序失败: ' + (e.message || e), false);
+      renderItems();
+    });
+  }
+
+  function moveItem(id, offset) {
+    var root = document.getElementById('itemsRoot');
+    if (!root) return;
+    var rowEls = Array.from(root.querySelectorAll('tbody tr.sortable-row'));
+    var currentIndex = -1;
+    for (var i = 0; i < rowEls.length; i++) {
+      if (Number(rowEls[i].dataset.id) === Number(id)) {
+        currentIndex = i;
+        break;
+      }
+    }
+    if (currentIndex < 0) return;
+    var targetIndex = currentIndex + offset;
+    if (targetIndex < 0 || targetIndex >= rowEls.length) return;
+
+    var parent = rowEls[0].parentNode;
+    var currentRow = rowEls[currentIndex];
+    var targetRow = rowEls[targetIndex];
+
+    if (offset > 0) {
+      parent.insertBefore(currentRow, targetRow.nextSibling);
+    } else {
+      parent.insertBefore(currentRow, targetRow);
+    }
+    applyNewOrder();
   }
 
   function renderLogs() {
@@ -290,8 +469,11 @@
       if (action === 'delete') return '删除' + modName + (titlePart ? '：' + titlePart : '') + '（编号: ' + data.id + '）';
       return actName + modName + '（编号: ' + data.id + '）';
     }
-    if (data.parent_id != null) {
+    if (data.parent_id != null && module === 'topnav') {
       return Number(data.parent_id) === 0 ? '调整顶级导航显示顺序' : ('调整子导航显示顺序（父级编号: ' + data.parent_id + '）');
+    }
+    if (action === 'sort') {
+      return '调整' + modName + '显示顺序';
     }
     return JSON.stringify(data);
   }
@@ -483,7 +665,9 @@
     openUpload: openUpload,
     openRemote: openRemote,
     openPicker: openPicker,
-    pick: pick
+    pick: pick,
+    moveItem: moveItem,
+    applyNewOrder: applyNewOrder
   };
 
   document.addEventListener('click', function (event) {

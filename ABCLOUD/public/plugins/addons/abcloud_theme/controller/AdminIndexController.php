@@ -122,8 +122,30 @@ class AdminIndexController extends PluginAdminBaseController
 
     private function sortApi($module)
     {
-        $orders = $this->request->post('orders', []); if (is_string($orders)) $orders=json_decode($orders,true); if (!is_array($orders)||count($orders)>1000) return $this->respondError('排序数据无效',422);
-        $parent = (int)$this->request->post('parent_id',0); $seq=1; Db::startTrans(); try { foreach ($orders as $id) { Db::name(Repository::table($module))->where('id',(int)$id)->where($module==='topnav'?'parent_id':'id',$module==='topnav'?$parent:(int)$id)->update(['sort_order'=>$seq++,'updated_at'=>date('Y-m-d H:i:s')]); } $this->log('sort',$module,['parent_id'=>$parent]); Db::commit(); return $this->ok(); } catch(\Throwable $e){Db::rollback();throw $e;}
+        $orders = $this->request->post('orders', []);
+        if (is_string($orders)) {
+            $decoded = json_decode($orders, true);
+            $orders = is_array($decoded) ? $decoded : array_filter(explode(',', $orders), 'is_numeric');
+        }
+        if (!is_array($orders) || count($orders) > 1000) return $this->respondError('排序数据无效', 422);
+        $parent = (int)$this->request->post('parent_id', 0);
+        $seq = 1;
+        Db::startTrans();
+        try {
+            foreach ($orders as $id) {
+                Db::name(Repository::table($module))
+                    ->where('id', (int)$id)
+                    ->where($module === 'topnav' ? 'parent_id' : 'id', $module === 'topnav' ? $parent : (int)$id)
+                    ->update(['sort_order' => $seq++, 'updated_at' => date('Y-m-d H:i:s')]);
+            }
+            $this->markManaged($module);
+            $this->log('sort', $module, ['parent_id' => $parent]);
+            Db::commit();
+            return $this->ok();
+        } catch (\Throwable $e) {
+            Db::rollback();
+            throw $e;
+        }
     }
 
     private function configApi($action)
@@ -331,9 +353,12 @@ class AdminIndexController extends PluginAdminBaseController
             if ($action === 'delete') return '删除' . $modName . ($title ? '：' . $title : '') . '（编号: ' . $detail['id'] . '）';
             return $actName . $modName . '（编号: ' . $detail['id'] . '）';
         }
-        if (isset($detail['parent_id'])) {
+        if (isset($detail['parent_id']) && $module === 'topnav') {
             if ((int)$detail['parent_id'] === 0) return '调整顶级导航显示顺序';
             return '调整子导航显示顺序（父级编号: ' . $detail['parent_id'] . '）';
+        }
+        if ($action === 'sort') {
+            return '调整' . $modName . '显示顺序';
         }
         return json_encode($detail, JSON_UNESCAPED_UNICODE);
     }

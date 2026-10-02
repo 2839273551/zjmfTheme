@@ -73,8 +73,11 @@ $formatDetail = static function ($log) use ($actionNames, $moduleNames) {
         if ($act === 'delete') return '删除' . $modName . ($title ? '：' . $title : '') . '（编号: ' . $data['id'] . '）';
         return $actName . $modName . '（编号: ' . $data['id'] . '）';
     }
-    if (isset($data['parent_id'])) {
+    if (isset($data['parent_id']) && $mod === 'topnav') {
         return ((int)$data['parent_id'] === 0) ? '调整顶级导航显示顺序' : ('调整子导航显示顺序（父级编号: ' . $data['parent_id'] . '）');
+    }
+    if ($act === 'sort') {
+        return '调整' . $modName . '显示顺序';
     }
     return $trimmed;
 };
@@ -147,6 +150,24 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
         .plugin-table th,.plugin-table td{padding:12px 14px;border-bottom:1px solid #ebeef5;text-align:left;font-size:13px;vertical-align:middle}
         .plugin-table th{background:#f8f9fb;color:#606266;font-weight:600}
         .plugin-table td img{width:72px;height:42px;object-fit:cover;border-radius:4px;background:#f5f7fa}
+        .col-sort-th{min-width:140px;text-align:left}
+        .col-sort{white-space:nowrap}
+        .quick-sort-cell{display:inline-flex;align-items:center;gap:8px;user-select:none}
+        .drag-handle{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;color:#909399;background:#f4f4f5;border-radius:4px;cursor:grab;transition:all .2s ease}
+        .drag-handle:hover{color:#409eff;background:#ecf5ff}
+        .drag-handle:active{cursor:grabbing}
+        .drag-handle svg{display:block;pointer-events:none}
+        .sort-badge{display:inline-block;min-width:24px;height:22px;line-height:20px;padding:0 6px;font-size:12px;font-weight:600;color:#409eff;background:#ecf5ff;border:1px solid #d9ecff;border-radius:11px;text-align:center;box-sizing:border-box}
+        .quick-sort-actions{display:inline-flex;gap:3px;align-items:center}
+        .sort-move-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:22px!important;height:22px!important;padding:0!important;border:1px solid #dcdfe6!important;background:#fff!important;color:#606266!important;border-radius:3px!important;font-size:10px!important;line-height:1!important;cursor:pointer!important;transition:all .15s ease!important;box-shadow:none!important}
+        .sort-move-btn:hover:not(:disabled){color:#409eff!important;border-color:#409eff!important;background:#ecf5ff!important}
+        .sort-move-btn:disabled{color:#c0c4cc!important;border-color:#ebeef5!important;background:#f5f7fa!important;cursor:not-allowed!important}
+        .plugin-table tbody tr.sortable-row{transition:background-color .15s ease}
+        .plugin-table tbody tr.sortable-row.is-dragging{opacity:.45}
+        .plugin-table tbody tr.sortable-row.is-dragging td{background:#e6f7ff!important}
+        .plugin-table tbody tr.sortable-row.drag-over-top td{border-top:2px solid #1890ff!important}
+        .plugin-table tbody tr.sortable-row.drag-over-bottom td{border-bottom:2px solid #1890ff!important}
+        .plugin-table td .plugin-actions{margin:0;padding:0;border:0;display:flex;gap:8px}
         .plugin-actions{display:flex;gap:12px;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid #f0f2f5;padding-left:156px}
         .plugin-actions button,.plugin-toolbar button{border:0;border-radius:4px;padding:8px 18px;cursor:pointer;background:#409eff;color:#fff;font-weight:500;font-size:14px;transition:all .2s ease;box-shadow:0 2px 6px rgba(64,158,255,.25)}
         .plugin-actions button:hover,.plugin-toolbar button:hover{background:#66b1ff;box-shadow:0 4px 12px rgba(64,158,255,.35)}
@@ -230,5 +251,5 @@ $pickerField = preg_replace('/[^a-zA-Z0-9_-]/', '', (string)($_GET['field'] ?? '
 window.PLUGIN_CONTEXT = {page:<?= $j($page) ?>,module:<?= $j($module) ?>,items:<?= $j($items) ?>,configs:<?= $j($configs) ?>,logs:<?= $j($rows) ?>,csrf:<?= $j($context['csrfToken']) ?>,pageUrl:<?= $j($context['pageUrl']) ?>,apiUrl:<?= $j($context['apiUrl']) ?>,assetUrl:<?= $j($context['assetUrl']) ?>,publicUrl:<?= $j($context['publicUrl']) ?>,picker:<?= $isPicker?'true':'false' ?>,pickerField:<?= $j($pickerField) ?>};
 window.BASE_URL=window.PLUGIN_CONTEXT.pageUrl; window.PAGE_URL=window.PLUGIN_CONTEXT.pageUrl; window.API_URL=window.PLUGIN_CONTEXT.apiUrl; window.CSRF_TOKEN=window.PLUGIN_CONTEXT.csrf;
 </script>
-<script src="<?= $e($context['assetUrl']) ?>/js/plugin-admin.js?v=1.0.1"></script>
+<script src="<?= $e($context['assetUrl']) ?>/js/plugin-admin.js?v=1.0.2"></script>
 </body></html>
