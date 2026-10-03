@@ -51,103 +51,11 @@
       </div>
       {/if}
 
-      <!-- 骨架屏加载过渡 (上下全覆盖，共8个卡片 + loading-42动效) -->
-      <div class="nq-product-skeleton" id="nq-product-skeleton">
-        <div class="nq-skeleton-pulse-wrap">
+      <!-- 雾透居中悬浮加载动画 (悬浮在屏幕正中间，不占用文档流高度，绝不引起上下跳动) -->
+      <div class="nq-floating-loading" id="nqFloatingLoading">
+        <div class="nq-floating-loading-dialog">
           <div class="loading-42"></div>
-          <span class="nq-skeleton-pulse-text">正在加载产品配置...</span>
-        </div>
-        <div class="nq-product-grid">
-          <!-- 上排 4 个卡片 -->
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <!-- 下排 4 个卡片 -->
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
-          <div class="nq-skeleton-card">
-            <div class="nq-sk-header"><div class="nq-sk nq-sk-name"></div><div class="nq-sk nq-sk-stock"></div></div>
-            <div class="nq-sk-body">
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-              <div class="nq-sk nq-sk-line w50"></div>
-              <div class="nq-sk nq-sk-line w75"></div>
-              <div class="nq-sk nq-sk-line w60"></div>
-            </div>
-            <div class="nq-sk-footer"><div class="nq-sk nq-sk-price"></div><div class="nq-sk nq-sk-btn"></div></div>
-          </div>
+          <span class="nq-floating-loading-text">正在加载产品配置...</span>
         </div>
       </div>
 

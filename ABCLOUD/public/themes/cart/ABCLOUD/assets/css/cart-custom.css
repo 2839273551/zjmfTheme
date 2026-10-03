@@ -1337,69 +1337,86 @@ body.aimax-cart-shell {
   opacity: 1 !important;
 }
 
-/* 2. 商品卡片阶梯入场动效 (上下全覆盖，延展至16+商品) */
+/* 2. 商品卡片原位平滑淡入动效 (保持原位，0位移，绝对不上下跳) */
 @keyframes nqCardEntrance {
   from {
     opacity: 0;
-    transform: translateY(14px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 .nq-product-card {
-  animation: nqCardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  animation: nqCardEntrance 0.3s ease both !important;
+  transform: none !important;
 }
-.nq-product-card:nth-child(1) { animation-delay: 0.03s !important; }
-.nq-product-card:nth-child(2) { animation-delay: 0.06s !important; }
-.nq-product-card:nth-child(3) { animation-delay: 0.09s !important; }
-.nq-product-card:nth-child(4) { animation-delay: 0.12s !important; }
-.nq-product-card:nth-child(5) { animation-delay: 0.15s !important; }
-.nq-product-card:nth-child(6) { animation-delay: 0.18s !important; }
-.nq-product-card:nth-child(7) { animation-delay: 0.21s !important; }
-.nq-product-card:nth-child(8) { animation-delay: 0.24s !important; }
-.nq-product-card:nth-child(9) { animation-delay: 0.27s !important; }
-.nq-product-card:nth-child(10) { animation-delay: 0.30s !important; }
-.nq-product-card:nth-child(11) { animation-delay: 0.33s !important; }
-.nq-product-card:nth-child(12) { animation-delay: 0.36s !important; }
-.nq-product-card:nth-child(13) { animation-delay: 0.39s !important; }
-.nq-product-card:nth-child(14) { animation-delay: 0.42s !important; }
-.nq-product-card:nth-child(15) { animation-delay: 0.45s !important; }
-.nq-product-card:nth-child(16) { animation-delay: 0.48s !important; }
+.nq-product-card:nth-child(1) { animation-delay: 0.02s !important; }
+.nq-product-card:nth-child(2) { animation-delay: 0.04s !important; }
+.nq-product-card:nth-child(3) { animation-delay: 0.06s !important; }
+.nq-product-card:nth-child(4) { animation-delay: 0.08s !important; }
+.nq-product-card:nth-child(5) { animation-delay: 0.10s !important; }
+.nq-product-card:nth-child(6) { animation-delay: 0.12s !important; }
+.nq-product-card:nth-child(7) { animation-delay: 0.14s !important; }
+.nq-product-card:nth-child(8) { animation-delay: 0.16s !important; }
+.nq-product-card:nth-child(9) { animation-delay: 0.18s !important; }
+.nq-product-card:nth-child(10) { animation-delay: 0.20s !important; }
+.nq-product-card:nth-child(11) { animation-delay: 0.22s !important; }
+.nq-product-card:nth-child(12) { animation-delay: 0.24s !important; }
+.nq-product-card:nth-child(13) { animation-delay: 0.26s !important; }
+.nq-product-card:nth-child(14) { animation-delay: 0.28s !important; }
+.nq-product-card:nth-child(15) { animation-delay: 0.30s !important; }
+.nq-product-card:nth-child(16) { animation-delay: 0.32s !important; }
 
-/* 3. 骨架屏加载过渡与微光扫过动效 (支持上下8个卡片全覆盖) */
-.nq-product-skeleton {
-  display: none;
-  position: relative !important;
-  margin-bottom: 24px !important;
-}
-.nq-product-skeleton.show {
-  display: block !important;
-}
-.nq-skeleton-pulse-wrap {
-  position: sticky !important;
-  top: 130px !important;
-  margin: 0 auto 20px !important;
-  width: fit-content !important;
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  padding: 10px 22px !important;
-  border-radius: 30px !important;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
-  border: 1px solid #e2e8f0 !important;
+/* 3. 正在加载产品配置：雾透悬浮在屏幕正中间 (全屏居中、毛玻璃半透明、零文档流占位、卡片绝不位移) */
+.nq-floating-loading {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  z-index: 25 !important;
-  animation: nqCardEntrance 0.25s ease both !important;
+  justify-content: center !important;
+  background: rgba(244, 246, 250, 0.4) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.2s ease, visibility 0.2s ease !important;
+  pointer-events: none !important;
 }
-.nq-skeleton-pulse-text {
-  font-size: 13.5px !important;
+.nq-floating-loading.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.nq-floating-loading-dialog {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(22, 119, 255, 0.08) !important;
+  padding: 14px 28px !important;
+  border-radius: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  animation: nqDialogPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+@keyframes nqDialogPop {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.nq-floating-loading-text {
+  font-size: 14.5px !important;
   font-weight: 600 !important;
   color: #1e293b !important;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.4px !important;
+  white-space: nowrap !important;
 }
 
 /* 4. 用户指定 loading-42 水波脉冲扩散加载动效 */
@@ -1439,6 +1456,15 @@ body.aimax-cart-shell {
 .loading-42.dark:before,
 .loading-42.dark:after {
   box-shadow: 0 0 0 0 #0004;
+}
+
+/* 商品区加载时保持原位、锁定平滑半透明，绝不上下跳动 */
+#nq-product-list {
+  transition: opacity 0.2s ease !important;
+}
+#nq-product-list.is-loading-state {
+  opacity: 0.4 !important;
+  pointer-events: none !important;
 }
 
 .nq-skeleton-card {

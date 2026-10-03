@@ -153,7 +153,7 @@
             }, 100);
         }
 
-        // 点击二级子分类跳转时：进度条启动、当前项显式加载、产品网格切入骨架屏
+        // 点击二级子分类跳转时：进度条启动、侧栏项显式加载、屏幕中心雾透悬浮 loading-42、商品区原位锁定
         document.addEventListener('click', function(e) {
             var subLink = e.target.closest('.nq-cart-nav-sub-link');
             if (subLink && !subLink.classList.contains('active')) {
@@ -163,12 +163,13 @@
                     progressBar.classList.add('is-loading');
                     progressBar.style.width = '80%';
                 }
+                var floatingLoading = document.getElementById('nqFloatingLoading');
+                if (floatingLoading) {
+                    floatingLoading.classList.add('is-active');
+                }
                 var productList = document.getElementById('nq-product-list');
-                var skeleton = document.getElementById('nq-product-skeleton');
-                if (productList && skeleton) {
-                    productList.style.display = 'none';
-                    skeleton.classList.add('show');
-                    skeleton.style.display = 'block';
+                if (productList) {
+                    productList.classList.add('is-loading-state');
                 }
             }
 
