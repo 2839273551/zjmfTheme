@@ -3,12 +3,11 @@
    ========================================================= */
 
 :root {
-  --cscart-primary: #2563eb;
-  --cscart-primary-hover: #1d4ed8;
-  --cscart-primary-soft: rgba(37, 99, 235, 0.08);
-  --cscart-sidebar-width: 260px;
-  /* 加深背景色至雅致冷灰，增强与纯白卡片的视觉反差 */
-  --cscart-bg: #edf2f7;
+  --cscart-primary: #1677ff;
+  --cscart-primary-hover: #0958d9;
+  --cscart-primary-soft: rgba(22, 119, 255, 0.08);
+  --cscart-sidebar-width: 250px;
+  --cscart-bg: #f4f6fa;
   --header-height: 60px;
 }
 
@@ -52,43 +51,70 @@ body.aimax-cart-shell {
   }
 
   body.cscart-list-body .server-cart-layout,
-  body.aimax-cart-shell .server-cart-layout {
+  body.aimax-cart-shell .server-cart-layout,
+  body.cscart-list-body .nq-cart,
+  body.aimax-cart-shell .nq-cart {
     display: flex !important;
-    align-items: flex-start !important;
-    gap: 22px !important;
-    max-width: 1440px !important;
-    margin: 0 auto !important;
-    padding: 76px 20px 48px !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 60px 0 0 0 !important;
     box-sizing: border-box !important;
-    min-height: calc(100vh - 350px) !important;
+    min-height: calc(100vh - 60px) !important;
   }
 
-  /* 左侧分类侧边栏：sticky 粘性定位，滚动到产品底部自然停止，严禁覆盖页脚 */
+  /* 左侧分类侧边栏：贴到最左侧、拉长贯穿到底、与右侧服务须知齐平 */
   body.cscart-list-body .server-cart-sidebar,
-  body.aimax-cart-shell .server-cart-sidebar {
-    position: sticky !important;
-    top: 76px !important;
+  body.aimax-cart-shell .server-cart-sidebar,
+  body.cscart-list-body .nq-cart-side,
+  body.aimax-cart-shell .nq-cart-side,
+  .nq-cart-side {
+    position: relative !important;
+    top: auto !important;
     bottom: auto !important;
-    left: auto !important;
+    left: 0 !important;
     right: auto !important;
-    width: var(--cscart-sidebar-width) !important;
-    flex: 0 0 var(--cscart-sidebar-width) !important;
-    max-height: calc(100vh - 96px) !important;
-    overflow-y: auto !important;
+    width: 240px !important;
+    min-width: 240px !important;
+    flex: 0 0 240px !important;
+    height: auto !important;
+    min-height: calc(100vh - 60px) !important;
+    max-height: none !important;
+    overflow-y: visible !important;
     background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08) !important;
+    border: none !important;
+    border-right: 1px solid #eef2f6 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    align-self: stretch !important;
     z-index: 10 !important;
+  }
+
+  /* 侧边栏内部吸顶容器：滚动时始终停留在视口内 */
+  .nq-cart-side-sticky {
+    position: sticky !important;
+    top: 60px !important;
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* 右侧主体区域 */
   body.cscart-list-body .server-cart-content,
-  body.aimax-cart-shell .server-cart-content {
+  body.aimax-cart-shell .server-cart-content,
+  body.cscart-list-body .nq-cart-main,
+  body.aimax-cart-shell .nq-cart-main {
     flex: 1 1 0% !important;
     min-width: 0 !important;
     width: auto !important;
     margin-left: 0 !important;
+    padding: 20px 24px 24px !important;
+    background: #f4f6fa !important;
+    box-sizing: border-box !important;
   }
 
   body.cscart-list-body .main-card,
@@ -179,16 +205,18 @@ body.aimax-cart-shell {
 .server-cart-category-title .category-arrow {
   color: #94a3b8 !important;
   flex-shrink: 0 !important;
-  transition: transform 0.2s ease !important;
 }
 .server-cart-category-title.active .category-arrow {
-  transform: rotate(90deg) !important;
   color: var(--cscart-primary) !important;
 }
 
-/* 二级子分类列表：高度均一化，彻底消除有无介绍带来的空间高低跳动 */
+/* 二级子分类列表：垂直树状连接线 */
 .server-cart-subcategories {
-  padding: 4px 6px 6px 12px !important;
+  margin-left: 20px !important;
+  padding-left: 8px !important;
+  border-left: 1px solid #e2e8f0 !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 3px !important;
@@ -211,12 +239,13 @@ body.aimax-cart-shell {
   text-align: left !important;
 }
 .server-cart-subcategory:hover {
-  background: #e2e8f0 !important;
+  background: #f1f5f9 !important;
+  color: #1677ff !important;
 }
 .server-cart-subcategory.active {
-  background: var(--cscart-primary) !important;
-  color: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3) !important;
+  background: #e8f3ff !important;
+  color: #1677ff !important;
+  box-shadow: none !important;
 }
 .subcategory-title-inner {
   display: inline-flex !important;
@@ -241,11 +270,11 @@ body.aimax-cart-shell {
   display: block !important;
 }
 .server-cart-subcategory:hover .subcategory-name-text {
-  color: #0f172a !important;
+  color: #1677ff !important;
 }
 .server-cart-subcategory.active .subcategory-name-text {
-  color: #ffffff !important;
-  font-weight: 700 !important;
+  color: #1677ff !important;
+  font-weight: 600 !important;
 }
 
 /* 国旗与分类图标尺寸强力锁定 */
@@ -473,8 +502,23 @@ body.aimax-cart-shell {
 /* ===== 产品网格卡片：更立体有层次的结构 ===== */
 .server-product-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)) !important;
+  grid-template-columns: repeat(4, 1fr) !important;
   gap: 16px !important;
+}
+@media (max-width: 1366px) {
+  .server-product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (max-width: 1024px) {
+  .server-product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 640px) {
+  .server-product-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 .server-product-card {
   background: #ffffff !important;
@@ -577,30 +621,30 @@ body.aimax-cart-shell {
 
 .server-product-footer {
   display: flex !important;
-  align-items: flex-end !important;
-  justify-content: space-between !important;
+  flex-direction: column !important;
   padding-top: 14px !important;
-  border-top: 1px solid #f1f5f9 !important;
+  border-top: 1px solid #f8fafc !important;
   margin-top: auto !important;
 }
 .server-product-price {
   display: flex !important;
   align-items: baseline !important;
   gap: 2px !important;
+  margin-bottom: 10px !important;
 }
 .server-product-currency {
-  font-size: 14px !important;
-  color: #dc2626 !important;
+  font-size: 16px !important;
+  color: #ff4d4f !important;
   font-weight: 700 !important;
 }
 .server-product-price strong {
   font-size: 24px !important;
-  color: #dc2626 !important;
+  color: #ff4d4f !important;
   font-weight: 800 !important;
 }
 .server-product-price span {
   font-size: 12px !important;
-  color: #64748b !important;
+  color: #94a3b8 !important;
   margin-left: 2px !important;
 }
 .server-product-price del {
@@ -610,33 +654,33 @@ body.aimax-cart-shell {
 }
 
 .cart-buy-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 7px 18px !important;
-  border-radius: 6px !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  text-align: center !important;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   text-decoration: none !important;
-  line-height: 1.4 !important;
-  transition: all 0.2s ease !important;
   box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
 }
 .cart-buy-btn.is-active {
-  background: var(--cscart-primary) !important;
+  background: #1677ff !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3) !important;
-  border: 1px solid var(--cscart-primary) !important;
+  border: none !important;
   cursor: pointer !important;
+  box-shadow: none !important;
 }
 .cart-buy-btn.is-active:hover {
-  background: var(--cscart-primary-hover) !important;
-  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4) !important;
+  background: #0958d9 !important;
 }
 .cart-buy-btn.is-soldout {
-  background: #f1f5f9 !important;
+  background: #e2e8f0 !important;
   color: #94a3b8 !important;
-  border: 1px solid #cbd5e1 !important;
+  border: none !important;
   cursor: not-allowed !important;
 }
 
@@ -706,4 +750,789 @@ body.aimax-cart-shell {
     grid-template-columns: 1fr !important;
     gap: 12px !important;
   }
+}
+
+/* =========================================================
+   水浒云原版购物车格局与卡片样式 (nqshop / shuidc.net layout)
+   ========================================================= */
+
+/* ---- 购物车整体容器 ---- */
+.nq-cart {
+  display: flex !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 60px 0 0 0 !important;
+  min-height: calc(100vh - 60px) !important;
+  gap: 0 !important;
+  box-sizing: border-box !important;
+  background-color: #f4f6fa !important;
+}
+
+/* ---- 左侧菜单 (贴到最左侧、拉长贯穿到底、与右侧服务须知齐平) ---- */
+.nq-cart-side {
+  width: 240px !important;
+  min-width: 240px !important;
+  flex: 0 0 240px !important;
+  margin: 0 !important;
+  background: #ffffff !important;
+  border: none !important;
+  border-right: 1px solid #eef2f6 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  align-self: stretch !important;
+  height: auto !important;
+  min-height: calc(100vh - 60px) !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* ---- 搜索框 ---- */
+.nq-cart-search {
+  padding: 16px 14px 14px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  margin-bottom: 8px !important;
+}
+.nq-cart-search .form-control {
+  border-radius: 14px !important;
+  font-size: 12px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 0 10px 0 28px !important;
+  color: #334155 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+.nq-cart-search .form-control::placeholder {
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+}
+.nq-cart-search .form-control:focus {
+  border-color: #1677ff !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.08) !important;
+}
+
+/* ---- 菜单分组 ---- */
+.nq-cart-menu {
+  padding: 6px 0 20px !important;
+}
+.nq-cart-nav-item {
+  display: block !important;
+}
+.nq-cart-nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 12px !important;
+  height: 38px !important;
+  font-size: 13px !important;
+  color: #334155 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  margin: 4px 10px !important;
+  transition: background .15s, color .15s !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+.nq-cart-nav-link span {
+  flex: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.nq-cart-nav-link:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  text-decoration: none !important;
+}
+.nq-cart-nav-arrow {
+  font-size: 14px !important;
+  flex-shrink: 0 !important;
+  color: #94a3b8 !important;
+  transition: transform .2s !important;
+  margin-left: auto !important;
+}
+.nq-cart-nav-group-toggle {
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  color: #334155 !important;
+  letter-spacing: 0.5px !important;
+}
+.nq-cart-nav-group.active > .nq-cart-nav-group-toggle {
+  color: #1677ff !important;
+  position: relative !important;
+}
+.nq-cart-nav-group.active > .nq-cart-nav-group-toggle .nq-cart-nav-arrow {
+  color: #1677ff !important;
+}
+/* 左侧蓝色指示竖条 (水浒云核心特征) */
+.nq-cart-nav-group.active > .nq-cart-nav-group-toggle::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 3px !important;
+  height: 16px !important;
+  border-radius: 0 3px 3px 0 !important;
+  background: #1677ff !important;
+}
+
+/* 子分类树列表 */
+.nq-cart-nav-sub {
+  display: none !important;
+  margin-left: 20px !important;
+  padding-left: 8px !important;
+  border-left: 1px solid #e2e8f0 !important;
+  margin-top: 4px !important;
+  margin-bottom: 8px !important;
+}
+.nq-cart-nav-group.open > .nq-cart-nav-sub {
+  display: block !important;
+}
+.nq-cart-nav-arrow {
+  font-size: 14px !important;
+  flex-shrink: 0 !important;
+  color: #94a3b8 !important;
+  transition: transform .2s ease !important;
+  margin-left: auto !important;
+}
+.nq-cart-nav-group.open > .nq-cart-nav-link .nq-cart-nav-arrow {
+  transform: rotate(90deg) !important;
+  color: #1677ff !important;
+}
+.nq-cart-nav-sub-link {
+  padding: 0 8px 0 10px !important;
+  height: 36px !important;
+  font-size: 13px !important;
+  gap: 6px !important;
+  margin: 3px 8px !important;
+  border-radius: 4px !important;
+}
+.nq-cart-nav-sub-link:hover {
+  background: #f1f5f9 !important;
+  color: #1677ff !important;
+}
+.nq-cart-nav-sub-link.active {
+  background: #e8f3ff !important;
+  color: #1677ff !important;
+  font-weight: 600 !important;
+}
+.nq-cart-nav-link .nq-cart-nav-flag {
+  flex: 0 0 auto !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+.nq-cart-nav-link .nq-cart-nav-tag {
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+  padding: 1px 5px !important;
+  height: 16px !important;
+  line-height: 14px !important;
+  background: #ff4d4f !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  border-radius: 3px !important;
+  margin-left: auto !important;
+}
+
+/* ---- 右侧主体 ---- */
+.nq-cart-main {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+}
+
+/* ---- 登录提示卡片 ---- */
+.nq-cart-login {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: #eef6ff !important;
+  border: 1px solid rgba(22, 119, 255, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 16px !important;
+}
+.nq-cart-login-icon {
+  font-size: 32px !important;
+  color: #1677ff !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+.nq-cart-login-text {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+.nq-cart-login-title {
+  font-size: 14px !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+.nq-cart-login-desc {
+  font-size: 12px !important;
+  color: #64748b !important;
+}
+.nq-cart-login-btn {
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 6px 16px !important;
+  background: #1677ff !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  border: none !important;
+}
+.nq-cart-login-btn:hover {
+  background: #0958d9 !important;
+  color: #ffffff !important;
+}
+
+/* ---- 商品组标题 ---- */
+.nq-cart-group-heading {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 10px 16px !important;
+  margin-bottom: 16px !important;
+  background: #eef6ff !important;
+  border: 1px solid rgba(22, 119, 255, 0.15) !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+}
+.nq-cart-group-heading-icon {
+  color: #1677ff !important;
+  font-size: 15px !important;
+}
+.nq-cart-group-heading-label {
+  color: #64748b !important;
+}
+.nq-cart-group-heading-name {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}
+
+/* ---- 分类提示条 ---- */
+.nq-cart-notice-bar {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  margin-bottom: 16px !important;
+  font-size: 13px !important;
+  line-height: 22px !important;
+}
+.nq-cart-notice-bar--info {
+  background: #e6f4ff !important;
+  border: 1px solid #bae0ff !important;
+  color: #0958d9 !important;
+}
+
+/* ---- 产品网格与卡片 (4列 PC 端标准布局) ---- */
+.nq-product-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 16px !important;
+}
+@media (max-width: 1366px) {
+  .nq-product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (max-width: 992px) {
+  .nq-product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 576px) {
+  .nq-product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.nq-product-card {
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+  min-height: 485px !important;
+}
+.nq-product-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 140px !important;
+  background: url('https://cloudcache.tencentcs.cn/qcloud/ui/activity-v2/build/LatestActivity/images/latest_card_bg_type1.png') no-repeat right top / auto 100% !important;
+  mask-image: linear-gradient(to bottom, #000 40%, transparent) !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+.nq-product-card > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+.nq-product-card:hover {
+  box-shadow: 0 10px 24px rgba(22, 119, 255, 0.12) !important;
+  border-color: #93c5fd !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 卡片头部：名称 + 库存胶囊 */
+.nq-product-header {
+  padding: 16px 18px 12px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  border-bottom: 1px solid #f8fafc !important;
+}
+.nq-product-name {
+  margin: 0 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.4 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  white-space: normal !important;
+  min-height: 42px !important;
+  flex: 1 1 auto !important;
+}
+.nq-product-stock {
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  white-space: nowrap !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+}
+.nq-product-stock.in-stock {
+  background: #10b981 !important;
+}
+.nq-product-stock.low-stock {
+  background: #f59e0b !important;
+}
+.nq-product-stock.out-stock {
+  background: #ef4444 !important;
+}
+
+/* 卡片描述：水浒云专属规格列表 */
+.nq-product-desc {
+  padding: 10px 18px 16px !important;
+  flex: 1 1 auto !important;
+}
+.config-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 2px 0 !important;
+  font-size: 13.5px !important;
+}
+.config-icon {
+  width: 22px !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px !important;
+  padding: 2px !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+}
+.config-label {
+  width: 48px !important;
+  color: #64748b !important;
+  flex-shrink: 0 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+}
+.config-value {
+  color: #0f172a !important;
+  line-height: 1.5 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  font-size: 13.5px !important;
+}
+.config-value-bold {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+.config-note {
+  color: #475569 !important;
+  font-size: 12.5px !important;
+  margin-left: 4px !important;
+  font-weight: 500 !important;
+}
+.config-value-privilege {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  color: #b45309 !important;
+  background: #fffbeb !important;
+  border: 1px solid #fef3c7 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  line-height: 1.45 !important;
+  display: block !important;
+  white-space: normal !important;
+}
+
+/* 卡片底部：价格与按钮 */
+.nq-product-footer {
+  padding: 14px 18px 20px !important;
+  margin-top: auto !important;
+  border-top: 1px dashed #e2e8f0 !important;
+}
+.nq-product-pricing {
+  margin-bottom: 12px !important;
+}
+.nq-price-current {
+  display: block !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: #ef4444 !important;
+  line-height: 1 !important;
+}
+.nq-price-current small {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #94a3b8 !important;
+  margin-left: 4px !important;
+}
+.nq-product-footer .btn-primary {
+  display: block !important;
+  width: 100% !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  text-align: center !important;
+  padding: 0 !important;
+  background: #1677ff !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  border: none !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+.nq-product-footer .btn-primary:hover {
+  background: #0958d9 !important;
+}
+.nq-btn-soldout {
+  background: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border: 1px solid #e2e8f0 !important;
+  cursor: not-allowed !important;
+  display: block !important;
+  width: 100% !important;
+  height: 38px !important;
+  line-height: 36px !important;
+  text-align: center !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* ---- 服务使用须知 ---- */
+.nq-cart-notice {
+  margin-top: 24px !important;
+  background: #fffbe6 !important;
+  border: 1px solid #ffe58f !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+}
+.nq-cart-notice-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 18px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #d46b08 !important;
+  background: #fff7ed !important;
+  border-bottom: 1px solid #fed7aa !important;
+}
+.nq-cart-notice-body {
+  padding: 14px 18px !important;
+  font-size: 13px !important;
+  color: #595959 !important;
+  line-height: 1.8 !important;
+}
+
+/* ---- 空状态 ---- */
+.nq-cart-empty {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 60px 0 !important;
+}
+#searchEmptyState {
+  display: none !important;
+}
+#searchEmptyState.is-visible {
+  display: flex !important;
+}
+.nq-cart-empty-inner {
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid #eef2f6 !important;
+  padding: 40px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+.nq-cart-empty-text {
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+/* =========================================================
+   购物车专属加载效果与动效增强 (Loading Effects & Animations)
+   ========================================================= */
+
+/* 1. 顶部全局流畅渐变加载进度条 */
+.cart-top-progress-bar {
+  position: fixed !important;
+  top: 60px !important;
+  left: 0 !important;
+  width: 0% !important;
+  height: 2.5px !important;
+  background: linear-gradient(90deg, #1677ff 0%, #36cfc9 60%, #69b1ff 100%) !important;
+  box-shadow: 0 0 10px rgba(22, 119, 255, 0.7) !important;
+  z-index: 10001 !important;
+  pointer-events: none !important;
+  transition: width 0.3s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.3s ease !important;
+  opacity: 0 !important;
+}
+.cart-top-progress-bar.is-loading {
+  opacity: 1 !important;
+}
+
+/* 2. 商品卡片阶梯入场动效 (上下全覆盖，延展至16+商品) */
+@keyframes nqCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.nq-product-card {
+  animation: nqCardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+.nq-product-card:nth-child(1) { animation-delay: 0.03s !important; }
+.nq-product-card:nth-child(2) { animation-delay: 0.06s !important; }
+.nq-product-card:nth-child(3) { animation-delay: 0.09s !important; }
+.nq-product-card:nth-child(4) { animation-delay: 0.12s !important; }
+.nq-product-card:nth-child(5) { animation-delay: 0.15s !important; }
+.nq-product-card:nth-child(6) { animation-delay: 0.18s !important; }
+.nq-product-card:nth-child(7) { animation-delay: 0.21s !important; }
+.nq-product-card:nth-child(8) { animation-delay: 0.24s !important; }
+.nq-product-card:nth-child(9) { animation-delay: 0.27s !important; }
+.nq-product-card:nth-child(10) { animation-delay: 0.30s !important; }
+.nq-product-card:nth-child(11) { animation-delay: 0.33s !important; }
+.nq-product-card:nth-child(12) { animation-delay: 0.36s !important; }
+.nq-product-card:nth-child(13) { animation-delay: 0.39s !important; }
+.nq-product-card:nth-child(14) { animation-delay: 0.42s !important; }
+.nq-product-card:nth-child(15) { animation-delay: 0.45s !important; }
+.nq-product-card:nth-child(16) { animation-delay: 0.48s !important; }
+
+/* 3. 骨架屏加载过渡与微光扫过动效 (支持上下8个卡片全覆盖) */
+.nq-product-skeleton {
+  display: none;
+  position: relative !important;
+  margin-bottom: 24px !important;
+}
+.nq-product-skeleton.show {
+  display: block !important;
+}
+.nq-skeleton-pulse-wrap {
+  position: sticky !important;
+  top: 130px !important;
+  margin: 0 auto 20px !important;
+  width: fit-content !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  padding: 10px 22px !important;
+  border-radius: 30px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  border: 1px solid #e2e8f0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  z-index: 25 !important;
+  animation: nqCardEntrance 0.25s ease both !important;
+}
+.nq-skeleton-pulse-text {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* 4. 用户指定 loading-42 水波脉冲扩散加载动效 */
+.loading-42 {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #1677ff;
+  box-shadow: 0 0 0 0 rgba(22, 119, 255, 0.45);
+  animation: loading-42 1.5s infinite linear;
+  position: relative;
+  flex-shrink: 0;
+}
+.loading-42:before,
+.loading-42:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(22, 119, 255, 0.45);
+  animation: inherit;
+  animation-delay: -0.5s;
+}
+.loading-42:after {
+  animation-delay: -1s;
+}
+@keyframes loading-42 {
+  100% {
+    box-shadow: 0 0 0 35px rgba(22, 119, 255, 0);
+  }
+}
+
+.loading-42.dark {
+  background: #000;
+  box-shadow: 0 0 0 0 #0004;
+}
+.loading-42.dark:before,
+.loading-42.dark:after {
+  box-shadow: 0 0 0 0 #0004;
+}
+
+.nq-skeleton-card {
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  border: 1px solid #eef2f6 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  min-height: 485px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+.nq-sk {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%) !important;
+  background-size: 200% 100% !important;
+  border-radius: 4px !important;
+  animation: nq-sk-shimmer 1.5s infinite !important;
+}
+.nq-sk-header {
+  padding: 18px 20px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  border-bottom: 1px solid #f8fafc !important;
+}
+.nq-sk-name { height: 18px !important; width: 55% !important; border-radius: 4px !important; }
+.nq-sk-stock { height: 18px !important; width: 56px !important; border-radius: 4px !important; flex-shrink: 0 !important; }
+.nq-sk-body {
+  padding: 16px 20px 20px !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+.nq-sk-line { height: 14px !important; border-radius: 3px !important; }
+.nq-sk-line.w75 { width: 75% !important; }
+.nq-sk-line.w60 { width: 60% !important; }
+.nq-sk-line.w50 { width: 50% !important; }
+.nq-sk-footer {
+  padding: 14px 20px 22px !important;
+  margin-top: auto !important;
+  border-top: 1px dashed #e2e8f0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+.nq-sk-price { height: 26px !important; width: 40% !important; border-radius: 4px !important; }
+.nq-sk-btn { height: 38px !important; width: 100% !important; border-radius: 4px !important; }
+@keyframes nq-sk-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 4. 购买按钮点击 Loading 旋转状态 */
+.nq-buy-btn .btn-loading {
+  display: none !important;
+}
+.nq-buy-btn.is-loading .btn-text {
+  display: none !important;
+}
+.nq-buy-btn.is-loading .btn-loading {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+.nq-spinner {
+  display: inline-block !important;
+  width: 14px !important;
+  height: 14px !important;
+  border: 2px solid rgba(255, 255, 255, 0.35) !important;
+  border-top-color: #ffffff !important;
+  border-radius: 50% !important;
+  animation: nqSpin 0.7s linear infinite !important;
+  flex-shrink: 0 !important;
+}
+@keyframes nqSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* 5. 侧边栏子项切换导航微等待动效 */
+.nq-cart-nav-sub-link.is-navigating {
+  opacity: 0.8 !important;
+}
+.nq-cart-nav-sub-link.is-navigating::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid rgba(22, 119, 255, 0.25) !important;
+  border-top-color: #1677ff !important;
+  border-radius: 50% !important;
+  animation: nqSpin 0.7s linear infinite !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
 }

@@ -47,6 +47,136 @@ if (!function_exists('parseGroupName')) {
         ];
     }
 }
+
+if (!function_exists('renderShuidcSpecs')) {
+    function renderShuidcSpecs($descHtml) {
+        if (strpos((string)$descHtml, 'config-row') !== false) {
+            return (string)$descHtml;
+        }
+
+        $raw = str_ireplace(['<br>', '<br/>', '<br />', '</li>', '</p>'], "\n", (string)$descHtml);
+        $raw = strip_tags($raw);
+        $lines = array_filter(array_map('trim', explode("\n", $raw)));
+        if (empty($lines)) {
+            return '<div class="config-row"><div class="config-label">配置</div><div class="config-value">详见下单配置项</div></div>';
+        }
+
+        $icons = [
+            'cpu' => ['bg' => '#f3e8ff', 'stroke' => '#7c3aed', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>'],
+            'ram' => ['bg' => '#ecfdf5', 'stroke' => '#059669', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>'],
+            'disk' => ['bg' => '#f1f5f9', 'stroke' => '#475569', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>'],
+            'bandwidth' => ['bg' => '#eff6ff', 'stroke' => '#2563eb', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path></svg>'],
+            'defense' => ['bg' => '#fff7ed', 'stroke' => '#ea580c', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'],
+            'ip' => ['bg' => '#f0fdf4', 'stroke' => '#16a34a', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>'],
+            'privilege' => ['bg' => '#fef3c7', 'stroke' => '#d97706', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>'],
+            'other' => ['bg' => '#eef2ff', 'stroke' => '#4f46e5', 'svg' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>']
+        ];
+
+        $parsed = [];
+        $cpuModel = '';
+        $cpuCores = '';
+
+        foreach ($lines as $line) {
+            $rawK = '';
+            $rawV = '';
+            if (preg_match('/^([^：:\s]{1,10})[：:]\s*(.*)$/u', $line, $m)) {
+                $rawK = trim($m[1]);
+                $rawV = trim($m[2]);
+            } else {
+                $parts = preg_split('/\s+/u', $line, 2);
+                $rawK = isset($parts[0]) ? $parts[0] : '';
+                $rawV = isset($parts[1]) ? $parts[1] : '';
+            }
+
+            if (mb_strpos($rawK, '核心内存') !== false && preg_match('/(\d+核(?:心)?)\s*(\d+[GgMmBb]+)/u', $rawV, $cm)) {
+                $cpuCores = $cm[1];
+                $parsed[] = ['cat' => 'ram', 'label' => '内存', 'bold' => $cm[2], 'detail' => ''];
+                continue;
+            }
+
+            if (preg_match('/(处理器|cpu型号)/i', $rawK)) {
+                $cpuModel = $rawV;
+                continue;
+            }
+
+            if (preg_match('/^(cpu|核心)$/i', $rawK)) {
+                if (preg_match('/^(\d+核(?:心)?)\s*(.*)$/u', $rawV, $cm)) {
+                    $cpuCores = $cm[1];
+                    if ($cm[2]) $cpuModel = $cm[2];
+                } else {
+                    $cpuCores = $rawV;
+                }
+                continue;
+            }
+
+            $cat = 'other';
+            $label = mb_substr($rawK, 0, 4);
+
+            if (preg_match('/(内存|ram)/i', $rawK)) {
+                $cat = 'ram'; $label = '内存';
+            } elseif (preg_match('/(系统盘|硬盘|固态|盘|存储)/i', $rawK)) {
+                $cat = 'disk'; $label = '系统盘';
+            } elseif (preg_match('/(带宽|宽带|流量|mbps|上下行|网络)/i', $rawK)) {
+                $cat = 'bandwidth'; $label = '带宽';
+            } elseif (preg_match('/(防御|高防|防护|ddos)/i', $rawK)) {
+                $cat = 'defense'; $label = '防御';
+            } elseif (preg_match('/(ip|端口)/i', $rawK)) {
+                $cat = 'ip'; $label = 'IP数';
+            } elseif (preg_match('/(说明|尊享|特色|线路|系统|备案|赠送|备注)/i', $rawK)) {
+                $cat = 'privilege'; $label = '备注';
+            }
+
+            $valBold = $rawV;
+            $valDetail = '';
+            if (preg_match('/^([A-Za-z0-9\/\.\-\+]+(?:核心?|G|M|T|Mbps|个|GB|TB)?|[^\s\[\(]+)\s*(.*)$/u', $rawV, $vm)) {
+                $valBold = trim($vm[1]);
+                $valDetail = trim($vm[2]);
+            }
+
+            $parsed[] = ['cat' => $cat, 'label' => $label, 'bold' => $valBold, 'detail' => $valDetail];
+        }
+
+        $items = [];
+        if ($cpuCores || $cpuModel) {
+            $items[] = [
+                'cat' => 'cpu',
+                'label' => 'CPU',
+                'bold' => $cpuCores ?: $cpuModel,
+                'detail' => $cpuCores ? $cpuModel : ''
+            ];
+        }
+
+        foreach ($parsed as $p) {
+            $items[] = $p;
+        }
+
+        $html = '<div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;padding:3px 0;">';
+        foreach ($items as $item) {
+            $cat = $item['cat'];
+            $iconDef = isset($icons[$cat]) ? $icons[$cat] : $icons['other'];
+            if ($cat === 'privilege') {
+                $fullNote = trim($item['bold'] . ' ' . $item['detail']);
+                $html .= '<div class="config-row">';
+                $html .= '<div class="config-icon" style="background:' . $iconDef['bg'] . ';">' . $iconDef['svg'] . '</div>';
+                $html .= '<div class="config-label">' . htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8') . '</div>';
+                $html .= '<div class="config-value"><span class="config-value-privilege">' . htmlspecialchars($fullNote, ENT_QUOTES, 'UTF-8') . '</span></div>';
+                $html .= '</div>';
+                continue;
+            }
+            $html .= '<div class="config-row">';
+            $html .= '<div class="config-icon" style="background:' . $iconDef['bg'] . ';">' . $iconDef['svg'] . '</div>';
+            $html .= '<div class="config-label">' . htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8') . '</div>';
+            $html .= '<div class="config-value"><strong class="config-value-bold">' . htmlspecialchars($item['bold'], ENT_QUOTES, 'UTF-8') . '</strong>';
+            if ($item['detail'] !== '') {
+                $html .= ' <span class="config-note">' . htmlspecialchars($item['detail'], ENT_QUOTES, 'UTF-8') . '</span>';
+            }
+            $html .= '</div></div>';
+        }
+        $html .= '</div>';
+
+        return $html;
+    }
+}
 {/php}
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -62,9 +192,9 @@ if (!function_exists('parseGroupName')) {
     <link rel="stylesheet" href="/themes/cart/ABCLOUD/static/ape/css/common.css?v=3.0.0">
     <link rel="stylesheet" href="/themes/cart/ABCLOUD/static/ape/css/public.css?v=3.0.0">
     <!-- APE 原版购物车样式 -->
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cscart.css?v=3.0.0">
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/goodsList.css?v=3.0.0">
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cart-custom.css?v=3.0.0">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cscart.css?v=3.0.17">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/goodsList.css?v=3.0.17">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cart-custom.css?v=3.0.17">
 
     <style>
         .ape-skip-link { position: absolute; top: -9999px; left: -9999px; }
@@ -91,6 +221,7 @@ if (!function_exists('parseGroupName')) {
     </style>
 </head>
 <body class="cscart-list-body aimax-cart-shell" data-header-context="cart">
+    <div id="cartPageProgressBar" class="cart-top-progress-bar"></div>
     <a class="ape-skip-link" href="#cart-content">跳到主要内容</a>
 
     <!-- 顶部导航 -->
@@ -119,6 +250,9 @@ if (!function_exists('parseGroupName')) {
                         <input type="search" name="keywords" class="public-search-input" aria-label="搜索产品或文档" placeholder="搜索产品/文档">
                     </form>
                     <div class="public-entry-nav">
+                        {php}
+                          $isCartLoggedIn = !empty($Userinfo['user']['id']) || !empty($Userinfo['id']) || !empty($userInfo['id']);
+                        {/php}
                         <a href="{$setting.web_url|default=''}/knowledgebase">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                             文档中心
@@ -128,7 +262,7 @@ if (!function_exists('parseGroupName')) {
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                             控制台
                         </a>
-                        {if !$Userinfo && !$userInfo}
+                        {if !$isCartLoggedIn}
                         <span class="ape-login-group" id="apeLoginGroup">
                             <span class="ape-login-divider" style="margin: 0 8px; display: flex; align-items: center; height: 60px;">|</span>
                             <a href="{$setting.web_url|default=''}/login" id="apeLoginBtn">登录</a>
@@ -157,7 +291,7 @@ if (!function_exists('parseGroupName')) {
                         </div>
                         {/if}
                     </div>
-                    {if !$Userinfo && !$userInfo}
+                    {if !$isCartLoggedIn}
                     <a href="{$setting.web_url|default=''}/register" class="public-entry-reg" id="apeRegBtn"><img src="/themes/cart/ABCLOUD/static/ape/icon/zctb.png" alt="" width="18" height="18">快速注册</a>
                     {/if}
                 </div>
@@ -166,7 +300,7 @@ if (!function_exists('parseGroupName')) {
                         <img src="/themes/cart/ABCLOUD/static/ape/icon/grzx.png" alt="个人中心" width="28" height="28">
                     </div>
                     <div class="ape-mobile-user-panel" id="apeMobileUserPanel">
-                        {if $Userinfo || $userInfo}
+                        {if $isCartLoggedIn}
                         <a href="{$setting.web_url|default=''}/clientarea">个人中心</a><a href="{$setting.web_url|default=''}/logout">退出</a>
                         {else/}
                         <a href="{$setting.web_url|default=''}/login">登录</a><a href="{$setting.web_url|default=''}/register">注册</a>

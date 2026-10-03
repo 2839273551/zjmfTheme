@@ -47,8 +47,13 @@
         var second = (group.group || [])[0];
         return '/cart?fid=' + id(group.id) + (second ? '&gid=' + id(second.id) : '');
     }
+    function secondGroupUrl(group, second) {
+        var fid = typeof group === 'object' && group ? id(group.id) : id(group);
+        var gid = typeof second === 'object' && second ? id(second.id) : id(second);
+        return '/cart?fid=' + fid + (gid ? '&gid=' + gid : '');
+    }
     window.apeFinance = {
-        json: json, text: text, esc: esc, id: id, products: products, groupUrl: groupUrl,
+        json: json, text: text, esc: esc, id: id, products: products, groupUrl: groupUrl, secondGroupUrl: secondGroupUrl,
         productUrl: function (product) { return '/cart?action=configureproduct&pid=' + id(product.id); },
         soldOut: function (product) { return Number(product.stock_control) === 1 && Number(product.qty) < 1; },
         catalog: function () {

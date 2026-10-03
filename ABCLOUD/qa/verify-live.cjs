@@ -36,12 +36,11 @@ const sharp = require('sharp');
       await tabs.nth(i).click();
       const pane = page.locator('#gppane-' + catalog[i].id);
       await pane.waitFor({state:'visible'});
-      const expected = [];
-      for (const group of catalog[i].group || []) expected.push(...(group.products || []).slice(0,8));
+      const expected = (catalog[i].group || []).map(g => g.name.replace(/^[a-z]+\|/i, '').trim());
       await page.waitForFunction(({id,count}) => document.querySelectorAll('#gppane-' + id + ' .card-title').length === count,
-        {id:catalog[i].id,count:Math.min(8,expected.length)});
+        {id:catalog[i].id,count:expected.length});
       const titles = await pane.locator('.card-title').allTextContents();
-      assert.deepEqual(titles.map(t=>t.replace(/\s*售罄\s*$/,'').trim()), expected.slice(0,8).map(p=>p.name));
+      assert.deepEqual(titles.map(t=>t.replace(/\s*售罄\s*$/,'').trim()), expected);
       productCounts.push(titles.length);
     }
     await tabs.first().click();

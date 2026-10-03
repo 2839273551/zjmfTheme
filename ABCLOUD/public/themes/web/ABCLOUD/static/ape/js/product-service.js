@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var tabsNav = document.getElementById('productTabs');
     var tabsContent = document.getElementById('productTabsContent');
 
-
     // 没有该模块则直接返回
     if (!tabsNav || !tabsContent) {
         if (accordionHeader && productContainer) {
@@ -33,19 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return group ? group.group || [] : [];
         });
     }
-    function getProducts(secondId, limit) {
-        return finance.catalog().then(function (groups) {
-            var found = [];
-            groups.forEach(function (group) {
-                (group.group || []).forEach(function (second) {
-                    if (String(second.id) === String(secondId)) found = second.products || [];
-                });
-            });
-            return found.slice(0, limit || 8);
-        });
-    }
 
-    // 商品卡片 HTML
+    // HTML 转义
     function esc(s) {
         return String(s == null ? '' : s)
             .replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -53,25 +41,59 @@ document.addEventListener('DOMContentLoaded', function () {
             .replace(/'/g, '&#39;');
     }
 
-    function cardHtml(p) {
-        var desc = p.description ? '<p class="card-text text-muted small">' + esc(finance.text(p.description)) + '</p>' : '';
+    // 商品分组卡片 HTML
+    function groupCardHtml(firstId, s) {
+        var rawName = String(s.name || '').replace(/^[a-z]+\|/i, '');
+        var descText = finance.text(s.headline || s.tagline || '');
+        if (!descText) {
+            descText = s.products && s.products.length ?
+                ('精选 ' + s.products.length + ' 款产品配置，支持弹性升配与快速交付') :
+                '提供高性能、高安全云计算服务，保障业务稳定上云';
+        }
+        var isSoldOut = !/售罄/.test(rawName) && s.products && s.products.length > 0 && s.products.every(function (p) {
+            return finance.soldOut(p);
+        });
+
+        var minPrice = null;
+        var cycleZh = '月';
+        (s.products || []).forEach(function (p) {
+            var price = parseFloat(p.product_price);
+            if (!isNaN(price) && price >= 0) {
+                if (minPrice === null || price < minPrice) {
+                    minPrice = price;
+                    cycleZh = p.billingcycle_zh || '月';
+                }
+            }
+        });
+
+        var priceRow = '';
+        if (minPrice !== null && minPrice > 0) {
+            priceRow = '<div class="product-price-row">' +
+                '<span class="product-price-num">¥' + minPrice + '</span>' +
+                '<span class="product-price-cycle">/' + esc(cycleZh) + '起</span>' +
+                '</div>';
+        }
+
+        var url = '/cart?fid=' + esc(firstId) + '&gid=' + esc(s.id);
+
         return '<div class="col">' +
-            '<a href="' + finance.productUrl(p) + '"' + (finance.soldOut(p) ? ' aria-disabled="true" tabindex="-1"' : '') + '>' +
+            '<a href="' + url + '" class="d-block h-100 text-decoration-none">' +
             '<div class="card h-100 shadow-sm"><div class="card-body product-card-body">' +
-            '<h5 class="card-title fw-bold">' + esc(p.name) + (finance.soldOut(p) ? ' <span class="product-sold-out">售罄</span>' : '') + '</h5>' +
-            desc +
+            '<h5 class="card-title fw-bold">' + esc(rawName) + (isSoldOut ? ' <span class="product-sold-out">售罄</span>' : '') + '</h5>' +
+            '<p class="card-text text-muted small mb-3">' + esc(descText) + '</p>' +
+            priceRow +
             '</div></div></a></div>';
     }
 
     // 空状态：图片 + 文字
     function emptyHtml() {
         return '<div class="text-center py-5 product-empty">' +
-            '<img src="/themes/web/ABCLOUD/static/ape/img/mynr.png" alt="暂无商品" class="product-empty-img">' +
-            '<p class="text-muted mt-3 mb-0">该分类暂无商品</p>' +
+            '<img src="/themes/web/ABCLOUD/static/ape/img/mynr.png" alt="暂无分组" class="product-empty-img">' +
+            '<p class="text-muted mt-3 mb-0">该分类暂无商品分组</p>' +
             '</div>';
     }
 
-    // 渲染某个一级分组的商品内容到指定 pane
+    // 渲染某个一级分组的商品分组内容到指定 pane
     function loadPane(firstId, pane) {
         pane.innerHTML = '<div class="text-center py-5 text-muted">加载中...</div>';
         getSecondGroups(firstId).then(function (seconds) {
@@ -79,29 +101,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 pane.innerHTML = emptyHtml();
                 return;
             }
-            var tasks = seconds.map(function (s) { return getProducts(s.id, 8); });
-            return Promise.all(tasks).then(function (results) {
-                var cards = [];
-                results.forEach(function (list) {
-                    if (list && list.length) cards = cards.concat(list);
-                });
-                if (!cards.length) {
-                    pane.innerHTML = emptyHtml();
-                    return;
-                }
-                cards = cards.slice(0, 8);
-                var paneHtml = '<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">' +
-                    cards.map(cardHtml).join('') + '</div>';
-                // 手机端：超过3个商品时，网格下方展示"查看全部"按钮（桌面端隐藏，由头部链接代替）
-                if (cards.length > 3) {
-                    paneHtml += '<a href="/cart" class="product-view-all-mobile">查看全部 ' +
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>' +
-                        '</a>';
-                }
-                pane.innerHTML = paneHtml;
-                pane.querySelectorAll('a[aria-disabled="true"]').forEach(function (a) { a.addEventListener('click', function (event) { event.preventDefault(); }); });
-                setTimeout(showCards, 60);
-            });
+            var paneHtml = '<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">' +
+                seconds.map(function (s) { return groupCardHtml(firstId, s); }).join('') + '</div>';
+            // 手机端：超过3个分组时，网格下方展示"查看全部"按钮（桌面端隐藏，由头部链接代替）
+            if (seconds.length > 3) {
+                paneHtml += '<a href="/cart?fid=' + esc(firstId) + '" class="product-view-all-mobile">查看全部 ' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>' +
+                    '</a>';
+            }
+            pane.innerHTML = paneHtml;
+            setTimeout(showCards, 60);
         }).catch(function () {
             pane.removeAttribute('data-loaded');
             pane.innerHTML = '<div class="text-center py-5 text-muted">产品暂时无法加载，请重新选择分类或<a href="/cart">前往产品中心</a></div>';
@@ -118,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var navHtml = '';
         var contentHtml = '';
         groups.forEach(function (g, i) {
-            g.name = finance.text(g.name).replace(/^[a-z]+\|/i, '');
+            var name = finance.text(g.name).replace(/^[a-z]+\|/i, '');
             var active = i === 0 ? ' active' : '';
             var selected = i === 0 ? 'true' : 'false';
             navHtml += '<li class="nav-item" role="presentation">' +
                 '<button class="nav-link' + active + '" id="gptab-' + g.id + '" data-bs-toggle="tab" ' +
                 'data-bs-target="#gppane-' + g.id + '" data-first-id="' + g.id + '" type="button" role="tab" ' +
-                'aria-controls="gppane-' + g.id + '" aria-selected="' + selected + '">' + esc(g.name) + '</button></li>';
+                'aria-controls="gppane-' + g.id + '" aria-selected="' + selected + '">' + esc(name) + '</button></li>';
             contentHtml += '<div class="tab-pane fade' + (i === 0 ? ' show active' : '') + '" id="gppane-' + g.id +
                 '" role="tabpanel" aria-labelledby="gptab-' + g.id + '"></div>';
         });
@@ -135,8 +144,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var first = groups[0];
         var viewAll = document.querySelector('.product-view-all');
         if (viewAll) viewAll.href = finance.groupUrl(first);
-        document.getElementById('gppane-' + first.id).setAttribute('data-loaded', '1');
-        loadPane(first.id, document.getElementById('gppane-' + first.id));
+        var firstPane = document.getElementById('gppane-' + first.id);
+        if (firstPane) {
+            firstPane.setAttribute('data-loaded', '1');
+            loadPane(first.id, firstPane);
+        }
     }
 
     // 卡片逐个载入动画（沿用原有滚动效果）

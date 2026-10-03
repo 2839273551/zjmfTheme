@@ -19,19 +19,30 @@
                 cat.classList.toggle('active', active);
                 cat.setAttribute('aria-pressed', String(active));
             });
-            var products = finance.products(group, 12);
-            content.innerHTML = products.length ? '<div class="mega-product-grid">' + products.map(function (product) {
-                return '<a href="' + finance.productUrl(product) + '" class="mega-product-card"' + (finance.soldOut(product) ? ' aria-disabled="true" tabindex="-1"' : '') + '><div class="mega-product-name">' + finance.esc(product.name) + (finance.soldOut(product) ? ' · 售罄' : '') + '</div><div class="mega-product-desc">' + finance.esc(finance.text(product.description)) + '</div></a>';
-            }).join('') + '</div>' : empty('该分类暂无产品');
+            var seconds = group.group || [];
+            content.innerHTML = seconds.length ? '<div class="mega-product-grid">' + seconds.map(function (second) {
+                var rawName = String(second.name || '').replace(/^[a-z]+\|/i, '');
+                var desc = finance.text(second.headline || second.tagline || '');
+                if (!desc) {
+                    desc = second.products && second.products.length ?
+                        ('精选 ' + second.products.length + ' 款产品配置，支持弹性升配与快速交付') :
+                        '提供高性能、高安全云计算服务，保障业务稳定上云';
+                }
+                var isSoldOut = !/售罄/.test(rawName) && second.products && second.products.length > 0 && second.products.every(function (p) {
+                    return finance.soldOut(p);
+                });
+                var url = '/cart?fid=' + finance.id(group.id) + '&gid=' + finance.id(second.id);
+                return '<a href="' + url + '" class="mega-product-card">' +
+                    '<div class="mega-product-name">' + finance.esc(rawName) + (isSoldOut ? ' · 售罄' : '') + '</div>' +
+                    '<div class="mega-product-desc">' + finance.esc(desc) + '</div>' +
+                    '</a>';
+            }).join('') + '</div>' : empty('该分类暂无商品分组');
         }
         cats.addEventListener('click', function (event) {
             var cat = event.target.closest('[data-group]');
             if (!cat) return;
             var group = groups.find(function (item) { return String(item.id) === cat.dataset.group; });
             if (group) select(group);
-        });
-        content.addEventListener('click', function (event) {
-            if (event.target.closest('[aria-disabled="true"]')) event.preventDefault();
         });
         select(groups[0]);
     }
@@ -85,9 +96,9 @@
         if (!right) return;
         var html = '<div class="mobile-menu-content"><h2 class="mobile-menu-title">产品与服务</h2><div class="mobile-menu-divider"></div>';
         groups.forEach(function (group) {
-            html += '<h3 class="mobile-menu-subtitle">' + finance.esc(group.name) + '</h3>';
+            html += '<h3 class="mobile-menu-subtitle">' + finance.esc(group.name.replace(/^[a-z]+\|/i, '')) + '</h3>';
             (group.group || []).forEach(function (second) {
-                html += '<a class="mobile-menu-link" href="/cart?fid=' + finance.id(group.id) + '&gid=' + finance.id(second.id) + '">' + finance.esc(second.name) + '</a>';
+                html += '<a class="mobile-menu-link" href="/cart?fid=' + finance.id(group.id) + '&gid=' + finance.id(second.id) + '">' + finance.esc(second.name.replace(/^[a-z]+\|/i, '')) + '</a>';
             });
         });
         right.innerHTML = html + '</div>';
