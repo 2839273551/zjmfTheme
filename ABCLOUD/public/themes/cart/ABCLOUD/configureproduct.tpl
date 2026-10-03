@@ -4,7 +4,7 @@
 <script src="/themes/cart/ABCLOUD/vendor/clientarea/assets/libs/bootstrap/js/bootstrap.bundle.min.js?v=3.0.0"></script>
 <script src="/themes/cart/ABCLOUD/vendor/clientarea/assets/libs/toastr/build/toastr.min.js?v=3.0.0"></script>
 <link rel="stylesheet" href="/themes/cart/ABCLOUD/vendor/clientarea/assets/libs/toastr/build/toastr.min.css?v=3.0.0">
-<link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/configure.css?v=3.0.0">
+<link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/configure.css?v=3.0.22">
 
 <main class="store-main-container">
   <div class="nq-cart">

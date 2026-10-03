@@ -6,9 +6,10 @@
 .nq-cart-main.nq-cart-main--config {
   display: flex !important;
   flex-direction: column !important;
-  padding: 0 !important;
+  padding: 0 0 76px 0 !important;
   min-height: calc(100vh - 60px) !important;
   background: #f4f6fa !important;
+  box-sizing: border-box !important;
 }
 
 .nq-cart-main--config .abcloud-config-workspace {
@@ -419,14 +420,21 @@
 
 /* ---- 5. 底部固定浮动实时结算栏 (nq-productconfig-footer) ---- */
 .nq-productconfig-footer {
-  position: sticky !important;
+  position: fixed !important;
   bottom: 0 !important;
-  left: 0 !important;
+  left: 240px !important;
   right: 0 !important;
+  width: auto !important;
   background: #ffffff !important;
   border-top: 1px solid #e2e8f0 !important;
-  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.06) !important;
-  z-index: 99 !important;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08) !important;
+  z-index: 999 !important;
+}
+
+@media (max-width: 768px) {
+  .nq-productconfig-footer {
+    left: 0 !important;
+  }
 }
 
 .nq-productconfig-footer .configoption_total {
@@ -440,8 +448,9 @@
 
 /* 结算栏 - 左侧价格 */
 .nq-productconfig-footer-left {
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  min-width: 260px !important;
+  text-align: left !important;
 }
 .nq-productconfig-footer-price {
   display: flex !important;
@@ -600,6 +609,24 @@
 }
 .nq-productconfig-footer-right > .btn:hover {
   background: #0958d9 !important;
+}
+
+#addToCartBtn .btn-text {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+#addToCartBtn .btn-loading {
+  display: none !important;
+}
+#addToCartBtn.is-loading .btn-text {
+  display: none !important;
+}
+#addToCartBtn.is-loading .btn-loading {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
 }
 
 /* 响应式断点 */
