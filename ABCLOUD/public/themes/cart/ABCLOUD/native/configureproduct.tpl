@@ -151,26 +151,28 @@
 	<form id="addCartForm" method="post" class="needs-validation configoption_form" novalidate
 		action="?action=configureproduct&pid={$CartConfig.product.id}{if $Get.site}&site={$Get.site}{/if}">
 		{/if}
-		<div class="row">
-			<div class="col-xl-8">
-				<div class="card border-bottom mb-0">
-					<div class="card-body">
-						{if $ErrorMsg}
-						<div class="alert alert-danger">
-							<a href="#" class="close" data-dismiss="alert">
-								&times;
-							</a>
-							<strong>{$ErrorMsg}</strong>
-						</div>
-						{/if}
-						<div class="d-flex justify-content-between align-items-center">
-							<h4 class="card-title ">{$CartConfig.product.name}</h4>
-						</div>
+		<div class="nq-productconfig-wrap">
+			<div class="nq-productconfig">
+				<div class="nq-productconfig-main">
+					<div class="nq-productconfig-header">
+						<a href="{$setting.web_url|default=''}/cart" class="nq-productconfig-back" title="返回产品大厅">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+						</a>
+						<h4 class="nq-productconfig-title">自定义配置 / <span id="currentProductName">{$CartConfig.product.name}</span></h4>
 					</div>
-				</div>
 
-				<div class="card">
-					<div class="card-body">
+					<div class="nq-productconfig-body">
+						<!-- 1. 产品型号快速切换行 (同组型号药丸标签) -->
+						<div class="nq-productconfig-row nq-spec-row" id="productModelRow" style="display:none;">
+							<label class="nq-productconfig-label">产品型号</label>
+							<div class="nq-productconfig-field">
+								<div class="nq-spec-group" id="productModelGroup"></div>
+								<div class="nq-spec-hint">
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1677ff" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+									不同型号的产品，功能和性能有所差异，建议您根据实际需求选择！
+								</div>
+							</div>
+						</div>
 
 
 
@@ -598,19 +600,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xl-4">
 
-				<div class="card">
-					<div class="card-body">
-						<h4 class="card-title fs-16">{$Lang.order_summary}：</h4>
-
-						<div class="table-responsive configoption_total fs-14">
-
-						</div>
-					</div>
+			<!-- 2. 右侧精选推荐产品辅助栏 (350px，桌面端展示) -->
+			<div class="nq-cart-recommend server-desktop-only">
+				<div class="nq-cart-recommend-list" id="recommendProductList">
+					<!-- 动态渲染推荐卡片 -->
 				</div>
-				<!-- end card -->
 			</div>
+		</div>
+
+		<!-- 3. 底部固定浮动实时结算栏 -->
+		<div class="nq-productconfig-footer">
+			<div class="configoption_total"></div>
 		</div>
 	</form>
 	<!-- select -->

@@ -6,82 +6,59 @@
 <link rel="stylesheet" href="/themes/cart/ABCLOUD/vendor/clientarea/assets/libs/toastr/build/toastr.min.css?v=3.0.0">
 <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/configure.css?v=3.0.0">
 
-<main class="store-main-container configure-page-main">
-  <div class="configure-layout-wrap">
+<main class="store-main-container">
+  <div class="nq-cart">
+    <!-- 1. 左侧：商品列表/分类侧边栏（常驻贴左） -->
+    {include file="themes/cart/ABCLOUD/topbar-categories.tpl" /}
 
-    <!-- 顶部步骤指示条 (Stepper) -->
-    <div class="configure-stepper-card">
-      <div class="configure-stepper">
-        <a href="{$setting.web_url|default=''}/cart" class="step-item is-completed">
-          <span class="step-num">✓</span>
-          <span class="step-text">选择产品规格</span>
-        </a>
-        <div class="step-divider"></div>
-        <div class="step-item is-active">
-          <span class="step-num">2</span>
-          <span class="step-text">配置业务参数</span>
-        </div>
-        <div class="step-divider"></div>
-        <div class="step-item is-pending">
-          <span class="step-num">3</span>
-          <span class="step-text">确认订单结账</span>
+    <!-- 2. 右侧：动态产品配置区域 -->
+    <section class="nq-cart-main nq-cart-main--config" id="cart-content">
+      <!-- 雾透居中悬浮加载动画 (切换产品或分类时优雅展示) -->
+      <div class="nq-floating-loading" id="nqFloatingLoading">
+        <div class="nq-floating-loading-dialog">
+          <div class="loading-42"></div>
+          <span class="nq-floating-loading-text">正在加载产品配置...</span>
         </div>
       </div>
-    </div>
 
-    <!-- 当前产品主标题与返回栏 -->
-    <div class="configure-header-card">
-      <a href="{$setting.web_url|default=''}/cart" class="configure-back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        返回产品大厅
-      </a>
-      <h1 class="configure-product-title">{$CartConfig.product.name|default='配置产品'}</h1>
-      {if isset($CartConfig.product.description) && $CartConfig.product.description}
-      <div class="configure-product-desc">
-        {$CartConfig.product.description}
+      <!-- 登录后查看专属优惠价格 (未登录展示) -->
+      {php}
+        $isCartLoggedIn = !empty($Userinfo['user']['id']) || !empty($Userinfo['id']) || !empty($userInfo['id']);
+      {/php}
+      {if !$isCartLoggedIn}
+      <div class="nq-cart-login">
+        <svg class="nq-cart-login-icon" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+        <div class="nq-cart-login-text">
+          <span class="nq-cart-login-title">登录后查看专属优惠价格</span>
+          <span class="nq-cart-login-desc">结合您的账号情况展示您可实际获得的优惠价格</span>
+        </div>
+        <a href="{$setting.web_url|default=''}/login" class="btn btn-primary btn-sm nq-cart-login-btn">立即登录 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px;"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
       </div>
       {/if}
-    </div>
 
-    <!-- 业务错误强提醒横幅 (防止由于任何验证拦截导致不跳转时用户无感知) -->
-    {if isset($ErrorMsg) && $ErrorMsg}
-    <div class="configure-error-banner alert alert-danger" style="margin-bottom: 24px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #fef2f2; border: 1.5px solid #fecaca; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08);">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        <span id="configureErrorMessage" style="font-size: 14px; font-weight: 600; color: #991b1b;">{$ErrorMsg|htmlspecialchars}</span>
+      <!-- 错误提示横幅 -->
+      {if isset($ErrorMsg) && $ErrorMsg}
+      <div class="alert alert-danger" style="margin-bottom: 16px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+        <span id="configureErrorMessage">{$ErrorMsg|htmlspecialchars}</span>
+        <a href="{$setting.web_url|default=''}/login" class="btn btn-sm btn-primary">去登录</a>
       </div>
-      <div style="display: flex; gap: 10px;">
-        <a href="{$setting.web_url|default=''}/login" class="btn btn-sm btn-primary" style="border-radius: 6px; font-size: 12px; padding: 6px 14px;">立即登录</a>
-        <a href="{$setting.web_url|default=''}/register" class="btn btn-sm btn-outline-danger" style="border-radius: 6px; font-size: 12px; padding: 6px 14px; border-color: #ef4444; color: #ef4444;">免费注册</a>
-      </div>
-    </div>
-    <script>
-      $(document).ready(function() {
-        if (typeof toastr !== 'undefined') {
-          toastr.error(document.getElementById('configureErrorMessage').textContent, '', {escapeHtml: true});
-        }
-      });
-    </script>
-    {/if}
+      <script>
+        $(document).ready(function() {
+          if (typeof toastr !== 'undefined') {
+            toastr.error('{$ErrorMsg|htmlspecialchars}');
+          }
+        });
+      </script>
+      {/if}
 
-    <!-- 游客选购贴心提示 -->
-    {if !$Userinfo && !$userInfo}
-    <div class="configure-guest-tip" style="margin-bottom: 20px; padding: 12px 18px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #1e40af;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        <span>您当前以访客身份配置，点击“加入购物车”后将直接进入结算中心快速结账或登录。</span>
+      <!-- 原生表单深度包装与左右联动工作区 -->
+      <div class="abcloud-config-workspace">
+        {include file="themes/cart/ABCLOUD/native/configureproduct.tpl" /}
       </div>
-      <div>
-        <a href="{$setting.web_url|default=''}/login" style="color: #2563eb; font-weight: 600; text-decoration: underline;">已有账号？点此登录</a>
-      </div>
-    </div>
-    {/if}
-
-    <!-- 原生表单深度美化工作区 -->
-    <div class="abcloud-config-workspace">
-      {include file="themes/cart/ABCLOUD/native/configureproduct.tpl" /}
-    </div>
-
+    </section>
   </div>
 </main>
 

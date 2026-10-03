@@ -87,6 +87,110 @@
 
           item.classList.toggle('open');
       });
+
+      // 智能客户端导航补齐与联动 (在配置页或未直接渲染分类时自愈并联动)
+      function initOrHydrateNav() {
+          var nav = document.getElementById('nq-cart-nav');
+          if (!nav) return;
+
+          var urlParams = new URLSearchParams(window.location.search);
+          var curPid = urlParams.get('pid') || ($('input[name="pid"]').val() || '');
+          var curFid = urlParams.get('fid') || '';
+          var curGid = urlParams.get('gid') || '';
+
+          var hasServerGroups = nav.querySelectorAll('.nq-cart-nav-group').length > 0;
+
+          fetch('/cart/prolist', { credentials: 'same-origin' })
+              .then(function(res) { return res.json(); })
+              .then(function(res) {
+                  if (res.status !== 200 || !res.data || !Array.isArray(res.data.fgs)) return;
+                  var fgs = res.data.fgs;
+                  window.cartCatalogFgs = fgs;
+
+                  // 定位当前商品所属的二级分组和一级分组
+                  var matchedFg = null, matchedSecond = null, currentGroupProducts = [];
+                  if (curPid) {
+                      fgs.forEach(function(fg) {
+                          (fg.group || []).forEach(function(sec) {
+                              (sec.products || []).forEach(function(p) {
+                                  if (String(p.id) === String(curPid)) {
+                                      matchedFg = fg;
+                                      matchedSecond = sec;
+                                      currentGroupProducts = sec.products || [];
+                                  }
+                              });
+                          });
+                      });
+                  } else if (curFid) {
+                      matchedFg = fgs.find(function(fg) { return String(fg.id) === String(curFid); });
+                      if (matchedFg && curGid) {
+                          matchedSecond = (matchedFg.group || []).find(function(sec) { return String(sec.id) === String(curGid); });
+                          if (matchedSecond) currentGroupProducts = matchedSecond.products || [];
+                      }
+                  }
+
+                  // 如果服务端没有渲染左侧分类列表（如配置页），则由客户端极速渲染
+                  if (!hasServerGroups) {
+                      var html = '';
+                      fgs.forEach(function(fg, fIdx) {
+                          var isFgActive = matchedFg ? (String(matchedFg.id) === String(fg.id)) : (fIdx === 0);
+                          var cleanFgName = String(fg.name || '').replace(/^[a-z]+\|/i, '');
+                          html += '<div class="nq-cart-nav-item nq-cart-nav-group ' + (isFgActive ? 'active open' : '') + '" data-fid="' + fg.id + '">';
+                          html += '<a href="javascript:void(0);" class="nq-cart-nav-link nq-cart-nav-group-toggle" data-nq-toggle="group">';
+                          html += '<span>' + cleanFgName + '</span>';
+                          html += '<svg class="nq-cart-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+                          html += '</a>';
+
+                          if (fg.group && fg.group.length > 0) {
+                              html += '<div class="nq-cart-nav-sub">';
+                              fg.group.forEach(function(sec, sIdx) {
+                                  var isSecActive = matchedSecond ? (String(matchedSecond.id) === String(sec.id)) : (isFgActive && sIdx === 0);
+                                  var cleanSecName = String(sec.name || '').replace(/^[a-z]+\|/i, '');
+                                  var isNew = /new|上新/i.test(sec.name || '');
+                                  html += '<div class="nq-cart-nav-item">';
+                                  html += '<a href="/cart?fid=' + fg.id + '&gid=' + sec.id + '" class="nq-cart-nav-link nq-cart-nav-sub-link ' + (isSecActive ? 'active' : '') + '">';
+                                  html += '<span>' + cleanSecName + '</span>';
+                                  if (isNew) html += '<span class="nq-cart-nav-tag">new</span>';
+                                  html += '</a></div>';
+                              });
+                              html += '</div>';
+                          }
+                          html += '</div>';
+                      });
+                      nav.innerHTML = html;
+                  } else if (matchedFg && matchedSecond) {
+                      // 若服务端已渲染，但处于配置页，修正高亮到当前商品所属分类
+                      nav.querySelectorAll('.nq-cart-nav-group').forEach(function(el) {
+                          var fid = el.getAttribute('data-fid');
+                          var isCur = String(fid) === String(matchedFg.id);
+                          el.classList.toggle('active', isCur);
+                          el.classList.toggle('open', isCur);
+                      });
+                      nav.querySelectorAll('.nq-cart-nav-sub-link').forEach(function(link) {
+                          var href = link.getAttribute('href') || '';
+                          link.classList.toggle('active', href.indexOf('gid=' + matchedSecond.id) > -1);
+                      });
+                  }
+
+                  // 触发配置页型号与推荐列表联动事件
+                  if (currentGroupProducts.length > 0) {
+                      document.dispatchEvent(new CustomEvent('cart:group-products-ready', {
+                          detail: {
+                              curPid: curPid,
+                              products: currentGroupProducts,
+                              matchedSecond: matchedSecond,
+                              matchedFg: matchedFg
+                          }
+                      }));
+                  }
+              }).catch(function(e) {});
+      }
+
+      if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initOrHydrateNav);
+      } else {
+          initOrHydrateNav();
+      }
   })();
   </script>
 </aside>

@@ -883,3 +883,75 @@ function checkingPwd (val, num, capital, lowercase, character, minLength = 6, ma
     result.flag = flagNum && flagCap && flagLow && flagSpec
     return result
 }
+
+// ---- 左右双栏联动架构：同组产品型号切换与推荐产品渲染 ----
+$(function() {
+    function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
+    document.addEventListener('cart:group-products-ready', function(e) {
+        var detail = e.detail || {};
+        var curPid = String(detail.curPid || $('input[name="pid"]').val() || '');
+        var products = detail.products || [];
+
+        // 1. 渲染同组产品型号切换药丸栏
+        var modelRow = $('#productModelRow');
+        var modelGroup = $('#productModelGroup');
+        if (modelRow.length && modelGroup.length && products.length > 0) {
+            var modelHtml = '';
+            products.forEach(function(p) {
+                var isActive = String(p.id) === curPid;
+                modelHtml += '<a href="/cart?action=configureproduct&pid=' + esc(p.id) + '" class="nq-spec-item ' + (isActive ? 'active' : '') + '">' + esc(p.name) + '</a>';
+            });
+            modelGroup.html(modelHtml);
+            modelRow.show();
+
+            // 点击其他型号：平滑启动全屏居中雾透加载动画，无缝切换
+            modelGroup.find('.nq-spec-item:not(.active)').on('click', function() {
+                var loading = $('#nqFloatingLoading');
+                if (loading.length) loading.addClass('is-active');
+            });
+        }
+
+        // 2. 渲染右侧辅助推荐产品卡片列表
+        var recList = $('#recommendProductList');
+        if (recList.length && products.length > 0) {
+            // 筛选除当前 pid 外的其它推荐产品（最多展示 3 个）
+            var recProducts = products.filter(function(p) { return String(p.id) !== curPid; }).slice(0, 3);
+            if (recProducts.length > 0) {
+                var recHtml = '';
+                recProducts.forEach(function(p) {
+                    var descLines = String(p.description || '').replace(/<[^>]+>/g, '').split('\n').filter(function(l) { return l.trim(); }).slice(0, 4);
+                    var specsPreview = descLines.map(function(line) {
+                        return '<div class="config-row"><div class="config-label">' + esc(line.split(/[：:]/)[0] || '配置') + '</div><div class="config-value">' + esc(line.split(/[：:]/)[1] || line) + '</div></div>';
+                    }).join('');
+
+                    recHtml += '<div class="nq-product-card">' +
+                        '<div class="nq-product-header">' +
+                            '<h5 class="nq-product-name" title="' + esc(p.name) + '">' + esc(p.name) + '</h5>' +
+                            '<span class="nq-product-stock in-stock">精选推荐</span>' +
+                        '</div>' +
+                        '<div class="nq-product-desc">' + specsPreview + '</div>' +
+                        '<div class="nq-product-footer">' +
+                            '<div class="nq-product-pricing">' +
+                                '<span class="nq-price-current">¥' + esc(p.product_price) + '<small> / ' + esc(p.billingcycle_zh || '月付') + '</small></span>' +
+                            '</div>' +
+                            '<a href="/cart?action=configureproduct&pid=' + esc(p.id) + '" class="btn btn-primary btn-block nq-rec-buy-btn">立即选购</a>' +
+                        '</div>' +
+                    '</div>';
+                });
+                recList.html(recHtml);
+
+                recList.find('.nq-rec-buy-btn').on('click', function() {
+                    var loading = $('#nqFloatingLoading');
+                    if (loading.length) loading.addClass('is-active');
+                });
+            } else {
+                recList.parent().hide();
+            }
+        }
+    });
+});
