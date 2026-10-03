@@ -77,65 +77,12 @@
             });
         }
 
-        // 4. 左侧分类菜单独立展开（常开多选，展开的不关上）
-        var groupItems = document.querySelectorAll('.nq-cart-nav-group');
-        var STORAGE_KEY = 'cart_open_groups';
+        // 4. 左侧分类菜单：彻底清理旧记忆，刷新或刚进来默认只开最上面那一栏
+        try {
+            localStorage.removeItem('cart_open_groups');
+            sessionStorage.removeItem('cart_open_groups');
+        } catch(e) {}
 
-        function getStoredOpenFids() {
-            try {
-                var val = localStorage.getItem(STORAGE_KEY);
-                return val ? JSON.parse(val) : [];
-            } catch(e) {
-                return [];
-            }
-        }
-
-        function setStoredOpenFids(fids) {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(fids));
-            } catch(e) {}
-        }
-
-        var openFids = getStoredOpenFids();
-
-        // 页面初始化时：恢复之前展开的分组，确保已展开的不被关上
-        groupItems.forEach(function(item) {
-            var fid = item.getAttribute('data-fid');
-            if (!fid) return;
-
-            // 如果当前项处于 active 或 open，记录进 openFids
-            if (item.classList.contains('active') || item.classList.contains('open')) {
-                if (openFids.indexOf(fid) === -1) {
-                    openFids.push(fid);
-                }
-            } else if (openFids.indexOf(fid) > -1) {
-                // 如果在之前展开列表中，恢复展开
-                item.classList.add('open');
-            }
-        });
-        setStoredOpenFids(openFids);
-
-        // 点击一级分类：独立切换当前项的展开/折叠，绝不关闭其他已展开分类
-        groupItems.forEach(function(item) {
-            var toggle = item.querySelector('.nq-cart-nav-group-toggle');
-            if (!toggle) return;
-
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                var fid = item.getAttribute('data-fid');
-                var isOpen = item.classList.toggle('open');
-
-                openFids = getStoredOpenFids();
-                if (isOpen) {
-                    if (openFids.indexOf(fid) === -1) openFids.push(fid);
-                } else {
-                    openFids = openFids.filter(function(id) { return id !== fid; });
-                }
-                setStoredOpenFids(openFids);
-            });
-        });
         // 5. 购物车页面加载进度条与交互加载动效
         var progressBar = document.getElementById('cartPageProgressBar');
         if (progressBar) {

@@ -79,7 +79,7 @@
     <!-- 脚本引用 -->
     <script src="/themes/cart/ABCLOUD/static/ape/js/bootstrap.min.js?v=3.0.0"></script>
     <script src="/themes/cart/ABCLOUD/static/ape/js/plugin-content.js?v=3.0.0"></script>
-    <script src="/themes/cart/ABCLOUD/assets/js/cart.js?v=3.0.18"></script>
+    <script src="/themes/cart/ABCLOUD/assets/js/cart.js?v=3.0.19"></script>
     <script>
     // 基础头部交互（用户面板、移动端菜单）
     document.addEventListener('DOMContentLoaded', function() {

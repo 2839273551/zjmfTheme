@@ -21,10 +21,12 @@
       {php}
         $fid = isset($Get['fid']) ? $Get['fid'] : '';
         $gid = isset($Get['gid']) ? $Get['gid'] : '';
-        $isFirstActive = ($fid == $group['id']) || (!$fid && $fIndex == 0);
+        $isActive = ($fid == $group['id']) || (!$fid && $fIndex == 0);
+        // 刷新或刚进来：默认只开最上面的那一栏 (若指定了当前分类则仅开当前分类，绝对不记忆多开历史)
+        $isOpen = $fid ? ($fid == $group['id']) : ($fIndex == 0);
         $gInfo = function_exists('parseGroupName') ? parseGroupName($group['name'], false) : ['name' => $group['name'], 'full' => $group['name']];
       {/php}
-      <div class="nq-cart-nav-item nq-cart-nav-group {if $isFirstActive}active open{/if}" data-fid="{$group.id}">
+      <div class="nq-cart-nav-item nq-cart-nav-group {if $isActive}active{/if} {if $isOpen}open{/if}" data-fid="{$group.id}">
         <a href="javascript:void(0);"
            class="nq-cart-nav-link nq-cart-nav-group-toggle" data-nq-toggle="group">
           <span>{$gInfo.name}</span>
@@ -37,7 +39,7 @@
         <div class="nq-cart-nav-sub">
           {foreach $group.second as $sIndex=>$second}
           {php}
-            $isSecondActive = $isFirstActive && (($gid == $second['id']) || (!$gid && $sIndex == 0));
+            $isSecondActive = $isActive && (($gid == $second['id']) || (!$gid && $sIndex == 0));
             $sInfo = function_exists('parseGroupName') ? parseGroupName($second['name'], false) : ['name' => $second['name'], 'full' => $second['name']];
             $headlineTip = isset($second['headline']) ? htmlspecialchars($second['headline'], ENT_QUOTES, 'UTF-8') : '';
             $isNew = (stripos($second['name'], 'new') !== false || mb_strpos($second['name'], '上新') !== false);
@@ -66,45 +68,13 @@
 
   <script>
   (function() {
-      var STORAGE_KEY = 'cart_open_groups';
+      // 彻底清理之前的跨刷新记忆缓存，刷新或重新进入时一律不记忆
+      try {
+          localStorage.removeItem('cart_open_groups');
+          sessionStorage.removeItem('cart_open_groups');
+      } catch(e) {}
 
-      function getStoredOpenFids() {
-          try {
-              var val = localStorage.getItem(STORAGE_KEY);
-              return val ? JSON.parse(val) : [];
-          } catch(e) {
-              return [];
-          }
-      }
-
-      function setStoredOpenFids(fids) {
-          try {
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(fids));
-          } catch(e) {}
-      }
-
-      function restoreOpenGroups() {
-          var groupItems = document.querySelectorAll('.nq-cart-nav-group');
-          if (!groupItems.length) return;
-
-          var openFids = getStoredOpenFids();
-
-          groupItems.forEach(function(item) {
-              var fid = item.getAttribute('data-fid');
-              if (!fid) return;
-
-              if (item.classList.contains('active') || item.classList.contains('open')) {
-                  if (openFids.indexOf(fid) === -1) openFids.push(fid);
-                  item.classList.add('open');
-              } else if (openFids.indexOf(fid) > -1) {
-                  item.classList.add('open');
-              }
-          });
-
-          setStoredOpenFids(openFids);
-      }
-
-      // 全局捕获所有一级分类点击，无论何时何地点击均保证 100% 原地丝滑展开，不关闭其他项
+      // 全局捕获一级分类点击：在当前页面上独立切换展开/折叠，不关闭已展开项；但刷新后立即重置
       document.addEventListener('click', function(e) {
           var toggle = e.target.closest('.nq-cart-nav-group-toggle');
           if (!toggle) return;
@@ -115,23 +85,8 @@
           var item = toggle.closest('.nq-cart-nav-group');
           if (!item) return;
 
-          var fid = item.getAttribute('data-fid');
-          var isOpen = item.classList.toggle('open');
-
-          var openFids = getStoredOpenFids();
-          if (isOpen) {
-              if (openFids.indexOf(fid) === -1) openFids.push(fid);
-          } else {
-              openFids = openFids.filter(function(id) { return id !== fid; });
-          }
-          setStoredOpenFids(openFids);
+          item.classList.toggle('open');
       });
-
-      if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', restoreOpenGroups);
-      } else {
-          restoreOpenGroups();
-      }
   })();
   </script>
 </aside>

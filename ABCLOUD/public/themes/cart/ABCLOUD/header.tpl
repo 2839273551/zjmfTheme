@@ -192,9 +192,9 @@ if (!function_exists('renderShuidcSpecs')) {
     <link rel="stylesheet" href="/themes/cart/ABCLOUD/static/ape/css/common.css?v=3.0.0">
     <link rel="stylesheet" href="/themes/cart/ABCLOUD/static/ape/css/public.css?v=3.0.0">
     <!-- APE 原版购物车样式 -->
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cscart.css?v=3.0.18">
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/goodsList.css?v=3.0.18">
-    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cart-custom.css?v=3.0.18">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cscart.css?v=3.0.19">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/goodsList.css?v=3.0.19">
+    <link rel="stylesheet" href="/themes/cart/ABCLOUD/assets/css/cart-custom.css?v=3.0.19">
 
     <style>
         .ape-skip-link { position: absolute; top: -9999px; left: -9999px; }
